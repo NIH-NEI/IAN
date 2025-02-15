@@ -135,6 +135,9 @@ create_combined_prompt <- function(results, gene_symbols, string_interactions, c
                    "**Step 6: High-Level Summary**\n",
                    "  - Based on the above integrated analysis, provide a high-level summary describing the understood system. What are the key interconnected processes that are contributing to this phenotype? Include a coherent hypothesis about the molecular mechanisms contributing to this phenotype. Focus on the interconnections between the enriched concepts. \n\n",
                    
+                   "**Step 7: Title**\n",
+                   "  - Based on the above integrated analysis, provide a single line title reflecting key findings. I want the title to have not more than 10 words. Include one important gene name identified as influencing the system, in the title. \n\n",
+                   
                    "\n\n**Note:** Please keep your response under 6100 words. Do not include anyother Note.\n\n"
   )
   return(prompt)
