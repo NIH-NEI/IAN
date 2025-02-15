@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>FN1-centered network drives uveitis pathogenesis.</title>
+
+<script src="report_template_files/header-attrs-2.27/header-attrs.js"></script>
+<script src="report_template_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="report_template_files/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="report_template_files/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="report_template_files/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="report_template_files/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="report_template_files/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="report_template_files/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="report_template_files/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="report_template_files/navigation-1.1/tabsets.js"></script>
+<link href="report_template_files/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="report_template_files/highlightjs-9.12.0/highlight.js"></script>
+<link href="report_template_files/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="report_template_files/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="report_template_files/vis-9.1.0/vis-network.min.css" rel="stylesheet" />
+<script src="report_template_files/vis-9.1.0/vis-network.min.js"></script>
+<script src="report_template_files/visNetwork-binding-2.1.2/visNetwork.js"></script>
+<link href="report_template_files/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="report_template_files/pagedtable-1.1/js/pagedtable.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">FN1-centered network drives uveitis
+pathogenesis.</h1>
+
+</div>
+
+
+<div id="integrated-analysis-results" class="section level2">
+<h2>1. Integrated Analysis Results</h2>
+<p>This report summarizes the results of a multi-agent-AI-system (IAN)
+based analysis performed using the provided list of differentially
+expressed genes. Results after IAN integrated all the individual agents
+responses is provided below:</p>
+<div id="high-level-summary" class="section level3">
+<h3>1.1. High-Level Summary</h3>
+<p>Uveitis pathogenesis involves a complex interplay between
+dysregulated immune responses (driven by complement activation and T
+cell co-stimulation), impaired ECM remodeling (mediated by <em>FN1</em>
+and other ECM proteins), and potentially infectious triggers. Upstream
+regulators like NF-κB, IRFs, AP-1, SMAD family members, TFAP2C, and
+POU5F1 likely orchestrate these processes. The involvement of
+<em>FN1</em> in ECM remodeling and its high network connectivity
+suggests a central role in coordinating these processes. The strong
+complement activation indicates a significant contribution of innate
+immunity. The involvement of CD274 highlights the importance of immune
+checkpoint regulation. The presence of Y-chromosome genes suggests a
+potential sex-specific component.</p>
+</div>
+<div id="affected-biological-processes" class="section level3">
+<h3>1.2. Affected Biological Processes</h3>
+<p>The integrated analysis reveals a highly interconnected network
+involving immune dysregulation, complement activation, ECM remodeling,
+and potentially neuronal signaling (Agent 3). The overlap in pathway
+results across agents strongly supports this conclusion.</p>
+<ul>
+<li><p><strong>Overlap Genes:</strong> Genes like <em>FN1</em>,
+<em>C1QA</em>, <em>C1QB</em>, <em>C1QC</em>, <em>CD274</em>, and
+<em>ANK2</em> appear consistently across multiple pathway analyses
+(KEGG, WikiPathways, Reactome, GO), highlighting their central roles.
+These genes are involved in ECM organization (<em>FN1</em>,
+<em>COL4A3</em>, <em>COL4A4</em>), complement activation (<em>C1QA</em>,
+<em>C1QB</em>, <em>C1QC</em>, <em>SERPING1</em>), and immune regulation
+(<em>CD274</em>, <em>GBP5</em>, <em>GBP1</em>).</p></li>
+<li><p><strong>Unique Genes:</strong> Unique genes in each pathway
+analysis suggest specialized roles within the broader context. For
+example, Y-chromosome genes (<em>UTY</em>, <em>KDM5D</em>,
+<em>USP9Y</em>, <em>DDX3Y</em>, <em>RPS4Y1</em>, <em>EIF1AY</em>) are
+enriched, potentially indicating sex-specific aspects of uveitis.
+Neuronal-related genes (Agent 3) might suggest a less direct, but still
+relevant, connection between the immune response and neurological
+processes.</p></li>
+</ul>
+</div>
+<div id="potential-regulatory-networks" class="section level3">
+<h3>1.3. Potential Regulatory Networks</h3>
+<p>The ChEA analysis (Agent 4) reveals significant enrichment of
+transcription factors <em>RELB</em>, <em>SMAD4</em>, <em>TFAP2C</em>,
+and <em>POU5F1</em>. These TFs provide a regulatory framework for the
+observed gene expression changes.</p>
+<ul>
+<li><p><strong>RELB (NF-κB family):</strong> Regulates genes involved in
+immune responses (<em>GBP5</em>, <em>CD274</em>), aligning with the
+strong complement and interferon signaling pathways.</p></li>
+<li><p><strong>SMAD4 (TGF-β signaling):</strong> Regulates genes
+involved in ECM remodeling (<em>FN1</em>, <em>COL4A3</em>,
+<em>COL4A4</em>) and cell adhesion, consistent with the observed pathway
+enrichments.</p></li>
+<li><p><strong>TFAP2C:</strong> Involved in cell differentiation and
+development, potentially influencing the cellular context of the immune
+response.</p></li>
+<li><p><strong>POU5F1:</strong> Associated with pluripotency, its role
+in uveitis requires further investigation.</p></li>
+</ul>
+<p>Novel interactions identified by ChEA include TFAP2C’s association
+with <em>KCNK17</em> and <em>NOS1AP</em>, and POU5F1’s regulation of
+<em>ROR1</em> in an inflammatory context. These warrant further
+investigation to determine their novelty and functional significance.*
+<strong>NF-κB (via RELB):</strong> Master regulator of inflammation,
+driving complement activation and immune responses. * <strong>TGF-β (via
+SMAD4):</strong> Influences ECM remodeling and immune regulation,
+potentially contributing to fibrosis and tissue damage. *
+<strong>TFAP2C:</strong> May modulate cell differentiation and the
+cellular context of the immune response. * <strong>POU5F1:</strong> Its
+role requires further investigation, but could influence cell fate and
+immune cell differentiation. * <strong>IRF family:</strong> Crucial for
+interferon responses, driving the expression of genes involved in immune
+responses. * <strong>AP-1:</strong> Involved in cell proliferation,
+differentiation, and inflammation, potentially regulating genes in Wnt
+signaling and ECM remodeling.</p>
+</div>
+<div id="potential-hub-genes" class="section level3">
+<h3>1.4. Potential Hub Genes</h3>
+<p>Based on the integrated analysis and STRING network properties,
+<em>FN1</em>, <em>C1QA</em>, <em>C1QB</em>, <em>C1QC</em>,
+<em>CD274</em>, and <em>ANK2</em> emerge as potential hub genes. These
+genes consistently appear across multiple pathways, have high STRING
+network scores, and are regulated by key transcription factors
+identified in the ChEA analysis. Their central location in the STRING
+network and their involvement in multiple key pathways (complement
+activation, ECM remodeling, immune regulation) strongly support their
+designation as hub genes.</p>
+</div>
+<div id="similar-systems" class="section level3">
+<h3>1.5. Similar Systems</h3>
+<p>Other autoimmune diseases (systemic lupus erythematosus, rheumatoid
+arthritis) and inflammatory conditions (inflammatory bowel disease)
+share similar pathway enrichments, particularly those related to
+complement activation and ECM remodeling. Studies on these diseases
+could provide valuable comparative insights.</p>
+</div>
+<div id="novelty-exploration" class="section level3">
+<h3>1.6. Novelty Exploration</h3>
+<p>The strong enrichment of pathways related to infectious diseases in
+the context of uveitis is potentially novel. While infections can
+trigger uveitis, the specific pathways highlighted here may reveal novel
+mechanisms linking infection and uveitis pathogenesis. The unexpected
+connections between complement activation and infectious disease
+pathways are particularly noteworthy. The potential role of POU5F1 in
+regulating <em>ROR1</em> in this inflammatory context also warrants
+further investigation for novelty.</p>
+</div>
+<div id="download-full-analysis-report" class="section level3">
+<h3>1.7. Download Full Analysis Report</h3>
+<p>Download the Full Integrated IAN Analysis Report Here:</p>
+<p><a href='enrichment_results/final_response.txt'>Open full
+final_response.txt text in new tab</a></p>
+</div>
+</div>
+<div id="system-model" class="section level2">
+<h2>2. System Model</h2>
+<p>IAN takes the integrated full analysis report and the integrated
+system network data from each of the agents response and puts forward a
+system model, which includes the system overview, mechanistic model and
+an hypothesis.</p>
+<div id="system-model-and-overview" class="section level3">
+<h3>2.1. System Model and Overview</h3>
+<div class="visNetwork html-widget html-fill-item" id="htmlwidget-dd0985f28f08d8e5f20f" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-dd0985f28f08d8e5f20f">{"x":{"nodes":{"id":["RELB","SMAD4","ATF3","C1QA","FN1","CD274","GBP5","Acute Inflammatory Response","Complement Activation","Immune Response","Cell Adhesion"],"group":["Process","Process","Gene","Gene","Gene","Gene","Gene","Process","Process","Process","Process"],"label":["RELB","SMAD4","ATF3","C1QA","FN1","CD274","GBP5","Acute Inflammatory Response","Complement Activation","Immune Response","Cell Adhesion"]},"edges":{"from":["RELB","RELB","SMAD4","ATF3","SMAD4","C1QA","C1QA","FN1","CD274","GBP5"],"to":["GBP5","CD274","FN1","FN1","Acute Inflammatory Response","Complement Activation","Immune Response","Cell Adhesion","Immune Response","Immune Response"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","size":20,"font":{"size":24}},"manipulation":{"enabled":false},"edges":{"arrows":"to"}},"groups":["Process","Gene"],"width":null,"height":null,"idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":null,"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":true,"hoverNearest":false,"degree":1,"algorithm":"all","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":false,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"}},"evals":[],"jsHooks":[]}</script>
+<p>The provided network, informed by RNA-Seq data from uveitis patients
+and healthy controls, centers on a complex interplay of genes and
+pathways primarily involved in immune response, complement activation,
+cell adhesion, and extracellular matrix (ECM) remodeling. The
+differentially expressed genes (DEGs) highlight the importance of these
+processes in the pathogenesis of uveitis. The network reveals
+interconnected modules, with key hubs like FN1 (fibronectin), C1QA/C1QB
+(complement components), CD274 (PD-L1), and several transcription
+factors (e.g., RELB, SMAD4, ATF3) playing central roles. The diverse
+etiologies of uveitis within the cohort (axial spondyloarthritis,
+sarcoidosis, etc.) likely contribute to variations in the specific DEG
+profiles, although the core pathways remain consistent.</p>
+</div>
+<div id="mechanistic-model" class="section level3">
+<h3>2.2. Mechanistic Model</h3>
+<p>The identified relationships suggest a mechanistic model where
+upstream regulators like RELB and SMAD4, along with ATF3, influence the
+uveitis phenotype through their downstream targets. RELB’s regulation of
+GBP5 and CD274 suggests a modulation of interferon signaling,
+pyroptosis, and T cell activity, potentially contributing to the
+inflammatory response. SMAD4’s influence on FN1 suggests a role in
+regulating cell adhesion, ECM remodeling, and tissue repair. ATF3 acts
+as an integrator, connecting these pathways. The complement system
+(C1QA/C1QB) plays a crucial role in initiating and amplifying the
+inflammatory response. The interactions between these components suggest
+a complex feedback loop that contributes to the sustained inflammation
+characteristic of uveitis.</p>
+</div>
+<div id="hypothesis" class="section level3">
+<h3>2.3. Hypothesis</h3>
+<p>We hypothesize that the observed changes in gene expression in
+peripheral blood from uveitis patients reflect a systemic dysregulation
+of immune responses, complement activation, and cell adhesion processes.
+Specifically, we propose that dysregulation of RELB, SMAD4, and ATF3
+activity leads to altered expression of their target genes (GBP5, CD274,
+FN1, and components of the complement system), resulting in an amplified
+inflammatory response, impaired immune regulation, altered ECM
+remodeling, and disrupted cell adhesion. This contributes to the
+development and progression of uveitis. The specific etiology of uveitis
+influences the specific pattern of DEG expression and the relative
+contribution of these pathways. Further investigation is needed to
+determine the precise causal relationships and the role of other
+potential upstream regulators and signaling pathways. The peripheral
+blood gene expression profile likely reflects systemic changes, but
+further studies are needed to confirm the specific involvement of these
+pathways in the ocular inflammation characteristic of uveitis.</p>
+</div>
+<div id="download-system-model-report" class="section level3">
+<h3>2.4. Download System Model Report</h3>
+<p>Download the Full System Model Report Here:</p>
+<p><a href='enrichment_results/system_model.txt'>Open full
+system_model.txt text in new tab</a></p>
+</div>
+</div>
+<div id="kegg-enrichment" class="section level2">
+<h2>3. KEGG Enrichment</h2>
+<p>IAN runs enrichment analysis, filters the significant terms, prepares
+metadata and generates the LLM based agent response, analyzing the data
+like a human expert.</p>
+<div id="kegg-enrichment-results" class="section level3">
+<h3>3.1. Kegg Enrichment Results</h3>
+<p>KEGG pathway enrichment analysis results, filtered</p>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["ID"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Description"],"name":[2],"type":["chr"],"align":["left"]},{"label":["pvalue"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["Gene"],"name":[4],"type":["chr"],"align":["left"]},{"label":["neglog10p"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"hsa05133","2":"Pertussis","3":"5.124634e-05","4":"C4BPA,C1QC,SERPING1,C1QB,C1QA","5":"4.290337"},{"1":"hsa04610","2":"Complement and coagulation cascades","3":"9.145321e-05","4":"C4BPA,C1QC,SERPING1,C1QB,C1QA","5":"4.038801"},{"1":"hsa05150","2":"Staphylococcus aureus infection","3":"1.962069e-03","4":"C1QC,FCGR1A,C1QB,C1QA","5":"2.707286"},{"1":"hsa05322","2":"Systemic lupus erythematosus","3":"6.277275e-03","4":"C1QC,FCGR1A,C1QB,C1QA","5":"2.202229"},{"1":"hsa04820","2":"Cytoskeleton in muscle cells","3":"7.141220e-03","4":"MYOM2,FN1,ANK2,COL4A3,COL4A4","5":"2.146228"},{"1":"hsa04514","2":"Cell adhesion molecules","3":"9.320600e-03","4":"PDCD1LG2,CD274,SLITRK5,NRCAM","5":"2.030556"},{"1":"hsa04512","2":"ECM-receptor interaction","3":"1.132142e-02","4":"FN1,COL4A3,COL4A4","5":"1.946099"},{"1":"hsa05222","2":"Small cell lung cancer","3":"1.274952e-02","4":"FN1,COL4A3,COL4A4","5":"1.894506"},{"1":"hsa04933","2":"AGE-RAGE signaling pathway in diabetic complications","3":"1.590368e-02","4":"FN1,COL4A3,COL4A4","5":"1.798502"},{"1":"hsa05142","2":"Chagas disease","3":"1.675493e-02","4":"C1QC,C1QB,C1QA","5":"1.775857"},{"1":"hsa05146","2":"Amoebiasis","3":"1.675493e-02","4":"FN1,COL4A3,COL4A4","5":"1.775857"},{"1":"hsa04621","2":"NOD-like receptor signaling pathway","3":"1.707204e-02","4":"GBP5,GBP1,CASP5,NAIP","5":"1.767715"},{"1":"hsa04510","2":"Focal adhesion","3":"2.159492e-02","4":"FN1,COL4A3,COL4A4,PARVA","5":"1.665648"},{"1":"hsa05171","2":"Coronavirus disease - COVID-19","3":"3.590501e-02","4":"RPS4Y1,C1QC,C1QB,C1QA","5":"1.444845"},{"1":"hsa04936","2":"Alcoholic liver disease","3":"3.980294e-02","4":"C1QC,C1QB,C1QA","5":"1.400085"},{"1":"hsa04148","2":"Efferocytosis","3":"4.931246e-02","4":"C1QC,C1QB,C1QA","5":"1.307043"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+<div id="kegg-enrichment-analysis-plot" class="section level3">
+<h3>3.2. Kegg Enrichment Analysis Plot</h3>
+<p>KEGG pathway enrichment analysis results, filtered - plot</p>
+<p><img src="report_template_files/figure-html/kegg_filtered_plot-1.png" width="768" /><a href='kegg_enrichment_plot.png' download>Download
+Plot as PNG</a></p>
+</div>
+<div id="kegg-llm-agent-response" class="section level3">
+<h3>3.3. KEGG LLM Agent Response</h3>
+<p>Agent 2: <strong>1. Summary and Categorization:</strong></p>
+<p>The significantly enriched KEGG pathways in this uveitis study
+primarily highlight the involvement of immune response and extracellular
+matrix (ECM) processes. Specifically, complement activation, cell
+adhesion molecule interactions, and ECM-receptor interactions are
+strongly implicated. These findings suggest a complex interplay between
+immune system activation and tissue remodeling in the pathogenesis of
+uveitis.</p>
+<p><strong>Categorization:</strong></p>
+<ul>
+<li><strong>Immune Response:</strong> Complement and coagulation
+cascades, Staphylococcus aureus infection, Systemic lupus erythematosus,
+Pertussis, Coronavirus disease - COVID-19, Chagas disease (6
+pathways)</li>
+<li><strong>Extracellular Matrix (ECM) and Cell Adhesion:</strong> Focal
+adhesion, ECM-receptor interaction, Cell adhesion molecules,
+Cytoskeleton in muscle cells, AGE-RAGE signaling pathway in diabetic
+complications, Amoebiasis, Small cell lung cancer (7 pathways)</li>
+<li><strong>Inflammatory Response:</strong> NOD-like receptor signaling
+pathway (1 pathway)</li>
+<li><strong>Other:</strong> Efferocytosis, Alcoholic liver disease (2
+pathways)</li>
+</ul>
+</div>
+</div>
+<div id="wikipathway-enrichment" class="section level2">
+<h2>4. WikiPathway Enrichment</h2>
+<p>IAN runs enrichment analysis, filters the significant terms, prepares
+metadata and generates the LLM based agent response, analyzing the data
+like a human expert.</p>
+<div id="wikipathway-enrichment-results" class="section level3">
+<h3>4.1. WikiPathway Enrichment Results</h3>
+<p>WikiPathway enrichment analysis results, filtered</p>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["ID"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Description"],"name":[2],"type":["chr"],"align":["left"]},{"label":["pvalue"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["Gene"],"name":[4],"type":["chr"],"align":["left"]},{"label":["neglog10p"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"WP5090","2":"Complement system in neuronal development and plasticity","3":"2.509727e-05","4":"C4BPA,C1QC,SERPING1,C1QB,C1QA,CSMD1","5":"4.600374"},{"1":"WP3937","2":"Microglia pathogen phagocytosis pathway","3":"6.587092e-05","4":"C1QC,FCGR1A,C1QB,C1QA","5":"4.181306"},{"1":"WP4258","2":"lncRNA in canonical Wnt signaling and colorectal cancer","3":"1.962528e-04","4":"KREMEN1,ATF3,MIR34AHG,WNT16,ROR1","5":"3.707184"},{"1":"WP545","2":"Complement activation","3":"2.625416e-04","4":"C1QC,C1QB,C1QA","5":"3.580802"},{"1":"WP558","2":"Complement and coagulation cascades","3":"2.841997e-04","4":"C1QC,SERPING1,C1QB,C1QA","5":"3.546376"},{"1":"WP3896","2":"Dengue 2 interactions with complement and coagulation cascades","3":"3.036316e-04","4":"C1QC,SERPING1,C1QB,C1QA","5":"3.517653"},{"1":"WP5087","2":"Pleural mesothelioma","3":"5.915494e-04","4":"FN1,CD274,KREMEN1,ATF3,FGF13,COL4A3,WNT16,ROR1,COL4A4","5":"3.228009"},{"1":"WP3941","2":"Oxidative damage response","3":"1.370837e-03","4":"C1QC,C1QB,C1QA","5":"2.863014"},{"1":"WP4585","2":"Cancer immunotherapy by PD 1 blockade","3":"7.076322e-03","4":"PDCD1LG2,CD274","5":"2.150192"},{"1":"WP2572","2":"Primary focal segmental glomerulosclerosis FSGS","3":"7.309605e-03","4":"COL4A3,COL4A4,PARVA","5":"2.136106"},{"1":"WP4239","2":"Epithelial to mesenchymal transition in colorectal cancer","3":"1.215857e-02","4":"FN1,COL4A3,WNT16,COL4A4","5":"1.915118"},{"1":"WP4336","2":"ncRNAs in Wnt signaling in hepatocellular carcinoma","3":"1.303507e-02","4":"KREMEN1,WNT16,ROR1","5":"1.884887"},{"1":"WP2328","2":"Allograft rejection","3":"1.343273e-02","4":"C1QC,C1QB,C1QA","5":"1.871836"},{"1":"WP4658","2":"Small cell lung cancer","3":"1.596408e-02","4":"FN1,COL4A3,COL4A4","5":"1.796856"},{"1":"WP1433","2":"Nucleotide binding oligomerization domain NOD pathway","3":"2.152910e-02","4":"CASP5,NAIP","5":"1.666974"},{"1":"WP428","2":"Wnt signaling","3":"2.507347e-02","4":"KREMEN1,WNT16,ROR1","5":"1.600786"},{"1":"WP4758","2":"Nephrotic syndrome","3":"2.563110e-02","4":"COL4A3,COL4A4","5":"1.591233"},{"1":"WP5078","2":"T cell modulation in pancreatic cancer","3":"2.670262e-02","4":"PDCD1LG2,CD274","5":"1.573446"},{"1":"WP5053","2":"Development of ureteric derived collecting system","3":"2.889930e-02","4":"ANOS1,GRIP1","5":"1.539113"},{"1":"WP2267","2":"Synaptic vesicle pathway","3":"3.232510e-02","4":"SYN2,SLC1A3","5":"1.490460"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+<div id="wikipathway-enrichment-analysis-plot" class="section level3">
+<h3>4.2. WikiPathway Enrichment Analysis Plot</h3>
+<p>WikiPathway enrichment analysis results, filtered - plot</p>
+<p><img src="report_template_files/figure-html/wp_filtered_plot%7D-1.png" width="768" /><a href='wp_enrichment_plot.png' download>Download
+Plot as PNG</a></p>
+</div>
+<div id="wikipathway-llm-agent-response" class="section level3">
+<h3>4.3. WikiPathway LLM Agent Response</h3>
+<p>Agent 1: <strong>1. Summary and Categorization:</strong></p>
+<p>The significantly enriched WikiPathways in this uveitis study
+primarily highlight the dysregulation of the complement system, Wnt
+signaling, and immune responses. These pathways are interconnected and
+suggest a complex interplay between inflammation, immune cell
+activation, and tissue remodeling in the pathogenesis of uveitis. The
+strong representation of complement-related pathways is particularly
+notable, indicating a central role for this system in the disease
+process.</p>
+<p><strong>Categorization:</strong></p>
+<ul>
+<li><strong>Immune Response:</strong> Complement activation (WP3896,
+WP3937, WP3941, WP545, WP558, WP5090), Allograft rejection (WP2328),
+Cancer immunotherapy by PD-1 blockade (WP4585), T cell modulation in
+pancreatic cancer (WP5078). (8 pathways)</li>
+<li><strong>Cell Signaling:</strong> Wnt signaling (WP428, WP4336,
+WP4258, WP4239), Nucleotide binding oligomerization domain NOD pathway
+(WP1433). (5 pathways)</li>
+<li><strong>Extracellular Matrix (ECM) and Cell Adhesion:</strong>
+Epithelial to mesenchymal transition in colorectal cancer (WP4239),
+Small cell lung cancer (WP4658), Primary focal segmental
+glomerulosclerosis FSGS (WP2572), Nephrotic syndrome (WP4758), Pleural
+mesothelioma (WP5087). (5 pathways)</li>
+<li><strong>Other:</strong> Synaptic vesicle pathway (WP2267),
+Development of ureteric derived collecting system (WP5053). (2
+pathways)</li>
+</ul>
+</div>
+</div>
+<div id="reactome-enrichment" class="section level2">
+<h2>5. Reactome Enrichment</h2>
+<div id="reactome-pathways-enrichment-results" class="section level3">
+<h3>5.1. Reactome Pathways Enrichment Results</h3>
+<p>Reactome Pathways enrichment analysis results, filtered</p>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["ID"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Description"],"name":[2],"type":["chr"],"align":["left"]},{"label":["pvalue"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["Gene"],"name":[4],"type":["chr"],"align":["left"]},{"label":["neglog10p"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"R-HSA-977606","2":"Regulation of Complement cascade","3":"3.569089e-06","4":"C4BPA,C1QC,SERPING1,C1QB,C1QA","5":"5.447443"},{"1":"R-HSA-166658","2":"Complement cascade","3":"1.022107e-05","4":"C4BPA,C1QC,SERPING1,C1QB,C1QA","5":"4.990504"},{"1":"R-HSA-166786","2":"Creation of C4 and C2 activators","3":"4.266863e-05","4":"C1QC,C1QB,C1QA","5":"4.369891"},{"1":"R-HSA-166663","2":"Initial triggering of complement","3":"2.010130e-04","4":"C1QC,C1QB,C1QA","5":"3.696776"},{"1":"R-HSA-877300","2":"Interferon gamma signaling","3":"1.372034e-03","4":"FCGR1A,GBP6,GBP5,GBP1","5":"2.862635"},{"1":"R-HSA-2214320","2":"Anchoring fibril formation","3":"2.520674e-03","4":"COL4A3,COL4A4","5":"2.598483"},{"1":"R-HSA-3000171","2":"Non-integrin membrane-ECM interactions","3":"3.245072e-03","4":"FN1,COL4A3,COL4A4","5":"2.488776"},{"1":"R-HSA-2243919","2":"Crosslinking of collagen fibrils","3":"3.637495e-03","4":"COL4A3,COL4A4","5":"2.439198"},{"1":"R-HSA-1442490","2":"Collagen degradation","3":"4.085663e-03","4":"MMP19,COL4A3,COL4A4","5":"2.388737"},{"1":"R-HSA-112316","2":"Neuronal System","3":"4.352776e-03","4":"CACNA1E,SYN2,SLC1A3,GRIN3A,KCNK17,GRIP1,SLITRK5","5":"2.361234"},{"1":"R-HSA-1474228","2":"Degradation of the extracellular matrix","3":"5.375519e-03","4":"FN1,MMP19,COL4A3,COL4A4","5":"2.269580"},{"1":"R-HSA-389948","2":"PD-1 signaling","3":"5.918533e-03","4":"PDCD1LG2,CD274","5":"2.227786"},{"1":"R-HSA-3000178","2":"ECM proteoglycans","3":"6.606333e-03","4":"FN1,COL4A3,COL4A4","5":"2.180040"},{"1":"R-HSA-216083","2":"Integrin cell surface interactions","3":"8.990535e-03","4":"FN1,COL4A3,COL4A4","5":"2.046214"},{"1":"R-HSA-3000157","2":"Laminin interactions","3":"9.948993e-03","4":"COL4A3,COL4A4","5":"2.002221"},{"1":"R-HSA-445095","2":"Interaction between L1 and Ankyrins","3":"1.060094e-02","4":"ANK2,NRCAM","5":"1.974656"},{"1":"R-HSA-913531","2":"Interferon Signaling","3":"1.127851e-02","4":"IFI27,FCGR1A,GBP6,GBP5,GBP1","5":"1.947748"},{"1":"R-HSA-112315","2":"Transmission across Chemical Synapses","3":"1.144784e-02","4":"CACNA1E,SYN2,SLC1A3,GRIN3A,GRIP1","5":"1.941276"},{"1":"R-HSA-140877","2":"Formation of Fibrin Clot (Clotting Cascade)","3":"1.646414e-02","4":"SERPING1,CD177","5":"1.783461"},{"1":"R-HSA-419037","2":"NCAM1 interactions","3":"1.894712e-02","4":"COL4A3,COL4A4","5":"1.722457"},{"1":"R-HSA-8948216","2":"Collagen chain trimerization","3":"2.068457e-02","4":"COL4A3,COL4A4","5":"1.684354"},{"1":"R-HSA-3214842","2":"HDMs demethylate histones","3":"2.627541e-02","4":"UTY,KDM5D","5":"1.580450"},{"1":"R-HSA-112310","2":"Neurotransmitter release cycle","3":"2.726058e-02","4":"SYN2,SLC1A3","5":"1.564465"},{"1":"R-HSA-5576891","2":"Cardiac conduction","3":"2.889985e-02","4":"CORIN,FGF13,KCNK17","5":"1.539104"},{"1":"R-HSA-186797","2":"Signaling by PDGF","3":"3.456147e-02","4":"COL4A3,COL4A4","5":"1.461408"},{"1":"R-HSA-2022090","2":"Assembly of collagen fibrils and other multimeric structures","3":"3.789819e-02","4":"COL4A3,COL4A4","5":"1.421381"},{"1":"R-HSA-375165","2":"NCAM signaling for neurite out-growth","3":"4.018873e-02","4":"COL4A3,COL4A4","5":"1.395896"},{"1":"R-HSA-1650814","2":"Collagen biosynthesis and modifying enzymes","3":"4.492273e-02","4":"COL4A3,COL4A4","5":"1.347534"},{"1":"R-HSA-388841","2":"Costimulation by the CD28 family","3":"4.736377e-02","4":"PDCD1LG2,CD274","5":"1.324554"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+<div id="reactome-pathways-enrichment-analysis-plot"
+class="section level3">
+<h3>5.2. Reactome Pathways Enrichment Analysis Plot</h3>
+<p>Reactome Pathways enrichment analysis results, filtered - plot</p>
+<p><img src="report_template_files/figure-html/reactome_filtered_plot%7D-1.png" width="672" /></p>
+</div>
+<div id="reactome-pathways-llm-agent-response" class="section level3">
+<h3>5.3. Reactome Pathways LLM Agent Response</h3>
+<p>Agent 3: <strong>1. Summary and Categorization:</strong></p>
+<p>The significantly enriched Reactome pathways in this uveitis study
+primarily highlight the dysregulation of the complement cascade,
+extracellular matrix (ECM) remodeling, and neuronal signaling. These
+findings suggest a complex interplay between immune responses, tissue
+integrity, and potentially neurological involvement in the pathogenesis
+of uveitis. The strong enrichment of complement pathways is particularly
+notable, given its role in inflammation.</p>
+<p><strong>Categorization:</strong></p>
+<ul>
+<li><strong>Immune System:</strong> Complement cascade (4 pathways),
+Interferon signaling (2 pathways), Costimulation (2 pathways), PD-1
+signaling (1 pathway). Total: 9 pathways.</li>
+<li><strong>Extracellular Matrix (ECM):</strong> Collagen degradation (2
+pathways), Degradation of the extracellular matrix (1 pathway), Collagen
+biosynthesis (1 pathway), Assembly of collagen fibrils (1 pathway),
+Integrin cell surface interactions (1 pathway), Anchoring fibril
+formation (1 pathway), Laminin interactions (1 pathway), Non-integrin
+membrane-ECM interactions (1 pathway), ECM proteoglycans (1 pathway),
+Collagen chain trimerization (1 pathway), NCAM signaling (2 pathways).
+Total: 12 pathways.</li>
+<li><strong>Neuronal System:</strong> Neurotransmitter release cycle (1
+pathway), Transmission across Chemical Synapses (1 pathway), Neuronal
+System (1 pathway), NCAM1 interactions (1 pathway). Total: 4
+pathways.</li>
+<li><strong>Histone Demethylation:</strong> HDMs demethylate histones (1
+pathway). Total: 1 pathway.</li>
+</ul>
+</div>
+</div>
+<div id="gene-ontology-enrichment" class="section level2">
+<h2>6. Gene Ontology Enrichment</h2>
+<div id="gene-ontology-enrichment-results" class="section level3">
+<h3>6.1. Gene Ontology Enrichment Results</h3>
+<p>Gene Ontology enrichment analysis results, filtered</p>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["Description"],"name":[1],"type":["chr"],"align":["left"]},{"label":["pvalue"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Gene"],"name":[3],"type":["chr"],"align":["left"]},{"label":["neglog10p"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"complement activation, classical pathway","2":"6.660597e-08","3":"C4BPA, C1QC, SERPING1, C1QB, C1QA, IGHG4","4":"7.176487"},{"1":"humoral immune response mediated by circulating immunoglobulin","2":"3.893282e-07","3":"C4BPA, C1QC, SERPING1, C1QB, C1QA, IGHG4","4":"6.409684"},{"1":"complement activation","2":"1.144072e-06","3":"C4BPA, C1QC, SERPING1, C1QB, C1QA, IGHG4","4":"5.941547"},{"1":"adaptive immune response based on somatic recombination of immune receptors built from immunoglobulin superfamily domains","2":"4.093468e-06","3":"KDM5D, C4BPA, C1QC, SERPING1, FCGR1A, C1QB, C1QA, IL27, CD274, IGHV3-35, IGHG4","4":"5.387909"},{"1":"defense response to bacterium","2":"6.903300e-06","3":"FCGR1A, GBP6, HP, GBP5, GBP1, ANXA3, SLAMF8, SIGLEC16, NAIP, IGHG4","4":"5.160943"},{"1":"immunoglobulin mediated immune response","2":"1.093154e-05","3":"C4BPA, C1QC, SERPING1, FCGR1A, C1QB, C1QA, IGHV3-35, IGHG4","4":"4.961319"},{"1":"B cell mediated immunity","2":"1.255430e-05","3":"C4BPA, C1QC, SERPING1, FCGR1A, C1QB, C1QA, IGHV3-35, IGHG4","4":"4.901207"},{"1":"leukocyte mediated immunity","2":"2.596380e-05","3":"KDM5D, C4BPA, C1QC, SERPING1, FCGR1A, CD177, C1QB, C1QA, ANXA3, IGHV3-35, IGHG4","4":"4.585632"},{"1":"pyroptosis","2":"3.638993e-05","3":"IFI27, GBP5, GBP1, NAIP","4":"4.439019"},{"1":"synapse pruning","2":"4.447095e-05","3":"C1QC, C1QB, C1QA","4":"4.351924"},{"1":"lymphocyte mediated immunity","2":"1.161613e-04","3":"KDM5D, C4BPA, C1QC, SERPING1, FCGR1A, C1QB, C1QA, IGHV3-35, IGHG4","4":"3.934938"},{"1":"cell junction disassembly","2":"3.406305e-04","3":"C1QC, C1QB, C1QA","4":"3.467716"},{"1":"defense response to protozoan","2":"3.406305e-04","3":"BATF2, GBP6, GBP1","4":"3.467716"},{"1":"regulation of cardiac muscle cell action potential","2":"4.224046e-04","3":"NOS1AP, FGF13, ANK2","4":"3.374271"},{"1":"response to protozoan","2":"4.676144e-04","3":"BATF2, GBP6, GBP1","4":"3.330112"},{"1":"glomerular basement membrane development","2":"1.364700e-03","3":"COL4A3, COL4A4","4":"2.864963"},{"1":"sensory perception of sound","2":"1.384818e-03","3":"HPN, SLC1A3, COL4A3, COCH, ROR1","4":"2.858607"},{"1":"neutrophil degranulation","2":"1.632224e-03","3":"CD177, ANXA3","4":"2.787220"},{"1":"forebrain morphogenesis","2":"1.922616e-03","3":"OTX1, GDF7","4":"2.716107"},{"1":"negative regulation of complement activation","2":"1.922616e-03","3":"C4BPA, SERPING1","4":"2.716107"},{"1":"positive regulation of cation channel activity","2":"1.978989e-03","3":"NOS1AP, FGF13, ANK2","4":"2.703557"},{"1":"humoral immune response","2":"2.037924e-03","3":"C4BPA, C1QC, SERPING1, C1QB, C1QA, IGHG4","4":"2.690812"},{"1":"acute inflammatory response","2":"2.319589e-03","3":"FCGR1A, FN1, HP, FFAR3","4":"2.634589"},{"1":"sensory perception of mechanical stimulus","2":"2.542753e-03","3":"HPN, SLC1A3, COL4A3, COCH, ROR1","4":"2.594696"},{"1":"negative regulation of activated T cell proliferation","2":"2.571064e-03","3":"PDCD1LG2, CD274","4":"2.589887"},{"1":"neuroblast division","2":"2.571064e-03","3":"FGF13, SOX5","4":"2.589887"},{"1":"actin-mediated cell contraction","2":"2.643578e-03","3":"NOS1AP, FGF13, ANK2, PARVA","4":"2.577808"},{"1":"negative regulation of myotube differentiation","2":"2.928657e-03","3":"TMEM119, BHLHE41","4":"2.533331"},{"1":"negative regulation of humoral immune response","2":"3.308190e-03","3":"C4BPA, SERPING1","4":"2.480410"},{"1":"regulation of action potential","2":"3.366392e-03","3":"NOS1AP, FGF13, ANK2","4":"2.472835"},{"1":"regulation of immune effector process","2":"3.489573e-03","3":"C4BPA, SERPING1, FCGR1A, CD177, IL27, FFAR3, SLAMF8","4":"2.457228"},{"1":"synapse organization","2":"3.629110e-03","3":"C1QC, NOS1AP, C1QB, C1QA, FGF13, SYBU, SLITRK5, NRCAM","4":"2.440200"},{"1":"grooming behavior","2":"3.709434e-03","3":"DDO, SLITRK5","4":"2.430692"},{"1":"asymmetric cell division","2":"4.132165e-03","3":"FGF13, SOX5","4":"2.383822"},{"1":"neutrophil activation involved in immune response","2":"4.132165e-03","3":"CD177, ANXA3","4":"2.383822"},{"1":"potassium ion transmembrane transport","2":"5.014546e-03","3":"NOS1AP, HPN, SLC1A3, ANK2, KCNK17","4":"2.299768"},{"1":"positive regulation of myeloid leukocyte mediated immunity","2":"5.041191e-03","3":"FCGR1A, CD177","4":"2.297467"},{"1":"positive regulation of potassium ion transmembrane transporter activity","2":"5.041191e-03","3":"NOS1AP, ANK2","4":"2.297467"},{"1":"actin filament-based movement","2":"5.394098e-03","3":"NOS1AP, FGF13, ANK2, PARVA","4":"2.268081"},{"1":"regulation of complement activation","2":"5.527043e-03","3":"C4BPA, SERPING1","4":"2.257507"},{"1":"regulation of cell shape","2":"5.673575e-03","3":"FN1, HPN, COCH, PARVA","4":"2.246143"},{"1":"regulation of oxidoreductase activity","2":"5.889571e-03","3":"NOS1AP, HP, SLAMF8","4":"2.229916"},{"1":"negative regulation of interleukin-10 production","2":"6.560328e-03","3":"PDCD1LG2, CD274","4":"2.183074"},{"1":"regulation of ventricular cardiac muscle cell membrane repolarization","2":"6.560328e-03","3":"NOS1AP, ANK2","4":"2.183074"},{"1":"action potential","2":"7.050981e-03","3":"NOS1AP, FGF13, ANK2, NRCAM","4":"2.151750"},{"1":"regulation of membrane potential","2":"7.675871e-03","3":"NOS1AP, FGF13, INSYN2B, GRIN3A, ANK2, KCNK17, NRCAM","4":"2.114872"},{"1":"positive regulation of inflammatory response","2":"7.728264e-03","3":"FCGR1A, FFAR3, CASP5, NAIP","4":"2.111918"},{"1":"myeloid leukocyte activation","2":"7.742493e-03","3":"BATF2, CD177, FN1, C1QA, ANXA3","4":"2.111119"},{"1":"potassium ion transport","2":"7.742493e-03","3":"NOS1AP, HPN, SLC1A3, ANK2, KCNK17","4":"2.111119"},{"1":"cell recognition","2":"8.082418e-03","3":"C4BPA, FCGR1A, FOLR3, NRCAM","4":"2.092459"},{"1":"regulation of cell morphogenesis","2":"8.419382e-03","3":"FN1, HPN, COCH, GRIP1, PARVA","4":"2.074720"},{"1":"cardiac muscle cell contraction","2":"8.717167e-03","3":"NOS1AP, FGF13, ANK2","4":"2.059625"},{"1":"positive regulation of ion transmembrane transporter activity","2":"8.717167e-03","3":"NOS1AP, FGF13, ANK2","4":"2.059625"},{"1":"positive regulation of acute inflammatory response","2":"8.867193e-03","3":"FCGR1A, FFAR3","4":"2.052214"},{"1":"regulation of cardiac conduction","2":"8.867193e-03","3":"CORIN, ANK2","4":"2.052214"},{"1":"startle response","2":"8.867193e-03","3":"GRIN3A, CSMD1","4":"2.052214"},{"1":"cardiac muscle cell action potential","2":"9.007211e-03","3":"NOS1AP, FGF13, ANK2","4":"2.045410"},{"1":"phagocytosis, recognition","2":"9.492733e-03","3":"C4BPA, FCGR1A","4":"2.022609"},{"1":"regulation of cardiac muscle cell membrane repolarization","2":"9.492733e-03","3":"NOS1AP, ANK2","4":"2.022609"},{"1":"ventricular cardiac muscle cell membrane repolarization","2":"9.492733e-03","3":"NOS1AP, ANK2","4":"2.022609"},{"1":"midbrain development","2":"1.119561e-02","3":"OTX1, CASP5, GDF7","4":"1.950952"},{"1":"positive regulation of transporter activity","2":"1.153106e-02","3":"NOS1AP, FGF13, ANK2","4":"1.938131"},{"1":"regulation of cardiac muscle cell contraction","2":"1.290300e-02","3":"FGF13, ANK2","4":"1.889309"},{"1":"neutrophil mediated immunity","2":"1.364015e-02","3":"CD177, ANXA3","4":"1.865181"},{"1":"ventricular cardiac muscle cell action potential","2":"1.364015e-02","3":"NOS1AP, ANK2","4":"1.865181"},{"1":"dicarboxylic acid transport","2":"1.404126e-02","3":"SLC26A8, FOLR3, SLC1A3","4":"1.852594"},{"1":"substrate adhesion-dependent cell spreading","2":"1.481095e-02","3":"FN1, GBP1, PARVA","4":"1.829417"},{"1":"positive regulation of potassium ion transmembrane transport","2":"1.516794e-02","3":"NOS1AP, ANK2","4":"1.819074"},{"1":"regulation of cell size","2":"1.552826e-02","3":"FN1, FGF13, PRR16, NRCAM","4":"1.808877"},{"1":"brain morphogenesis","2":"1.595818e-02","3":"OTX1, GDF7","4":"1.797017"},{"1":"cell fate commitment","2":"1.600681e-02","3":"FGF13, SLAMF8, WNT16, SOX5, GDF7","4":"1.795695"},{"1":"regulation of adaptive immune response based on somatic recombination of immune receptors built from immunoglobulin superfamily domains","2":"1.664851e-02","3":"C4BPA, FCGR1A, IL27, CD274","4":"1.778625"},{"1":"regulation of hormone metabolic process","2":"1.676574e-02","3":"HPN, FFAR3","4":"1.775577"},{"1":"regulation of membrane repolarization","2":"1.676574e-02","3":"NOS1AP, ANK2","4":"1.775577"},{"1":"cardiac muscle cell membrane repolarization","2":"1.759042e-02","3":"NOS1AP, ANK2","4":"1.754724"},{"1":"regulation of actin filament-based movement","2":"1.759042e-02","3":"FGF13, ANK2","4":"1.754724"},{"1":"regulation of extent of cell growth","2":"1.812546e-02","3":"FN1, FGF13, NRCAM","4":"1.741711"},{"1":"negative regulation of striated muscle cell differentiation","2":"1.929037e-02","3":"TMEM119, BHLHE41","4":"1.714659"},{"1":"neutrophil activation","2":"1.929037e-02","3":"CD177, ANXA3","4":"1.714659"},{"1":"myeloid leukocyte mediated immunity","2":"1.946617e-02","3":"FCGR1A, CD177, ANXA3","4":"1.710720"},{"1":"astrocyte development","2":"2.105652e-02","3":"C1QA, ROR1","4":"1.676613"},{"1":"negative regulation of type II interferon production","2":"2.105652e-02","3":"PDCD1LG2, CD274","4":"1.676613"},{"1":"positive regulation of potassium ion transport","2":"2.105652e-02","3":"NOS1AP, ANK2","4":"1.676613"},{"1":"regulation of activated T cell proliferation","2":"2.105652e-02","3":"PDCD1LG2, CD274","4":"1.676613"},{"1":"regulation of adaptive immune response","2":"2.129533e-02","3":"C4BPA, FCGR1A, IL27, CD274","4":"1.671716"},{"1":"regulation of cation channel activity","2":"2.133709e-02","3":"NOS1AP, FGF13, ANK2","4":"1.670865"},{"1":"regulation of heart contraction","2":"2.163061e-02","3":"NOS1AP, CORIN, FGF13, ANK2","4":"1.664931"},{"1":"peptidyl-cysteine modification","2":"2.196395e-02","3":"NOS1AP, ZDHHC11B","4":"1.658290"},{"1":"biological process involved in interaction with symbiont","2":"2.280284e-02","3":"IFI27, FN1, HPN","4":"1.642011"},{"1":"regulation of type II interferon production","2":"2.280284e-02","3":"PDCD1LG2, IL27, CD274","4":"1.642011"},{"1":"type II interferon production","2":"2.280284e-02","3":"PDCD1LG2, IL27, CD274","4":"1.642011"},{"1":"regulation of humoral immune response","2":"2.288737e-02","3":"C4BPA, SERPING1","4":"1.640404"},{"1":"cellular response to type II interferon","2":"2.330335e-02","3":"GBP6, GBP5, GBP1","4":"1.632582"},{"1":"negative regulation of immune effector process","2":"2.380982e-02","3":"C4BPA, SERPING1, SLAMF8","4":"1.623244"},{"1":"activated T cell proliferation","2":"2.382661e-02","3":"PDCD1LG2, CD274","4":"1.622938"},{"1":"acute-phase response","2":"2.382661e-02","3":"FN1, HP","4":"1.622938"},{"1":"regulation of myotube differentiation","2":"2.382661e-02","3":"TMEM119, BHLHE41","4":"1.622938"},{"1":"sodium ion homeostasis","2":"2.382661e-02","3":"CORIN, SLC1A3","4":"1.622938"},{"1":"T cell costimulation","2":"2.478148e-02","3":"PDCD1LG2, CD274","4":"1.605873"},{"1":"regulation of acute inflammatory response","2":"2.478148e-02","3":"FCGR1A, FFAR3","4":"1.605873"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+<div id="gene-ontology-enrichment-analysis-plot" class="section level3">
+<h3>6.2. Gene Ontology Enrichment Analysis Plot</h3>
+<p>Gene Ontology enrichment analysis results, filtered - plot - Top 20
+Terms</p>
+<p><img src="report_template_files/figure-html/go_filtered_plot%7D-1.png" width="672" /></p>
+</div>
+<div id="go-llm-agent-response" class="section level3">
+<h3>6.3. GO LLM Agent Response</h3>
+<p>Agent 5: <strong>1. Summary and Categorization:</strong></p>
+<p>The significantly enriched GO terms highlight a profound immune
+dysregulation in uveitis patients compared to healthy controls. The
+analysis reveals overrepresentation of terms related to B cell and T
+cell mediated immunity, complement activation, and acute inflammatory
+responses. This suggests a complex interplay of humoral and cellular
+immune mechanisms driving uveitis pathogenesis, with a strong emphasis
+on innate and adaptive immune system activation.</p>
+<p><strong>Categorization of Enriched GO Terms:</strong></p>
+<ul>
+<li><strong>Immune Response:</strong> 20 terms (B cell mediated
+immunity, T cell costimulation, adaptive immune response based on
+somatic recombination…, humoral immune response, immunoglobulin mediated
+immune response, leukocyte mediated immunity, lymphocyte mediated
+immunity, myeloid leukocyte activation, myeloid leukocyte mediated
+immunity, negative regulation of complement activation, negative
+regulation of humoral immune response, negative regulation of immune
+effector process, negative regulation of interleukin-10 production,
+negative regulation of type II interferon production, positive
+regulation of inflammatory response, positive regulation of myeloid
+leukocyte mediated immunity, regulation of adaptive immune response,
+regulation of immune effector process, regulation of humoral immune
+response, type II interferon production)</li>
+<li><strong>Cell Movement and Contraction (actin-based):</strong> 7
+terms (actin filament-based movement, actin-mediated cell contraction,
+action potential, cardiac muscle cell action potential, cardiac muscle
+cell contraction, regulation of actin filament-based movement,
+regulation of action potential)</li>
+<li><strong>Complement Activation:</strong> 3 terms (complement
+activation, complement activation, classical pathway, negative
+regulation of complement activation)</li>
+<li><strong>Neurological Processes:</strong> 5 terms (astrocyte
+development, brain morphogenesis, forebrain morphogenesis, midbrain
+development, synapse organization)</li>
+</ul>
+</div>
+</div>
+<div id="transcription-factor-enrichment" class="section level2">
+<h2>7. Transcription Factor Enrichment</h2>
+<div id="transcription-factor-chea-enrichment-results"
+class="section level3">
+<h3>7.1. Transcription Factor (ChEA) enrichment results</h3>
+<p>Transcription Factor (ChEA) enrichment analysis results, filtered</p>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["Term"],"name":[1],"type":["chr"],"align":["left"]},{"label":["P.value"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Genes"],"name":[3],"type":["chr"],"align":["left"]},{"label":["neglog10p"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"RELB 30642670 ChIP-Seq CTB1 Human Placenta Inflammation","2":"0.01579149","3":"GBP5;CD274;MMP19;GPR84","4":"1.801577"},{"1":"TFAP2C 20629094 ChIP-Seq MCF-7 Human","2":"0.02662495","3":"KREMEN1;IL27;KCNK17;GPR84;LRP1B;VSIG10;ETV7;PKIB;LYPD6B;NOS1AP;NRCAM;SRGAP1;MOCS1","4":"1.574711"},{"1":"POU5F1 16153702 ChIP-ChIP HESCs Human","2":"0.03075800","3":"C1QA;NRN1;EIF1AY;ROR1;OTX1;CYYR1;SOX5","4":"1.512042"},{"1":"SMAD4 21741376 ChIP-Seq HESCs Human","2":"0.03091386","3":"GBP5;PLLP;RFPL2;FAM118A;FN1;ANK2;PARVA;CACNA1E;ETV7;GRIP1;PKIB;LYPD6B;EPSTI1;PRR16;SLAMF8;NRCAM;ROR1;FGF13;ATF3;SOX5","4":"1.509847"},{"1":"IRF1 21803131 ChIP-Seq MONOCYTES Human","2":"0.04266666","3":"CD274;PKIB;APOL4;EPSTI1;GBP1","4":"1.369911"},{"1":"PCGF4 22325352 ChIP-Seq 293T-Rex Human","2":"0.04782196","3":"GBP6;C1QB;GBP5;C1QA;C4BPA;CACNA1E;LRP1B;GDF7;FHAD1;COL4A4;LYPD6B;ROR1;OTX1;FCGR1A;GBP1;ATF3;C1QC","4":"1.320373"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+<div id="transcription-factor-chea-enrichment-analysis-plot"
+class="section level3">
+<h3>7.2. Transcription Factor (ChEA) Enrichment Analysis Plot</h3>
+<p>Transcription Factor (ChEA) enrichment analysis results, filtered -
+plot</p>
+<p><img src="report_template_files/figure-html/chea_filtered_plot%7D-1.png" width="672" /></p>
+</div>
+<div id="chea-llm-agent-response" class="section level3">
+<h3>7.3. ChEA LLM Agent Response</h3>
+<p>Agent 4: <strong>1. Summary of Enriched Transcription
+Factors:</strong></p>
+<p>The ChEA analysis identified several transcription factors (TFs)
+significantly enriched in the differentially expressed genes (DEGs) from
+the uveitis versus healthy control comparison. RELB, TFAP2C, POU5F1, and
+SMAD4 showed the most significant enrichment (p-values &lt; 0.04). These
+TFs are known to be involved in immune regulation, cell differentiation,
+and development, aligning with the inflammatory nature of uveitis and
+the use of whole blood RNA-Seq. The enrichment suggests a complex
+interplay of regulatory mechanisms underlying the observed gene
+expression changes in uveitis.</p>
+<p><strong>2. Regulatory Network Analysis:</strong></p>
+<p>Several TFs emerge as potential upstream regulators. RELB, an NF-κB
+family member, is strongly implicated due to its association with genes
+like <em>GBP5</em> and <em>CD274</em>, involved in immune responses.
+These genes are enriched in pathways related to interferon signaling
+(Reactome, GO), complement activation (Reactome, WikiPathways, GO), and
+cell adhesion molecules (KEGG). SMAD4, a key TGF-β signaling component,
+also shows significant enrichment, regulating genes involved in focal
+adhesion, ECM-receptor interaction, and cytoskeleton organization (KEGG,
+WikiPathways, Reactome). The overlap of RELB and SMAD4 target genes in
+pathways like ECM-receptor interaction and cell adhesion molecules
+suggests coordinated regulation. TFAP2C (cell differentiation and
+development) and POU5F1 (pluripotency) may play more subtle,
+context-setting roles in the immune response.</p>
+</div>
+</div>
+<div id="protein-protein-interaction" class="section level2">
+<h2>8. Protein-Protein Interaction</h2>
+<div id="protein-protein-interaction-network-analysis"
+class="section level3">
+<h3>8.1. Protein-Protein Interaction Network Analysis</h3>
+<p>The genes with high interactions scores are scored for network
+properties and a combined score is calculated to identify important
+genes. Top 10 genes are shown below.</p>
+<pre><code>## ## Important Genes based on Network Properties</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["node"],"name":[1],"type":["chr"],"align":["left"]},{"label":["combined_score_prop"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["degree"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["betweenness"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["closeness"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["eigenvector_centrality"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["degree_scaled"],"name":[7],"type":["dbl[,1]"],"align":["right"]},{"label":["betweenness_scaled"],"name":[8],"type":["dbl[,1]"],"align":["right"]},{"label":["closeness_scaled"],"name":[9],"type":["dbl[,1]"],"align":["right"]},{"label":["eigenvector_scaled"],"name":[10],"type":["dbl[,1]"],"align":["right"]}],"data":[{"1":"FN1","2":"2.734623","3":"33","4":"511.9570","5":"0.005813953","6":"0.6747993","7":"2.889207","8":"4.4401121","9":"2.145927","10":"1.4632439","_rn_":"1","_row":"FN1"},{"1":"ANKRD22","2":"2.422102","3":"28","4":"435.8111","5":"0.005586592","6":"0.8168636","7":"2.252375","8":"3.6764054","9":"1.799462","10":"1.9601652","_rn_":"2","_row":"ANKRD22"},{"1":"CD274","2":"2.243023","3":"32","4":"225.3325","5":"0.005747126","6":"1.0000000","7":"2.761840","8":"1.5654058","9":"2.044093","10":"2.6007513","_rn_":"3","_row":"CD274"},{"1":"FCGR1A","2":"1.791925","3":"28","4":"159.1573","5":"0.005494505","6":"0.9295958","7":"2.252375","8":"0.9017010","9":"1.659136","10":"2.3544870","_rn_":"4","_row":"FCGR1A"},{"1":"UTY","2":"1.713531","3":"19","4":"541.3383","5":"0.005319149","6":"0.1482186","7":"1.106077","8":"4.7347921","9":"1.391918","10":"-0.3786629","_rn_":"5","_row":"UTY"},{"1":"C1QC","2":"1.710234","3":"27","4":"181.9124","5":"0.005376344","6":"0.8588216","7":"2.125008","8":"1.1299230","9":"1.479075","10":"2.1069286","_rn_":"6","_row":"C1QC"},{"1":"C1QA","2":"1.691353","3":"29","4":"111.2754","5":"0.005434783","6":"0.9414855","7":"2.379741","8":"0.4214685","9":"1.568127","10":"2.3960757","_rn_":"7","_row":"C1QA"},{"1":"C1QB","2":"1.613111","3":"28","4":"118.6311","5":"0.005347594","6":"0.9053167","7":"2.252375","8":"0.4952423","9":"1.435263","10":"2.2695621","_rn_":"8","_row":"C1QB"},{"1":"ANK2","2":"1.553127","3":"21","4":"359.6521","5":"0.005586592","6":"0.2964035","7":"1.360810","8":"2.9125674","9":"1.799462","10":"0.1396674","_rn_":"9","_row":"ANK2"},{"1":"SERPING1","2":"1.537007","3":"27","4":"103.9061","5":"0.005319149","6":"0.9093142","7":"2.125008","8":"0.3475573","9":"1.391918","10":"2.2835449","_rn_":"10","_row":"SERPING1"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+<div id="protein-protein-interaction-network-analysis-plot"
+class="section level3">
+<h3>8.2. Protein-Protein Interaction Network Analysis Plot</h3>
+<p>Protein-Protein Interaction Network Analysis (STRING) results plot,
+filtered</p>
+<p><img src="report_template_files/figure-html/string_filtered_analysis_plot%7D-1.png" width="672" /></p>
+</div>
+<div id="string-llm-agent-response" class="section level3">
+<h3>8.3. STRING LLM Agent Response</h3>
+<p>Agent 6: <strong>1. Summary of Interactions:</strong></p>
+<p>The STRING analysis reveals a highly interconnected network of
+proteins, predominantly centered around fibronectin (FN1), ankyrin
+repeat domain 22 (ANKRD22), and CD274 (PD-L1), all exhibiting high
+combined network scores. FN1’s interactions suggest roles in
+extracellular matrix (ECM) remodeling and cytoskeletal organization.
+ANKRD22 shows extensive connections with immune-related genes,
+indicating involvement in immune regulation. CD274’s interactions
+highlight the importance of immune checkpoint regulation. These
+interactions, particularly the high scores, suggest a complex interplay
+between immune response, ECM dynamics, and cell signaling in
+uveitis.</p>
+<p><strong>2. Key Interactions and Network Topology:</strong></p>
+<p>Based on the combined network scores, FN1 (2.734623), ANKRD22
+(2.422102), CD274 (2.243023), and FCGR1A (1.791925) emerge as central
+nodes. FN1 interacts with numerous proteins, including MYOM2
+(cytoskeletal protein), suggesting alterations in cell structure and
+potentially impacting immune cell infiltration. ANKRD22 interacts with
+several immune-related proteins (e.g., CD274, GBP5, IFI27, APOL4),
+suggesting a role in modulating immune responses. CD274, a key immune
+checkpoint molecule, interacts with several other immune-related
+proteins, indicating a significant role in immune regulation. The
+network displays a scale-free topology, with these few hub proteins
+connected to many others, and many proteins with fewer connections. This
+modular organization suggests distinct functional modules interacting to
+contribute to the overall uveitis phenotype. The high combined scores
+reflect the strength and significance of these interactions within the
+network.</p>
+<p><strong>4. Cross-Analysis:</strong></p>
+<p>Several connections exist between the high-scoring proteins and the
+enriched pathways. FN1, COL4A3, and COL4A4 are present in multiple
+pathways related to ECM-receptor interaction, focal adhesion, and
+collagen biosynthesis, aligning with FN1’s role in ECM remodeling. C1QA,
+C1QB, and C1QC are central to complement activation pathways, reflecting
+the importance of the complement system in uveitis. CD274 and PDCD1LG2
+are key players in immune checkpoint pathways, consistent with their
+roles in immune regulation.</p>
+<p>Several ChEA transcription factors regulate genes involved in these
+interactions. RELB regulates GBP5 and CD274, both involved in immune
+responses. SMAD4 regulates FN1, ANK2, and ETV7, all involved in ECM
+remodeling and immune regulation. TFAP2C regulates several genes
+involved in immune regulation and cell signaling. POU5F1 regulates genes
+involved in development and differentiation. These transcription factors
+could be acting as upstream regulators of the observed interactions.</p>
+</div>
+</div>
+<div id="full-integrated-network" class="section level2">
+<h2>9. Full Integrated Network</h2>
+<p>The system representation from each of the 6 agents enrichment
+analysis responses are integrated to build the below network. This is
+the network that was used for deciphering the system model.</p>
+<div class="visNetwork html-widget html-fill-item" id="htmlwidget-4a9cb01d5ed48410af0a" style="width:768px;height:576px;"></div>
+<script type="application/json" data-for="htmlwidget-4a9cb01d5ed48410af0a">{"x":{"nodes":{"id":["FN1","C1QA","C1QB","CD274","SERPING1","ANK2","ANKRD22","ATF3","GBP5","FCGR1A","RELB","SMAD4","TFAP2C","POU5F1","Acute Inflammatory Response","Cell Junction Disassembly","Cell Adhesion Molecules","Extracellular Matrix","Focal Adhesion","ECM-Receptor Interaction","Collagen Biosynthesis and Modifying Enzymes","NRCAM","Complement Activation","Immune Response","T Cell Costimulation","ROR1","Actin Filament-Based Movement","Cell Movement and Contraction (actin-based)","Myeloid Leukocyte Activation","Wnt Signaling","Pyroptosis"],"group":["Gene","Gene","Gene","Gene","Gene","Gene","Gene","Gene","Gene","Gene","Process","Process","Process","Process","Process","Process","Process","Process","Process","Process","Process","Gene","Process","Process","Process","Gene","Process","Process","Process","Process","Process"],"label":["FN1","C1QA","C1QB","CD274","SERPING1","ANK2","ANKRD22","ATF3","GBP5","FCGR1A","RELB","SMAD4","TFAP2C","POU5F1","Acute Inflammatory Response","Cell Junction Disassembly","Cell Adhesion Molecules","Extracellular Matrix","Focal Adhesion","ECM-Receptor Interaction","Collagen Biosynthesis and Modifying Enzymes","NRCAM","Complement Activation","Immune Response","T Cell Costimulation","ROR1","Actin Filament-Based Movement","Cell Movement and Contraction (actin-based)","Myeloid Leukocyte Activation","Wnt Signaling","Pyroptosis"]},"edges":{"from":["FN1","FN1","FN1","FN1","FN1","FN1","FN1","FN1","FN1","FN1","FN1","FN1","FN1","FN1","C1QA","C1QA","C1QA","C1QA","C1QA","C1QA","C1QA","C1QA","C1QA","C1QB","C1QB","C1QB","C1QB","C1QB","C1QB","C1QB","C1QB","CD274","CD274","CD274","CD274","CD274","CD274","CD274","CD274","CD274","CD274","SERPING1","SERPING1","SERPING1","SERPING1","SERPING1","SERPING1","SERPING1","SERPING1","SERPING1","ANK2","ANK2","ANK2","ANK2","ANK2","ANKRD22","ANKRD22","ANKRD22","ANKRD22","ANKRD22","ANKRD22","ANKRD22","ANKRD22","ATF3","ATF3","ATF3","ATF3","ATF3","ATF3","ATF3","GBP5","GBP5","GBP5","GBP5","GBP5","GBP5","GBP5","GBP5","GBP5","FCGR1A","FCGR1A","FCGR1A","FCGR1A","FCGR1A","FCGR1A","FCGR1A","FCGR1A","FCGR1A","RELB","RELB","SMAD4","SMAD4","SMAD4","TFAP2C","TFAP2C","POU5F1"],"to":["Acute Inflammatory Response","Cell Junction Disassembly","Cell Adhesion Molecules","Extracellular Matrix","Focal Adhesion","ECM-Receptor Interaction","Collagen Biosynthesis and Modifying Enzymes","SMAD4","C1QA","C1QB","ANK2","CD274","FCGR1A","NRCAM","Complement Activation","Immune Response","C1QB","SERPING1","FCGR1A","GBP5","ANKRD22","ATF3","CD274","Complement Activation","C1QA","SERPING1","FCGR1A","GBP5","ANKRD22","ATF3","CD274","T Cell Costimulation","Immune Response","RELB","FCGR1A","GBP5","ANK2","ANKRD22","ATF3","FN1","ROR1","Complement Activation","C1QA","C1QB","FCGR1A","GBP5","ANKRD22","FN1","ATF3","CD274","Actin Filament-Based Movement","Cell Movement and Contraction (actin-based)","NRCAM","FN1","CD274","Myeloid Leukocyte Activation","SMAD4","GBP5","C1QA","C1QB","SERPING1","FCGR1A","CD274","Wnt Signaling","FN1","C1QA","C1QB","CD274","GBP5","SERPING1","Pyroptosis","Immune Response","RELB","ANKRD22","C1QA","C1QB","SERPING1","CD274","ATF3","Immune Response","Complement Activation","C1QA","C1QB","SERPING1","CD274","GBP5","ANKRD22","ROR1","GBP5","CD274","Focal Adhesion","ECM-Receptor Interaction","FN1","Cell Adhesion Molecules","NRCAM","ROR1"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","size":20,"font":{"size":24}},"manipulation":{"enabled":false},"edges":{"arrows":"to"}},"groups":["Gene","Process"],"width":null,"height":null,"idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":null,"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":true,"hoverNearest":false,"degree":1,"algorithm":"all","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":false,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="download" class="section level2">
+<h2>10. Download</h2>
+<p>Here is the list of all original results, along with filtered
+results, computed results, integrated results and LLM responses:</p>
+<p><a href='enrichment_results/system_model.txt'>Click to open
+system_model.txt in new tab</a>
+<br><a href='enrichment_results/final_response.txt'>Click to open
+final_response.txt in new tab</a>
+<br><a href='enrichment_results/agent_responses.txt'>Click to open
+agent_responses.txt in new tab</a>
+<br><a href='enrichment_results/kegg_enrichment_original.txt'>Click to
+open kegg_enrichment_original.txt in new tab</a>
+<br><a href='enrichment_results/kegg_enrichment_filtered.txt'>Click to
+open kegg_enrichment_filtered.txt in new tab</a>
+<br><a href='enrichment_results/wp_enrichment_original.txt'>Click to
+open wp_enrichment_original.txt in new tab</a>
+<br><a href='enrichment_results/wp_enrichment_filtered.txt'>Click to
+open wp_enrichment_filtered.txt in new tab</a>
+<br><a href='enrichment_results/reactome_enrichment_original.txt'>Click
+to open reactome_enrichment_original.txt in new tab</a>
+<br><a href='enrichment_results/reactome_enrichment_filtered.txt'>Click
+to open reactome_enrichment_filtered.txt in new tab</a>
+<br><a href='enrichment_results/chea_enrichment_original.txt'>Click to
+open chea_enrichment_original.txt in new tab</a>
+<br><a href='enrichment_results/chea_enrichment_filtered.txt'>Click to
+open chea_enrichment_filtered.txt in new tab</a>
+<br><a href='enrichment_results/string_interactions_original.txt'>Click
+to open string_interactions_original.txt in new tab</a>
+<br><a href='enrichment_results/string_interactions_filtered.txt'>Click
+to open string_interactions_filtered.txt in new tab</a>
+<br><a href='enrichment_results/string_network_properties.txt'>Click to
+open string_network_properties.txt in new tab</a>
+<br><a href='enrichment_results/pathway_comparison.txt'>Click to open
+pathway_comparison.txt in new tab</a>
+<br><a href='enrichment_results/integrated_network.txt'>Click to open
+integrated_network.txt in new tab</a> <br></p>
+</div>
+<div id="analysis-parameters" class="section level2">
+<h2>11. Analysis Parameters</h2>
+<p>The following parameters were used for this analysis:</p>
+<pre><code>## [1] &quot;Experimental Design:&quot;</code></pre>
+<pre><code>## Ninety subjects with uveitis including axial spondyloarthritis (n = 17), sarcoidosis (n = 13), inflammatory bowel disease (n = 12), tubulointerstitial nephritis with uveitis (n = 10), or idiopathic uveitis (n = 38) as well as 18 healthy controls were enrolled, predominantly at Oregon Health &amp; Science University. RNA-Seq data generated from peripheral, whole blood was used to indentify differentially expressed genes between Uveitis patients and healthy controls.</code></pre>
+<table>
+<caption>
+Analysis Parameters
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Parameter
+</th>
+<th style="text-align:left;">
+Value
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+gene_type
+</td>
+<td style="text-align:left;">
+ENSEMBL
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+organism
+</td>
+<td style="text-align:left;">
+human
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+input_type
+</td>
+<td style="text-align:left;">
+deseq
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+deg_file
+</td>
+<td style="text-align:left;">
+/Users/nagarajanv/OneDrive - National Institutes of
+Health/Research/smart-enrichment/Ian/Ian/data/uveitis-PIIS0002939421000271-deg.txt
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+pvalue
+</td>
+<td style="text-align:left;">
+0.05
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ont
+</td>
+<td style="text-align:left;">
+BP
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+score_threshold
+</td>
+<td style="text-align:left;">
+0
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="session-info" class="section level2">
+<h2>12. Session Info</h2>
+<pre><code>## R version 4.4.1 (2024-06-14)
+## Platform: aarch64-apple-darwin20
+## Running under: macOS Ventura 13.7.3
+## 
+## Matrix products: default
+## BLAS:   /System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libBLAS.dylib 
+## LAPACK: /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.0
+## 
+## locale:
+## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+## 
+## time zone: America/New_York
+## tzcode source: internal
+## 
+## attached base packages:
+## [1] stats4    stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+##  [1] ggh4x_0.3.0                 knitr_1.48                  lubridate_1.9.3            
+##  [4] forcats_1.0.0               purrr_1.0.2                 tidyr_1.3.1                
+##  [7] tibble_3.2.1                ggplot2_3.5.1               tidyverse_2.0.0            
+## [10] openxlsx_4.2.7.1            rmarkdown_2.27              DESeq2_1.44.0              
+## [13] SummarizedExperiment_1.34.0 MatrixGenerics_1.16.0       matrixStats_1.3.0          
+## [16] GenomicRanges_1.56.1        GenomeInfoDb_1.40.1         kableExtra_1.4.0           
+## [19] progressr_0.14.0            visNetwork_2.1.2            igraph_2.0.3               
+## [22] STRINGdb_2.16.4             org.Hs.eg.db_3.19.1         AnnotationDbi_1.66.0       
+## [25] IRanges_2.38.1              S4Vectors_0.42.1            Biobase_2.64.0             
+## [28] BiocGenerics_0.50.0         enrichR_3.2                 ReactomePA_1.48.0          
+## [31] clusterProfiler_4.12.6      readr_2.1.5                 R6_2.5.1                   
+## [34] httr_1.4.7                  stringr_1.5.1               plyr_1.8.9                 
+## [37] dplyr_1.1.4                 furrr_0.3.1                 future_1.34.0              
+## 
+## loaded via a namespace (and not attached):
+##   [1] fs_1.6.4                bitops_1.0-7            enrichplot_1.24.4       devtools_2.4.5         
+##   [5] RColorBrewer_1.1-3      numDeriv_2016.8-1.1     profvis_0.3.8           tools_4.4.1            
+##   [9] utf8_1.2.4              lazyeval_0.2.2          apeglm_1.26.1           urlchecker_1.0.1       
+##  [13] withr_3.0.0             graphite_1.50.0         gridExtra_2.3           textshaping_0.4.0      
+##  [17] cli_3.6.3               scatterpie_0.2.4        labeling_0.4.3          sass_0.4.9             
+##  [21] mvtnorm_1.2-5           systemfonts_1.1.0       yulab.utils_0.1.7       gson_0.1.0             
+##  [25] DOSE_3.30.5             svglite_2.1.3           R.utils_2.12.3          parallelly_1.38.0      
+##  [29] WriteXLS_6.6.0          sessioninfo_1.2.2       plotrix_3.8-4           bbmle_1.0.25.1         
+##  [33] rstudioapi_0.16.0       RSQLite_2.3.7           generics_0.1.3          gridGraphics_0.5-1     
+##  [37] vroom_1.6.5             gtools_3.9.5            zip_2.3.1               GO.db_3.19.1           
+##  [41] Matrix_1.7-0            fansi_1.0.6             abind_1.4-5             R.methodsS3_1.8.2      
+##  [45] lifecycle_1.0.4         yaml_2.3.9              gplots_3.1.3.1          qvalue_2.36.0          
+##  [49] SparseArray_1.4.8       grid_4.4.1              blob_1.2.4              promises_1.3.0         
+##  [53] crayon_1.5.3            bdsmatrix_1.3-7         miniUI_0.1.1.1          lattice_0.22-6         
+##  [57] cowplot_1.1.3           KEGGREST_1.44.1         pillar_1.9.0            fgsea_1.30.0           
+##  [61] rjson_0.2.21            codetools_0.2-20        fastmatch_1.1-4         glue_1.7.0             
+##  [65] ggfun_0.1.5             data.table_1.15.4       remotes_2.5.0           vctrs_0.6.5            
+##  [69] png_0.1-8               treeio_1.28.0           gtable_0.3.5            gsubfn_0.7             
+##  [73] emdbook_1.3.13          cachem_1.1.0            xfun_0.45               S4Arrays_1.4.1         
+##  [77] mime_0.12               tidygraph_1.3.1         coda_0.19-4.1           ellipsis_0.3.2         
+##  [81] nlme_3.1-164            ggtree_3.12.0           usethis_3.0.0           bit64_4.0.5            
+##  [85] bslib_0.7.0             KernSmooth_2.23-24      colorspace_2.1-0        DBI_1.2.3              
+##  [89] tidyselect_1.2.1        bit_4.0.5               compiler_4.4.1          curl_6.0.1             
+##  [93] chron_2.3-61            httr2_1.0.1             graph_1.82.0            xml2_1.3.6             
+##  [97] DelayedArray_0.30.1     shadowtext_0.1.4        scales_1.3.0            caTools_1.18.2         
+## [101] rappdirs_0.3.3          digest_0.6.36           XVector_0.44.0          htmltools_0.5.8.1      
+## [105] pkgconfig_2.0.3         highr_0.11              fastmap_1.2.0           rlang_1.1.4            
+## [109] htmlwidgets_1.6.4       UCSC.utils_1.0.0        shiny_1.8.1.1           farver_2.1.2           
+## [113] jquerylib_0.1.4         jsonlite_1.8.8          BiocParallel_1.38.0     GOSemSim_2.30.2        
+## [117] R.oo_1.26.0             magrittr_2.0.3          GenomeInfoDbData_1.2.12 ggplotify_0.1.2        
+## [121] patchwork_1.2.0         munsell_0.5.1           Rcpp_1.0.12             ape_5.8                
+## [125] viridis_0.6.5           proto_1.0.0             sqldf_0.4-11            stringi_1.8.4          
+## [129] ggraph_2.2.1            zlibbioc_1.50.0         MASS_7.3-60.2           pkgbuild_1.4.4         
+## [133] parallel_4.4.1          listenv_0.9.1           ggrepel_0.9.5           Biostrings_2.72.1      
+## [137] graphlayouts_1.2.0      splines_4.4.1           hash_2.2.6.3            hms_1.1.3              
+## [141] locfit_1.5-9.10         reshape2_1.4.4          pkgload_1.4.0           evaluate_0.24.0        
+## [145] BiocManager_1.30.23     tzdb_0.4.0              tweenr_2.0.3            httpuv_1.6.15          
+## [149] polyclip_1.10-6         ggforce_0.4.2           xtable_1.8-4            reactome.db_1.88.0     
+## [153] tidytree_0.4.6          later_1.3.2             ragg_1.3.2              viridisLite_0.4.2      
+## [157] aplot_0.2.3             memoise_2.0.1           timechange_0.3.0        globals_0.16.3</code></pre>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
