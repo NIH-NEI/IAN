@@ -1,0 +1,918 @@
+---
+# This RMD ....
+# Authors : Vijay Nagarajan NEI/NIH, Junseok Jang NEI/NIH
+title: "`r title_extraction`" #Multi-Agent System Analysis Report"
+output:
+  html_document:
+    toc: true
+    toc_float:
+      collapsed: yes
+    self_contained: false
+    css: styles.css
+---
+
+```{r setup, include=FALSE}
+options(knitr.duplicate.label = "allow")
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+options(knitr.table.format = "html") # set to html table format
+```
+
+```{r packages, message=FALSE, warning=FALSE}
+#Install and load required R packages. Install the packages if you do not already have them installed
+library(rmarkdown)
+library(openxlsx)
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+library(ggh4x)
+library(igraph)
+library(dplyr)
+
+#sessionInfo()
+```
+
+## 1. Integrated Analysis Results
+This report summarizes the results of a multi-agent-AI-system (IAN) based analysis performed using the provided list of differentially expressed genes. Results after IAN integrated all the individual agents responses is provided below:
+
+### 1.1. High-Level Summary
+```{r high-level-summary}, results='asis', message=FALSE, warning=FALSE}
+# Extract the High-Level Summary section content
+high_level_summary <- stringr::str_extract(
+  final_response,
+  "(?s)(?<=High\\-Level Summary\\*\\*\\n\\n).*?(?=\\n\\n\\*\\*Step 7)"
+)
+
+# Check if the extraction was successful
+if (is.na(high_level_summary)) {
+  warning("Could not extract High-Level Summary content. Check the format of 'final_response' carefully.")
+  high_level_summary <- "" # Assign an empty string to avoid further errors
+}
+
+cat(high_level_summary)
+  
+```
+
+### 1.2. Affected Biological Processes
+```{r affected-processes}, results='asis', message=FALSE, warning=FALSE}
+affected_processes <- stringr::str_extract(
+  final_response,
+  "(?s)(?<=Integrate Agent Summaries, Pathways and other data\\*\\*\\n\\n).*?(?=\\n\\n\\*\\*Step 3|$)"
+)
+
+# Check if the extraction was successful
+if (is.na(affected_processes)) {
+  warning("Could not extract the section content. Check the format of 'final_response' carefully.")
+  affected_processes <- ""  # Assign an empty string to avoid further errors
+}
+
+# Apply HTML formatting for font size and font family
+#affected_processes <- paste0(
+#  "<div style='font-size:16px; font-family: Arial, sans-serif;'>",
+#  affected_processes,
+#  "</div>"
+#)
+
+# Print the extracted section (for verification)
+cat(affected_processes)
+```
+
+### 1.3. Potential Regulatory Networks
+```{r regulatory_networks}, results='asis', message=FALSE, warning=FALSE}
+
+# Extract the content from Step 4: Regulatory Network Analysis
+regulatory_network_analysis <- stringr::str_extract(
+  final_response,
+  "(?s)(?<=Regulatory Network Analysis\\*\\*\\n\\n).*?(?=\\n\\n\\*\\*Step 5)"
+)
+
+# Check if the extraction was successful
+if (is.na(regulatory_network_analysis)) {
+  warning("Could not extract the Regulatory Network Analysis section. Check the format of 'final_response' carefully.")
+  regulatory_network_analysis <- "" # Assign an empty string to avoid further errors
+}
+
+# Extract the "Potential Upstream Regulators" section
+potential_upstream_regulators <- stringr::str_extract(
+  final_response,
+  "(?s)(?<=Potential Upstream Regulators:\\*\\*\\n\\n).*?(?=\\n\\n\\*\\*Similar Systems)"
+)
+
+# Check if the extraction was successful
+if (is.na(potential_upstream_regulators)) {
+  warning("Could not extract the Potential Upstream Regulators section. Check the format of 'final_response' carefully.")
+  potential_upstream_regulators <- "" # Assign an empty string to avoid further errors
+}
+
+# Print the extracted content (for verification)
+cat(regulatory_network_analysis)
+
+# Print the extracted content (for verification)
+cat(potential_upstream_regulators)
+
+```
+
+### 1.4. Potential Hub Genes
+```{r hub_genes}, results='asis', message=FALSE, warning=FALSE}
+# Extract the "Potential Upstream Regulators" section
+potential_hub_genes <- stringr::str_extract(
+  final_response,
+  "(?s)(?<=Hub Gene Identification:\\*\\*\\n\\n).*?(?=\\n\\n\\*\\*Drug Target/Marker/Kinase/Ligand Analysis:)"
+)
+
+# Check if the extraction was successful
+if (is.na(potential_hub_genes)) {
+  warning("Could not extract the Potential Upstream Regulators section. Check the format of 'final_response' carefully.")
+  potential_hub_genes <- "" # Assign an empty string to avoid further errors
+}
+
+# Print the extracted content (for verification)
+cat(potential_hub_genes)
+
+
+```
+
+### 1.5. Similar Systems
+```{r similar_systems}, results='asis', message=FALSE, warning=FALSE}
+# Extract the Similar Systems section content
+similar_systems <- stringr::str_extract(
+  final_response,
+  "(?s)(?<=Similar Systems:\\*\\*\\n\\n).*?(?=\\n\\n\\*\\*Hub Gene Identification)"
+)
+
+# Check if the extraction was successful
+if (is.na(similar_systems)) {
+  warning("Could not extract the Similar Systems section. Check the format of 'final_response' carefully.")
+  similar_systems <- "" # Assign an empty string to avoid further errors
+}
+
+# Print the extracted content (for verification)
+cat(similar_systems)
+```
+
+### 1.6. Novelty Exploration
+```{r novelty}, results='asis', message=FALSE, warning=FALSE}
+# Extract the Novelty Exploration section content
+novelty_exploration <- stringr::str_extract(
+  final_response,
+  "(?s)(?<=Novelty Exploration:\\*\\*\\n\\n).*?(?=\\n\\n\\*\\*Step 6)"
+)
+
+# Check if the extraction was successful
+if (is.na(novelty_exploration)) {
+  warning("Could not extract the Novelty Exploration section. Check the format of 'final_response' carefully.")
+  novelty_exploration <- "" # Assign an empty string to avoid further errors
+}
+
+# Print the extracted content (for verification)
+cat(novelty_exploration)
+```
+
+### 1.7. Download Full Analysis Report
+
+Download the Full Integrated IAN Analysis Report Here:
+
+```{r full_response_file, results='asis', message=FALSE, warning=FALSE}
+file_path <- "enrichment_results/final_response.txt" # relative file path
+download_link <- paste0("<a href='", file_path, "'>Open full final_response.txt text in new tab</a>")
+
+cat(download_link)
+```
+
+## 2. System Model
+IAN takes the integrated full analysis report and the integrated system network data from each of the agents response and puts forward a system model, which includes the system overview, mechanistic model and an hypothesis.
+
+### 2.1. System Model and Overview
+
+```{r system_model, results='asis', message=FALSE, warning=FALSE}
+system_model_network
+
+# Extract the System Overview section content
+system_overview <- stringr::str_extract(
+  system_model_response,
+  "(?s)(?<=\\*System Overview\\*\\n\\n).*?(?=\\n\\n\\*Potential Upstream)"
+)
+
+# Check if the extraction was successful
+if (is.na(system_overview)) {
+  warning("Could not extract the System Overview section. Check the format of 'system_overview' carefully.")
+  system_overview <- "" # Assign an empty string to avoid further errors
+}
+
+# Print the extracted content (for verification)
+cat(system_overview)
+```
+
+### 2.2. Mechanistic Model
+
+```{r mechanistic_model, results='asis', message=FALSE, warning=FALSE}
+# Extract the Mechanistic Model section content
+mechanistic_model <- stringr::str_extract(
+  system_model_response,
+  "(?s)(?<=\\*Mechanistic Model\\*\\n\\n).*?(?=\\n\\n\\*System Model)"
+)
+
+# Check if the extraction was successful
+if (is.na(mechanistic_model)) {
+  warning("Could not extract the Mechanistic Model section. Check the format of 'final_response' carefully.")
+  mechanistic_model <- "" # Assign an empty string to avoid further errors
+}
+
+# Print the extracted content (for verification)
+cat(mechanistic_model)
+```
+
+
+### 2.3. Hypothesis
+
+```{r hypothesis, results='asis', message=FALSE, warning=FALSE}
+# Extract the Hypothesis section content
+hypothesis <- stringr::str_extract(
+  system_model_response,
+  "(?s)(?<=\\*Hypothesis\\*\\n\\n).*?(?=$)"
+)
+
+# Check if the extraction was successful
+if (is.na(hypothesis)) {
+  warning("Could not extract the Hypothesis section. Check the format of 'final_response' carefully.")
+  hypothesis <- "" # Assign an empty string to avoid further errors
+}
+
+# Print the extracted content (for verification)
+cat(hypothesis)
+```
+
+### 2.4. Download System Model Report
+
+Download the Full System Model Report Here:
+
+```{r full_response_file, results='asis', message=FALSE, warning=FALSE}
+file_path <- "enrichment_results/system_model.txt" # relative file path
+download_link <- paste0("<a href='", file_path, "'>Open full system_model.txt text in new tab</a>")
+
+cat(download_link)
+```
+
+## 3. KEGG Enrichment
+IAN runs enrichment analysis, filters the significant terms, prepares metadata and generates the LLM based agent response, analyzing the data like a human expert.
+
+### 3.1. Kegg Enrichment Results
+KEGG pathway enrichment analysis results, filtered
+
+```{r kegg_filtered}, message=FALSE, warning=FALSE}
+# Load the final response from the file
+output_dir <- "enrichment_results"
+kegg_filtered <- file.path(output_dir, "kegg_enrichment_filtered.txt")
+
+# Read the data
+data <- read_tsv(kegg_filtered)
+
+# Sort data by pvalue
+data <- data %>%
+  arrange(pvalue)
+
+# Calculate -log10(pvalue)
+data <- data %>%
+  mutate(neglog10p = -log10(pvalue))
+
+paged_table(as.data.frame(data))
+```
+
+### 3.2. Kegg Enrichment Analysis Plot
+KEGG pathway enrichment analysis results, filtered - plot
+
+```{r kegg_filtered_plot, results='asis', fig.width=8, fig.height=6, message=FALSE, warning=FALSE}
+# Plot the data
+kegg_plot <- data %>%
+  ggplot(aes(x = neglog10p, y = fct_reorder(Description, neglog10p))) +
+  geom_col(fill = "peachpuff") +
+  labs(
+       x = "-log10(pvalue)",
+       y = "Pathways",
+       title = "Top Enriched KEGG Pathways"
+       ) +
+       theme_minimal()
+
+print(kegg_plot) # Explicitly print the plot
+
+# Save the plot to a file
+plot_filename <- "kegg_enrichment_plot.png"
+ggsave(plot_filename, plot = kegg_plot, width = 8, height = 6, dpi = 300)
+
+
+# Create the download link
+download_link <- paste0("<a href='", plot_filename, "' download>Download Plot as PNG</a>")
+
+cat(download_link)
+
+```
+
+### 3.3. KEGG LLM Agent Response
+
+```{r kegg_agent, results='asis', fig.width=8, fig.height=6, message=FALSE, warning=FALSE}
+# Load the agent responses from the file
+output_dir <- "enrichment_results"
+agent_response_file <- file.path(output_dir, "agent_responses.txt")
+
+# Read the agent responses from the file, line by line
+agent_response_lines <- readLines(agent_response_file)
+
+# Combine the lines into a single string
+agent_response <- paste(agent_response_lines, collapse = "\n")
+
+# Extract the Agent 2 summary section content
+agent_2_summary <- stringr::str_extract(
+  agent_response,
+  "(?s)Agent 2:\\n\\*\\*1\\. Summary and Categorization:\\*\\*.*?\\n\\n(?=\\*\\*2\\. Known Roles and Upstream Regulators:)"
+)
+  
+# Check if the extraction was successful
+if (is.na(agent_2_summary)) {
+  warning("Could not extract the Agent 2 summary section. Check the format of 'final_response' carefully.")
+  agent_2_summary <- "" # Assign an empty string to avoid further errors
+}
+
+# Print the extracted content (for verification)
+cat(agent_2_summary)
+
+```
+
+## 4. WikiPathway Enrichment
+IAN runs enrichment analysis, filters the significant terms, prepares metadata and generates the LLM based agent response, analyzing the data like a human expert.
+
+### 4.1. WikiPathway Enrichment Results
+WikiPathway enrichment analysis results, filtered
+
+```{r wp_filtered}, message=FALSE, warning=FALSE}
+# Load the final response from the file
+output_dir <- "enrichment_results"
+wp_filtered <- file.path(output_dir, "wp_enrichment_filtered.txt")
+
+# Read the data
+data <- read_tsv(wp_filtered)
+
+# Sort data by pvalue
+data <- data %>%
+  arrange(pvalue)
+
+# Calculate -log10(pvalue)
+data <- data %>%
+  mutate(neglog10p = -log10(pvalue))
+
+paged_table(as.data.frame(data))
+```
+
+### 4.2. WikiPathway Enrichment Analysis Plot
+WikiPathway enrichment analysis results, filtered - plot
+
+```{r wp_filtered_plot}, results='asis', fig.width=8, fig.height=6, message=FALSE, warning=FALSE}
+# Plot the data
+wp_plot <- data %>%
+  ggplot(aes(x = neglog10p, y = fct_reorder(Description, neglog10p))) +
+  geom_col(fill = "mediumpurple3") +
+  labs(
+       x = "-log10(pvalue)",
+       y = "Pathways",
+       title = "Top Enriched WikiPathways"
+       ) +
+       theme_minimal()
+
+print(wp_plot) # Explicitly print the plot
+
+# Save the plot to a file
+plot_filename <- "wp_enrichment_plot.png"
+ggsave(plot_filename, plot = wp_plot, width = 8, height = 6, dpi = 300)
+
+
+# Create the download link
+download_link <- paste0("<a href='", plot_filename, "' download>Download Plot as PNG</a>")
+
+cat(download_link)
+```
+
+### 4.3. WikiPathway LLM Agent Response
+
+```{r wp_agent, results='asis', fig.width=8, fig.height=6, message=FALSE, warning=FALSE}
+# Load the agent responses from the file
+output_dir <- "enrichment_results"
+agent_response_file <- file.path(output_dir, "agent_responses.txt")
+
+# Read the agent responses from the file, line by line
+agent_response_lines <- readLines(agent_response_file)
+
+# Combine the lines into a single string
+agent_response <- paste(agent_response_lines, collapse = "\n")
+
+# Extract the Agent 2 summary section content
+agent_1_summary <- stringr::str_extract(
+  agent_response,
+  "(?s)Agent 1:\\n\\*\\*1\\. Summary and Categorization:\\*\\*.*?\\n\\n(?=\\*\\*2\\. Known Roles and Upstream Regulators:)"
+)
+
+# Check if the extraction was successful
+if (is.na(agent_1_summary)) {
+  warning("Could not extract the Agent 2 summary section. Check the format of 'final_response' carefully.")
+  agent_1_summary <- "" # Assign an empty string to avoid further errors
+}
+
+# Print the extracted content (for verification)
+cat(agent_1_summary)
+
+```
+
+## 5. Reactome Enrichment
+
+### 5.1. Reactome Pathways Enrichment Results
+Reactome Pathways enrichment analysis results, filtered
+
+```{r reactome_filtered}, message=FALSE, warning=FALSE}
+# Load the final response from the file
+output_dir <- "enrichment_results"
+reactome_filtered <- file.path(output_dir, "reactome_enrichment_filtered.txt")
+
+# Read the data
+data <- read_tsv(reactome_filtered)
+
+# Sort data by pvalue
+data <- data %>%
+  arrange(pvalue)
+
+# Calculate -log10(pvalue)
+data <- data %>%
+  mutate(neglog10p = -log10(pvalue))
+
+paged_table(as.data.frame(data))
+```
+
+### 5.2. Reactome Pathways Enrichment Analysis Plot
+Reactome Pathways enrichment analysis results, filtered - plot
+
+```{r reactome_filtered_plot}, message=FALSE, warning=FALSE}
+# Plot the data
+
+# Keep only top 10 rows
+data <- head(data, 20)
+
+# Define the maximum length for pathway names
+max_length <- 75  # Adjust this value as needed
+
+# Truncate the 'Description' column, adding "..." if truncated
+data <- data %>%
+  mutate(Description = ifelse(str_length(Description) > max_length,
+                              paste0(str_sub(Description, 1, max_length), "..."),
+                              Description))
+
+data %>%
+  ggplot(aes(x = neglog10p, y = fct_reorder(Description, neglog10p))) +
+  geom_col(fill = "thistle") +
+  labs(
+       x = "-log10(pvalue)",
+       y = "Pathways",
+       title = "Top Enriched Reactome Pathways"
+       ) +
+       theme_minimal()
+
+```
+
+### 5.3. Reactome Pathways LLM Agent Response
+
+```{r reactome_agent, results='asis', fig.width=8, fig.height=6, message=FALSE, warning=FALSE}
+# Load the agent responses from the file
+output_dir <- "enrichment_results"
+agent_response_file <- file.path(output_dir, "agent_responses.txt")
+
+# Read the agent responses from the file, line by line
+agent_response_lines <- readLines(agent_response_file)
+
+# Combine the lines into a single string
+agent_response <- paste(agent_response_lines, collapse = "\n")
+
+# Extract the Agent 3 summary section content
+agent_3_summary <- stringr::str_extract(
+  agent_response,
+  "(?s)Agent 3:\\n\\*\\*1\\. Summary and Categorization:\\*\\*.*?\\n\\n(?=\\*\\*2\\. Known Roles and Upstream Regulators:)"
+)
+
+# Check if the extraction was successful
+if (is.na(agent_3_summary)) {
+  warning("Could not extract the Agent 2 summary section. Check the format of 'final_response' carefully.")
+  agent_3_summary <- "" # Assign an empty string to avoid further errors
+}
+
+# Print the extracted content (for verification)
+cat(agent_3_summary)
+
+```
+
+## 6. Gene Ontology Enrichment
+
+### 6.1. Gene Ontology Enrichment Results
+
+Gene Ontology enrichment analysis results, filtered
+
+```{r go_filtered}, message=FALSE, warning=FALSE}
+# Load the final response from the file
+output_dir <- "enrichment_results"
+go_filtered <- file.path(output_dir, "go_enrichment_filtered.txt")
+
+# Read the data
+data <- read_tsv(go_filtered)
+
+# Sort data by pvalue
+data <- data %>%
+  arrange(pvalue)
+
+# Calculate -log10(pvalue)
+data <- data %>%
+  mutate(neglog10p = -log10(pvalue))
+
+paged_table(as.data.frame(data))
+```
+
+### 6.2. Gene Ontology Enrichment Analysis Plot
+Gene Ontology enrichment analysis results, filtered - plot  - Top 20 Terms
+
+```{r go_filtered_plot}, message=FALSE, warning=FALSE}
+# Plot the data
+# Keep only top 10 rows
+data <- head(data, 20)
+
+# Plot the data
+plot <- data %>%
+  ggplot(aes(x = neglog10p, y = fct_reorder(Description, neglog10p))) +
+  geom_col(fill = "palegreen4") +
+  labs(
+       x = "-log10(pvalue)",
+       y = "GO Terms",
+       title = "Top Enriched GO Terms"
+       ) +
+       theme_minimal()+
+  scale_y_discrete(labels = function(x) str_wrap(x, width = 60), 
+                   guide = "axis_nested", 
+                   expand = expansion(mult = c(0.01, 0.01))) +
+  theme(axis.text.y = element_text(lineheight = 0.8))
+print(plot)
+
+```
+
+### 6.3. GO LLM Agent Response
+
+```{r go_agent, results='asis', fig.width=8, fig.height=6, message=FALSE, warning=FALSE}
+# Load the agent responses from the file
+output_dir <- "enrichment_results"
+agent_response_file <- file.path(output_dir, "agent_responses.txt")
+
+# Read the agent responses from the file, line by line
+agent_response_lines <- readLines(agent_response_file)
+
+# Combine the lines into a single string
+agent_response <- paste(agent_response_lines, collapse = "\n")
+
+# Extract the Agent 5 summary section content
+agent_5_summary <- stringr::str_extract(
+  agent_response,
+  "(?s)Agent 5:\\n\\*\\*1\\. Summary and Categorization:\\*\\*.*?\\n\\n(?=\\*\\*2\\. Known Roles and Upstream Regulators:)"
+)
+
+# Check if the extraction was successful
+if (is.na(agent_5_summary)) {
+  warning("Could not extract the Agent 2 summary section. Check the format of 'final_response' carefully.")
+  agent_5_summary <- "" # Assign an empty string to avoid further errors
+}
+
+# Print the extracted content (for verification)
+cat(agent_5_summary)
+
+```
+
+## 7. Transcription Factor Enrichment
+
+### 7.1. Transcription Factor (ChEA) enrichment results
+Transcription Factor (ChEA) enrichment analysis results, filtered
+
+```{r chea_filtered}, message=FALSE, warning=FALSE}
+# Load the final response from the file
+output_dir <- "enrichment_results"
+chea_filtered <- file.path(output_dir, "chea_enrichment_filtered.txt")
+
+# Read the data
+data <- read_tsv(chea_filtered)
+
+# Sort data by pvalue
+data <- data %>%
+  arrange(P.value)
+
+# Calculate -log10(pvalue)
+data <- data %>%
+  mutate(neglog10p = -log10(P.value))
+
+paged_table(as.data.frame(data))
+```
+
+### 7.2. Transcription Factor (ChEA) Enrichment Analysis Plot
+Transcription Factor (ChEA) enrichment analysis results, filtered - plot
+
+```{r chea_filtered_plot}, message=FALSE, warning=FALSE}
+# Plot the data
+# Keep only top 10 rows
+data <- head(data, 20)
+
+# Plot the data
+plot <- data %>%
+  ggplot(aes(x = neglog10p, y = fct_reorder(Term, neglog10p))) +
+  geom_col(fill = "deepskyblue") +
+  labs(
+       x = "-log10(pvalue)",
+       y = "Tanscription Factors",
+       title = "Top Enriched Transcription Factors (ChEA)"
+       ) +
+       theme_minimal()+
+  scale_y_discrete(labels = function(x) str_wrap(x, width = 60), 
+                   guide = "axis_nested", 
+                   expand = expansion(mult = c(0.01, 0.01))) +
+  theme(axis.text.y = element_text(lineheight = 0.8))
+print(plot)
+
+```
+
+### 7.3. ChEA LLM Agent Response
+
+```{r chea_agent, results='asis', fig.width=8, fig.height=6, message=FALSE, warning=FALSE}
+# Load the agent responses from the file
+output_dir <- "enrichment_results"
+agent_response_file <- file.path(output_dir, "agent_responses.txt")
+
+# Read the agent responses from the file, line by line
+agent_response_lines <- readLines(agent_response_file)
+
+# Combine the lines into a single string
+agent_response <- paste(agent_response_lines, collapse = "\n")
+
+# Extract the Agent 4 summary and regulatory network analysis section content
+agent_4_summary <- stringr::str_extract(
+  agent_response,
+  "(?s)Agent 4:\\n\\*\\*1\\. Summary of Enriched Transcription Factors:\\*\\*.*?\\n\\n\\*\\*2\\. Regulatory Network Analysis:\\*\\*.*?\\n\\n(?=\\*\\*3\\. Novel Interactions:)"
+)
+
+# Check if the extraction was successful
+if (is.na(agent_4_summary)) {
+  warning("Could not extract the Agent 2 summary section. Check the format of 'final_response' carefully.")
+  agent_4_summary <- "" # Assign an empty string to avoid further errors
+}
+
+# Print the extracted content (for verification)
+cat(agent_4_summary)
+
+```
+
+## 8. Protein-Protein Interaction
+
+```{r string_filtered}, message=FALSE, warning=FALSE}
+# Load the final response from the file
+output_dir <- "enrichment_results"
+string_filtered <- file.path(output_dir, "string_interactions_filtered.txt")
+
+# Read the data
+data <- read_tsv(string_filtered)
+
+# Sort data by pvalue
+data <- data %>%
+  arrange(desc(combined_score))
+
+# Calculate -log10(pvalue)
+#data <- data %>%
+#  mutate(neglog10p = -log10(P.value))
+
+# paged_table(as.data.frame(data))
+```
+
+### 8.1. Protein-Protein Interaction Network Analysis
+The genes with high interactions scores are scored for network properties and a combined score is calculated to identify important genes. Top 10 genes are shown below.
+
+```{r string_filtered_analysis}, message=FALSE, warning=FALSE}
+library(igraph)
+# Create graph object
+graph <- graph_from_data_frame(data[, 1:2], directed = FALSE)
+
+#Remove duplicate edges
+graph <- igraph::simplify(graph, remove.multiple = TRUE, remove.loops = TRUE)
+
+# Calculate network properties
+degree <- degree(graph)
+betweenness <- betweenness(graph)
+closeness <- closeness(graph)
+eigenvector_centrality <- eigen_centrality(graph)$vector
+
+# Create a dataframe for network properties
+node_properties <- data.frame(
+  node = names(degree),
+  degree = degree,
+  betweenness = betweenness,
+  closeness = closeness,
+  eigenvector_centrality = eigenvector_centrality
+)
+
+# Add scaled properties
+node_properties <- node_properties %>%
+  mutate(degree_scaled = scale(degree),
+         betweenness_scaled = scale(betweenness),
+         closeness_scaled = scale(closeness),
+         eigenvector_scaled = scale(eigenvector_centrality)
+         )
+
+# Calculate a combined property based on the scaled measures
+scaled_cols <- grep("_scaled$", names(node_properties), value = TRUE)
+
+node_properties <- node_properties %>% 
+  mutate(combined_score_prop = rowMeans(node_properties[, scaled_cols], na.rm = TRUE))
+
+# Sort genes by the combined score
+important_genes <- node_properties %>% 
+  arrange(desc(combined_score_prop))
+
+# Reorder columns and move combined_score_prop to the second position
+important_genes <- important_genes %>%
+  dplyr::select(node, combined_score_prop, everything())
+
+rownames(important_genes) <- NULL
+
+# Display the important genes using paged_table with no row names
+cat("## Important Genes based on Network Properties\n")
+paged_table(head(important_genes, 10))
+
+```
+
+### 8.2. Protein-Protein Interaction Network Analysis Plot
+Protein-Protein Interaction Network Analysis (STRING) results plot, filtered
+
+```{r string_filtered_analysis_plot}, message=FALSE, warning=FALSE}
+
+# Plot the combined score
+plot <- head(important_genes, 20) %>%
+  ggplot(aes(x = fct_reorder(node, combined_score_prop), y = combined_score_prop)) +
+  geom_col(fill = "coral1") +
+  labs(
+    x = "Node",
+    y = "Combined Score Property",
+    title = "Combined Score Property for Top 20 Nodes"
+  ) +
+  coord_flip() + # Flip coordinates to have horizontal bars
+  theme_minimal()
+print(plot)
+
+```
+
+### 8.3. STRING LLM Agent Response
+
+```{r string_agent, results='asis', fig.width=8, fig.height=6, message=FALSE, warning=FALSE}
+# Load the agent responses from the file
+output_dir <- "enrichment_results"
+agent_response_file <- file.path(output_dir, "agent_responses.txt")
+
+# Read the agent responses from the file, line by line
+agent_response_lines <- readLines(agent_response_file)
+
+# Combine the lines into a single string
+agent_response <- paste(agent_response_lines, collapse = "\n")
+
+# Extract the Agent 6 summary and key interactions section content
+agent_6_summary <- stringr::str_extract(
+  agent_response,
+  "(?s)Agent 6:\\n\\*\\*1\\. Summary of Interactions:\\*\\*.*?\\n\\n\\*\\*2\\. Key Interactions and Network Topology:\\*\\*.*?\\n\\n(?=\\*\\*3\\. Functional Implications and Upstream Regulators:)"
+)
+
+# Check if the extraction was successful
+if (is.na(agent_6_summary)) {
+  warning("Could not extract the Agent 2 summary section. Check the format of 'final_response' carefully.")
+  agent_6_summary <- "" # Assign an empty string to avoid further errors
+}
+
+# Print the extracted content (for verification)
+cat(agent_6_summary)
+
+# Extract the ENTIRE Agent 6 section (all content) first
+agent_6_all <- stringr::str_extract(
+  agent_response,
+  "(?s)Agent 6:.*" #Match everything after agent 6 until the end
+)
+
+
+# Check if the extraction of the entire Agent 6 section was successful
+if (is.na(agent_6_all)) {
+  warning("Could not extract the entire Agent 6 section. Check the format of 'agent_responses.txt' carefully.")
+  agent_6_all <- "" # Assign an empty string to avoid further errors
+}
+
+# Now, extract the cross-analysis section from WITHIN the Agent 6 content
+if (agent_6_all != "") { # Only try to extract the cross-analysis if we have Agent 6 content
+
+  agent_6_cross_analysis <- stringr::str_extract(
+    agent_6_all,
+    "(?s)\\*\\*4\\. Cross-Analysis:\\*\\*.*?\\n\\n(?=\\*\\*5\\. Hypothesis Generation:|$)"
+  )
+
+  # Check if the extraction of the cross-analysis section was successful
+  if (is.na(agent_6_cross_analysis)) {
+    warning("Could not extract the Agent 6 cross-analysis section. Check the format of 'agent_responses.txt' carefully.")
+    agent_6_cross_analysis <- "" # Assign an empty string to avoid further errors
+  }
+
+  # Print the extracted cross-analysis content (for verification)
+  cat(agent_6_cross_analysis)
+
+} else {
+  warning("Skipping cross-analysis extraction because the entire Agent 6 section could not be extracted.")
+  agent_6_cross_analysis <- ""
+}
+
+```
+
+
+## 9. Full Integrated Network
+The system representation from each of the 6 agents enrichment analysis responses are integrated to build the below network. This is the network that was used for deciphering the system model.
+
+```{r integrated_network, results='asis', fig.width=8, fig.height=6, message=FALSE, warning=FALSE}
+  # Call the visualization function, passing the response and the desired HTML file name
+  full_integrated_network = visualize_system_model(network_revision_response, html_file = "full_integrated_network.html", gene_symbols)
+  full_integrated_network
+
+```
+
+
+## 10. Download
+Here is the list of all original results, along with filtered results, computed results, integrated results and LLM responses:
+
+```{r download_all}, results='asis', message=FALSE, warning=FALSE}
+
+download_link_model <- paste0("<a href='enrichment_results/system_model.txt'>Click to open system_model.txt in new tab</a>")
+download_link_final <- paste0("<a href='enrichment_results/final_response.txt'>Click to open final_response.txt in new tab</a>")
+download_link_agents <- paste0("<a href='enrichment_results/agent_responses.txt'>Click to open agent_responses.txt in new tab</a>")
+download_link_kegg_original <- paste0("<a href='enrichment_results/kegg_enrichment_original.txt'>Click to open kegg_enrichment_original.txt in new tab</a>")
+download_link_kegg_filtered <- paste0("<a href='enrichment_results/kegg_enrichment_filtered.txt'>Click to open kegg_enrichment_filtered.txt in new tab</a>")
+download_link_wp_original <- paste0("<a href='enrichment_results/wp_enrichment_original.txt'>Click to open wp_enrichment_original.txt in new tab</a>")
+download_link_wp_filtered <- paste0("<a href='enrichment_results/wp_enrichment_filtered.txt'>Click to open wp_enrichment_filtered.txt in new tab</a>")
+download_link_reactome_original <- paste0("<a href='enrichment_results/reactome_enrichment_original.txt'>Click to open reactome_enrichment_original.txt in new tab</a>")
+download_link_reactome_filtered <- paste0("<a href='enrichment_results/reactome_enrichment_filtered.txt'>Click to open reactome_enrichment_filtered.txt in new tab</a>")
+download_link_chea_original <- paste0("<a href='enrichment_results/chea_enrichment_original.txt'>Click to open chea_enrichment_original.txt in new tab</a>")
+download_link_chea_filtered <- paste0("<a href='enrichment_results/chea_enrichment_filtered.txt'>Click to open chea_enrichment_filtered.txt in new tab</a>")
+download_link_string_original <- paste0("<a href='enrichment_results/string_interactions_original.txt'>Click to open string_interactions_original.txt in new tab</a>")
+download_link_string_filtered <- paste0("<a href='enrichment_results/string_interactions_filtered.txt'>Click to open string_interactions_filtered.txt in new tab</a>")
+download_link_string_properties <- paste0("<a href='enrichment_results/string_network_properties.txt'>Click to open string_network_properties.txt in new tab</a>")
+download_link_pathway_comparison <- paste0("<a href='enrichment_results/pathway_comparison.txt'>Click to open pathway_comparison.txt in new tab</a>")
+download_link_integrated_network <- paste0("<a href='enrichment_results/integrated_network.txt'>Click to open integrated_network.txt in new tab</a>")
+download_link_deg <- paste0("<a href='enrichment_results/integrated_network.txt'>Click to open integrated_network.txt in new tab</a>")
+
+cat(download_link_model, "<br>")
+cat(download_link_final, "<br>")
+cat(download_link_agents, "<br>")
+cat(download_link_kegg_original, "<br>")
+cat(download_link_kegg_filtered, "<br>")
+cat(download_link_wp_original, "<br>")
+cat(download_link_wp_filtered, "<br>")
+cat(download_link_reactome_original, "<br>")
+cat(download_link_reactome_filtered, "<br>")
+cat(download_link_chea_original, "<br>")
+cat(download_link_chea_filtered, "<br>")
+cat(download_link_string_original, "<br>")
+cat(download_link_string_filtered, "<br>")
+cat(download_link_string_properties, "<br>")
+cat(download_link_pathway_comparison, "<br>")
+cat(download_link_integrated_network, "<br>")
+
+```
+
+## 11. Analysis Parameters
+The following parameters were used for this analysis:
+
+```{r load_params}, message=FALSE, warning=FALSE}
+
+print("Experimental Design:")
+cat(experimental_design)
+
+# Load parameters from the saved file
+params_file <- "analysis_parameters.txt"
+if (file.exists(params_file)) {
+  param_lines <- readLines(params_file)
+  params <- list()
+  for (line in param_lines) {
+    parts <- strsplit(line, "=")[[1]]
+    if (length(parts) == 2) {
+      key <- trimws(parts[1])
+      value <- trimws(parts[2])
+      params[[key]] <- value
+    }
+  }
+  
+  # Display parameters in a table
+  param_df <- data.frame(Parameter = names(params), Value = unlist(params))
+  knitr::kable(param_df, caption = "Analysis Parameters", row.names = FALSE)
+} else {
+  cat("Parameters file not found. Please ensure 'analysis_parameters.txt' exists in the working directory.\n")
+}
+```
+
+
+## 12. Session Info
+
+```{r session_info, message=FALSE, warning=FALSE}
+sessionInfo()
+```
