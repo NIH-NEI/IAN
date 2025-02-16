@@ -1,6 +1,40 @@
-# llm_prompts_5.R
+#' LLM Prompt Creation Functions
+#'
+#' This script defines functions to create prompts for Large Language Models (LLMs) based on various enrichment analysis results.
+#' The prompts are designed to guide the LLM in analyzing the data and generating insights about the underlying biological mechanisms.
+#'
+#' @section Functions:
+#' \itemize{
+#'   \item{\code{\link{create_llm_prompt_wp}}}{: Creates an LLM prompt for WikiPathways enrichment analysis.}
+#'   \item{\code{\link{create_llm_prompt_kegg}}}{: Creates an LLM prompt for KEGG enrichment analysis.}
+#'   \item{\code{\link{create_llm_prompt_reactome}}}{: Creates an LLM prompt for Reactome enrichment analysis.}
+#'   \item{\code{\link{create_llm_prompt_chea}}}{: Creates an LLM prompt for ChEA enrichment analysis.}
+#'   \item{\code{\link{create_llm_prompt_go}}}{: Creates an LLM prompt for GO enrichment analysis.}
+#'   \item{\code{\link{create_llm_prompt_string}}}{: Creates an LLM prompt for STRING interaction analysis.}
+#' }
+#'
+#' @name llm_prompts
+#' @docType package
+NULL
 
-# --- Function to create the LLM prompt (separate functions for different analyses)---
+#' Create LLM Prompt for WikiPathways Enrichment Analysis
+#'
+#' Creates a prompt for a Large Language Model (LLM) to analyze WikiPathways enrichment results,
+#' along with other relevant data such as ChEA transcription factor enrichment, STRING protein-protein interaction data,
+#' and Gene Ontology (GO) enrichment results.
+#'
+#' @param enrichment_results A data frame containing WikiPathways enrichment results.
+#' @param analysis_type Character string specifying the type of analysis (e.g., "WikiPathways").
+#' @param chea_results A data frame containing ChEA transcription factor enrichment results (optional).
+#' @param string_results A list containing STRING protein-protein interaction data (optional).
+#' @param gene_symbols A vector of gene symbols used in the analysis.
+#' @param string_network_properties A data frame containing STRING network properties (optional).
+#' @param go_results A data frame containing Gene Ontology (GO) enrichment results (optional).
+#' @param experimental_design A character string describing the experimental design (optional).
+#'
+#' @return A character string containing the LLM prompt.
+#'
+#' @export
 create_llm_prompt_wp <- function(enrichment_results, analysis_type, chea_results = NULL, string_results = NULL, gene_symbols = NULL, string_network_properties = NULL, go_results = NULL, experimental_design = NULL) {
   if (is.null(enrichment_results) || nrow(enrichment_results) == 0) {
     return(paste0("No significant results found for ", analysis_type, " analysis."))
@@ -156,7 +190,7 @@ create_llm_prompt_wp <- function(enrichment_results, analysis_type, chea_results
     "     - Finally, integrate, compare, and analyze results from the first four steps to identify potential hub genes.\n",
     
     "   - List the potential hub genes and provide a single-line description of how you concluded them as a hub gene. *Explain your reasoning for each step*.\n",
- 
+    
     "   - *Review your hub genes list and ensure that each listed hub gene is indeed present in the corresponding provided data. If necessary, revise your answer*.\n\n",
     
     "5. **Drug Target/Marker/Kinase/Ligand Analysis:**\n",
@@ -169,7 +203,7 @@ create_llm_prompt_wp <- function(enrichment_results, analysis_type, chea_results
     "   - Integrate the findings from all the above to develop a coherent hypothesis about the molecular mechanisms contributing to this phenotype. Focus on the interconnections between the enriched concepts.\n\n",
     
     "8. **System Representation Network:**\n",
-    "   - Based on the identified hub genes and their associated GO terms, pathways, chea terms, generate a system representation network in TSV (tab-separated values) format with four columns: 'Node1', 'Edge', 'Node2', and 'Explanation'. Include only those associations that you have identified as important in the given context.\n",
+    "   - Based on the identified hub genes and their associated GO terms, pathways, chea terms, generate a system representation network in TSV (tab-separated values) format with four columns: 'Node1', 'Edge', 'Node2', and 'Explanation'.\n",
     "     - Node1 should be the hub gene, *formatted in uppercase*.\n",
     "     - Edge should be 'associated with'. \n",
     "     - Node2 should be *a single GO term, formatted in 'Title Case'*, or a pathway name, *formatted in 'Title Case'*, or a transcription factor, *formatted in uppercase*.\n",
@@ -198,7 +232,7 @@ create_llm_prompt_wp <- function(enrichment_results, analysis_type, chea_results
     "**Step 2: Genes enriched in GO and pathways:**\n",
     "FN1 (multiple pathways, acute inflammatory response, acute-phase response, cell recognition, etc.)
     ANK2 (multiple GO terms related to actin and cardiac muscle, pathways)
-    NOS1AP (multiple GO terms related to action potential and cardiac muscle, pathways).\n\n",  
+    NOS1AP (multiple GO terms related to action potential and cardiac muscle, pathways).\n\n",
     
     "**Step 3: Genes with high STRING network scores:**\n",
     "FN1 (Combined Network Score: 2.734623)
@@ -217,7 +251,8 @@ create_llm_prompt_wp <- function(enrichment_results, analysis_type, chea_results
     "- **FN1:**  Enriched in multiple pathways and GO terms related to ECM, cell adhesion, and inflammation.
     - **C1QA, C1QB, C1QC:**  Core components of the complement system, enriched in multiple pathways and GO terms related to immune response.
     - **ANK2:**  Involved in actin cytoskeleton dynamics and cardiac muscle function, enriched in multiple GO terms and pathways.
-    - **CD274:**  A key immune checkpoint molecule, enriched in pathways and GO terms related to T cell co-stimulation and immune regulation.\n\n",    
+    - **CD274:**  A key immune checkpoint molecule, enriched in pathways and GO terms related to T cell co-stimulation and immune regulation.\n\n",
+    
     "**5. Drug Target/Marker/Kinase/Ligand Analysis:**\n",
     "- **FN1 (Fibronectin):**  Not a direct drug target, but its role in cell adhesion makes it a potential indirect target for therapies modulating inflammation.
     - **C1QA, C1QB, C1QC (Complement components):**  Not typically direct drug targets, but their involvement in complement-mediated inflammation makes them potential biomarkers.
@@ -228,7 +263,7 @@ create_llm_prompt_wp <- function(enrichment_results, analysis_type, chea_results
     "The strong enrichment of pathways related to infectious diseases (Pertussis, Coronavirus, Staphylococcus aureus, Amoebiasis, Chagas disease) in the context of uveitis is potentially novel and warrants further investigation.  While infections can trigger uveitis, the specific pathways highlighted here may reveal novel mechanisms linking infection and uveitis pathogenesis.  The unexpected connections between complement activation and infectious disease pathways could be a novel finding.\n\n",
     
     "**7. Hypothesis Generation:**\n",
-    "Uveitis pathogenesis involves a complex interplay between dysregulated immune responses, primarily driven by complement activation and T cell co-stimulation, and impaired ECM remodeling.  This leads to chronic inflammation and tissue damage.  The involvement of infectious disease pathways suggests that microbial triggers or dysbiosis may contribute to the initiation or exacerbation of uveitis.  Upstream regulators like NF-κB, IRFs, AP-1, and SMAD family members likely orchestrate these processes.\n\n",
+    "Uveitis pathogenesis involves a complex interplay between dysregulated immune responses, primarily driven by complement activation and T cell co-stimulation, and impaired ECM remodeling.  This leads to chronic inflammation and tissue damage.  The involvement of infectious disease pathways suggests that microbial triggers or dysbiosis may contribute to the initiation or exacerbation of uveitis.  Upstream regulators like NF-kb, IRFs, AP-1, and SMAD family members likely orchestrate these processes.\n\n",
     
     "**8. System Representation Network:**\n",
     "```tsv\n",
@@ -241,13 +276,29 @@ create_llm_prompt_wp <- function(enrichment_results, analysis_type, chea_results
     "CD274\tassociated with\tT Cell Costimulation\tGrounded in provided data (KEGG, GO, STRING)\n",
     "```\n\n",
     
-    
     "\n**Note:** Please keep your response under 6100 words. Do not include anyother Note."
   )
   return(prompt)
 }
 
-
+#' Create LLM Prompt for KEGG Enrichment Analysis
+#'
+#' Creates a prompt for a Large Language Model (LLM) to analyze KEGG enrichment results,
+#' along with other relevant data such as ChEA transcription factor enrichment, STRING protein-protein interaction data,
+#' and Gene Ontology (GO) enrichment results.
+#'
+#' @param enrichment_results A data frame containing KEGG enrichment results.
+#' @param analysis_type Character string specifying the type of analysis (e.g., "KEGG").
+#' @param chea_results A data frame containing ChEA transcription factor enrichment results (optional).
+#' @param string_results A list containing STRING protein-protein interaction data (optional).
+#' @param gene_symbols A vector of gene symbols used in the analysis.
+#' @param string_network_properties A data frame containing STRING network properties (optional).
+#' @param go_results A data frame containing Gene Ontology (GO) enrichment results (optional).
+#' @param experimental_design A character string describing the experimental design (optional).
+#'
+#' @return A character string containing the LLM prompt.
+#'
+#' @export
 create_llm_prompt_kegg <- function(enrichment_results, analysis_type, chea_results = NULL, string_results = NULL, gene_symbols = NULL, string_network_properties = NULL, go_results = NULL, experimental_design = NULL) {
   if (is.null(enrichment_results) || nrow(enrichment_results) == 0) {
     return(paste0("No significant results found for ", analysis_type, " analysis."))
@@ -424,7 +475,6 @@ create_llm_prompt_kegg <- function(enrichment_results, analysis_type, chea_resul
     "   - *Review the above network and ensure that every interaction included meets the grounding criteria and that each interaction includes only one hub gene and one GO term, pathway or transcription factor. If any interaction does not meet these criteria, remove it from the network and revise the explanation column accordingly*.\n",
     "   - Format the output within a ```tsv block, by adding ```tsv before the network content and ``` after the network content.\n",
     
-    
     "\n\n**Example Output:**\n",
     "**1. Summary and Categorization:**\n",
     "The enriched KEGG pathways primarily involve immune response and cell signaling pathways. These can be categorized into:\n",
@@ -446,7 +496,7 @@ create_llm_prompt_kegg <- function(enrichment_results, analysis_type, chea_resul
     "**Step 2: Genes enriched in GO and pathways:**\n",
     "FN1 (multiple pathways, acute inflammatory response, acute-phase response, cell recognition, etc.)
     ANK2 (multiple GO terms related to actin and cardiac muscle, pathways)
-    NOS1AP (multiple GO terms related to action potential and cardiac muscle, pathways).\n\n",  
+    NOS1AP (multiple GO terms related to action potential and cardiac muscle, pathways).\n\n",
     
     "**Step 3: Genes with high STRING network scores:**\n",
     "FN1 (Combined Network Score: 2.734623)
@@ -465,7 +515,7 @@ create_llm_prompt_kegg <- function(enrichment_results, analysis_type, chea_resul
     "- **FN1:**  Enriched in multiple pathways and GO terms related to ECM, cell adhesion, and inflammation.
     - **C1QA, C1QB, C1QC:**  Core components of the complement system, enriched in multiple pathways and GO terms related to immune response.
     - **ANK2:**  Involved in actin cytoskeleton dynamics and cardiac muscle function, enriched in multiple GO terms and pathways.
-    - **CD274:**  A key immune checkpoint molecule, enriched in pathways and GO terms related to T cell co-stimulation and immune regulation.\n\n",    
+    - **CD274:**  A key immune checkpoint molecule, enriched in pathways and GO terms related to T cell co-stimulation and immune regulation.\n\n",
     
     "**5. Drug Target/Marker/Kinase/Ligand Analysis:**\n",
     "- **FN1 (Fibronectin):**  Not a direct drug target, but its role in cell adhesion makes it a potential indirect target for therapies modulating inflammation.
@@ -477,7 +527,7 @@ create_llm_prompt_kegg <- function(enrichment_results, analysis_type, chea_resul
     "The strong enrichment of pathways related to infectious diseases (Pertussis, Coronavirus, Staphylococcus aureus, Amoebiasis, Chagas disease) in the context of uveitis is potentially novel and warrants further investigation.  While infections can trigger uveitis, the specific pathways highlighted here may reveal novel mechanisms linking infection and uveitis pathogenesis.  The unexpected connections between complement activation and infectious disease pathways could be a novel finding.\n\n",
     
     "**7. Hypothesis Generation:**\n",
-    "Uveitis pathogenesis involves a complex interplay between dysregulated immune responses, primarily driven by complement activation and T cell co-stimulation, and impaired ECM remodeling.  This leads to chronic inflammation and tissue damage.  The involvement of infectious disease pathways suggests that microbial triggers or dysbiosis may contribute to the initiation or exacerbation of uveitis.  Upstream regulators like NF-κB, IRFs, AP-1, and SMAD family members likely orchestrate these processes.\n\n",
+    "Uveitis pathogenesis involves a complex interplay between dysregulated immune responses, primarily driven by complement activation and T cell co-stimulation, and impaired ECM remodeling.  This leads to chronic inflammation and tissue damage.  The involvement of infectious disease pathways suggests that microbial triggers or dysbiosis may contribute to the initiation or exacerbation of uveitis.  Upstream regulators like NF-kB, IRFs, AP-1, and SMAD family members likely orchestrate these processes.\n\n",
     
     "**8. System Representation Network:**\n",
     "```tsv\n",
@@ -496,6 +546,24 @@ create_llm_prompt_kegg <- function(enrichment_results, analysis_type, chea_resul
 }
 
 
+#' Create LLM Prompt for Reactome Pathway Enrichment Analysis
+#'
+#' Creates a prompt for a Large Language Model (LLM) to analyze Reactome pathway enrichment results,
+#' along with other relevant data such as ChEA transcription factor enrichment, STRING protein-protein interaction data,
+#' and Gene Ontology (GO) enrichment results.
+#'
+#' @param enrichment_results A data frame containing Reactome pathway enrichment results.
+#' @param analysis_type Character string specifying the type of analysis (e.g., "Reactome").
+#' @param chea_results A data frame containing ChEA transcription factor enrichment results (optional).
+#' @param string_results A list containing STRING protein-protein interaction data (optional).
+#' @param gene_symbols A vector of gene symbols used in the analysis.
+#' @param string_network_properties A data frame containing STRING network properties (optional).
+#' @param go_results A data frame containing Gene Ontology (GO) enrichment results (optional).
+#' @param experimental_design A character string describing the experimental design (optional).
+#'
+#' @return A character string containing the LLM prompt.
+#'
+#' @export
 create_llm_prompt_reactome <- function(enrichment_results, analysis_type, chea_results = NULL, string_results = NULL, gene_symbols = NULL, string_network_properties = NULL, go_results = NULL, experimental_design = NULL) {
   if (is.null(enrichment_results) || nrow(enrichment_results) == 0) {
     return(paste0("No significant results found for ", analysis_type, " analysis."))
@@ -693,7 +761,7 @@ create_llm_prompt_reactome <- function(enrichment_results, analysis_type, chea_r
     "**Step 2: Genes enriched in GO and pathways:**\n",
     "FN1 (multiple pathways, acute inflammatory response, acute-phase response, cell recognition, etc.)
     ANK2 (multiple GO terms related to actin and cardiac muscle, pathways)
-    NOS1AP (multiple GO terms related to action potential and cardiac muscle, pathways).\n\n",  
+    NOS1AP (multiple GO terms related to action potential and cardiac muscle, pathways).\n\n",
     
     "**Step 3: Genes with high STRING network scores:**\n",
     "FN1 (Combined Network Score: 2.734623)
@@ -712,7 +780,7 @@ create_llm_prompt_reactome <- function(enrichment_results, analysis_type, chea_r
     "- **FN1:**  Enriched in multiple pathways and GO terms related to ECM, cell adhesion, and inflammation.
     - **C1QA, C1QB, C1QC:**  Core components of the complement system, enriched in multiple pathways and GO terms related to immune response.
     - **ANK2:**  Involved in actin cytoskeleton dynamics and cardiac muscle function, enriched in multiple GO terms and pathways.
-    - **CD274:**  A key immune checkpoint molecule, enriched in pathways and GO terms related to T cell co-stimulation and immune regulation.\n\n",    
+    - **CD274:**  A key immune checkpoint molecule, enriched in pathways and GO terms related to T cell co-stimulation and immune regulation.\n\n",
     
     "**5. Drug Target/Marker/Kinase/Ligand Analysis:**\n",
     "- **FN1 (Fibronectin):**  Not a direct drug target, but its role in cell adhesion makes it a potential indirect target for therapies modulating inflammation.
@@ -724,7 +792,7 @@ create_llm_prompt_reactome <- function(enrichment_results, analysis_type, chea_r
     "The strong enrichment of pathways related to infectious diseases (Pertussis, Coronavirus, Staphylococcus aureus, Amoebiasis, Chagas disease) in the context of uveitis is potentially novel and warrants further investigation.  While infections can trigger uveitis, the specific pathways highlighted here may reveal novel mechanisms linking infection and uveitis pathogenesis.  The unexpected connections between complement activation and infectious disease pathways could be a novel finding.\n\n",
     
     "**7. Hypothesis Generation:**\n",
-    "Uveitis pathogenesis involves a complex interplay between dysregulated immune responses, primarily driven by complement activation and T cell co-stimulation, and impaired ECM remodeling.  This leads to chronic inflammation and tissue damage.  The involvement of infectious disease pathways suggests that microbial triggers or dysbiosis may contribute to the initiation or exacerbation of uveitis.  Upstream regulators like NF-κB, IRFs, AP-1, and SMAD family members likely orchestrate these processes.\n\n",
+    "Uveitis pathogenesis involves a complex interplay between dysregulated immune responses, primarily driven by complement activation and T cell co-stimulation, and impaired ECM remodeling.  This leads to chronic inflammation and tissue damage.  The involvement of infectious disease pathways suggests that microbial triggers or dysbiosis may contribute to the initiation or exacerbation of uveitis.  Upstream regulators like NF-kB, IRFs, AP-1, and SMAD family members likely orchestrate these processes.\n\n",
     
     "**8. System Representation Network:**\n",
     "```tsv\n",
@@ -743,6 +811,22 @@ create_llm_prompt_reactome <- function(enrichment_results, analysis_type, chea_r
 }
 
 
+#' Create LLM Prompt for ChEA Enrichment Analysis
+#'
+#' Creates a prompt for a Large Language Model (LLM) to analyze ChEA (ChIP-X Enrichment Analysis) results,
+#' along with other relevant data such as pathway enrichment results and STRING protein-protein interaction data.
+#'
+#' @param enrichment_results A data frame containing ChEA enrichment results. Must have columns "Term", "P.value", and "Genes".
+#' @param analysis_type Character string specifying the type of analysis (e.g., "ChEA").
+#' @param pathway_results A list containing pathway enrichment results (KEGG, WikiPathways, Reactome, GO) (optional).
+#' @param string_results A list containing STRING protein-protein interaction data (optional).
+#' @param gene_symbols A vector of gene symbols used in the analysis.
+#' @param string_network_properties A data frame containing STRING network properties (optional).
+#' @param experimental_design A character string describing the experimental design (optional).
+#'
+#' @return A character string containing the LLM prompt.
+#'
+#' @export
 create_llm_prompt_chea <- function(enrichment_results, analysis_type, pathway_results = NULL, string_results = NULL, gene_symbols = NULL, string_network_properties = NULL, experimental_design = NULL) {
   if (is.null(enrichment_results) || nrow(enrichment_results) == 0) {
     return(paste0("No significant results found for ", analysis_type, " analysis."))
@@ -953,8 +1037,8 @@ create_llm_prompt_chea <- function(enrichment_results, analysis_type, pathway_re
     "     - Node1 should be *a transcription factor, formatted in uppercase*.\n",
     "     - Edge should be 'associated with'. \n",
     "     - Node2 should be *a single pathway name, formatted in 'Title Case'*, or *a target gene, formatted in uppercase*. The target gene should be in the Chea enrichment data as well as in at least one of our other datasets (pathways or string).\n",
-    "   - Check if the nodes identified above are grounded in the provided Chea, pathways, or string data. In the explanation column, include a note stating whether the network interaction in each row is grounded in the provided data.\n",
-    "   - *Review the above network and ensure that every interaction included meets the grounding criteria and that each interaction includes only one transcription factor and one pathway or target gene. If any interaction does not meet these criteria, remove it from the network and revise the explanation column accordingly*.\n",
+    "   - Check if the nodes identified above are grounded in the provided Chea, pathways, or string data. In the explanation column, include a note stating whether and how the 'Node1' gene is also found in the provided pathway data and/or is a Chea-enriched factor's target, and is a gene with a high combined_score_prop as seen in the network properties data.\n",
+    "   - *Review the above network and ensure that every interaction included meets the grounding criteria, that each interaction includes only one transcription factor and one pathway or target gene. If any interaction does not meet these criteria, remove it from the network and revise the explanation column accordingly*.\n",
     "   - Format the output within a ```tsv block, by adding ```tsv before the network content and ``` after the network content.\n",
     
     "\n\n**Example Output:**\n",
@@ -962,7 +1046,7 @@ create_llm_prompt_chea <- function(enrichment_results, analysis_type, pathway_re
     "The ChEA analysis revealed several significantly enriched transcription factors (TFs) in the differentially expressed genes (DEGs) from the uveitis versus healthy control comparison.  RELB, TFAP2C, POU5F1, and SMAD4 showed the most significant enrichment (p-values < 0.04). These TFs are known to be involved in immune responses, cell differentiation, and development, aligning with the inflammatory nature of uveitis and the use of whole blood RNA-Seq.  The enrichment of these TFs suggests a complex interplay of regulatory mechanisms underlying the observed gene expression changes in uveitis.\n\n",
     
     "**2. Regulatory Network Analysis:**\n",
-    "Based on the provided data, several TFs emerge as potential upstream regulators.  RELB, a member of the NF-κB family, is strongly implicated, given its association with genes like *GBP5* and *CD274*, both involved in immune responses.  These genes are also enriched in pathways related to interferon signaling (Reactome, GO), complement activation (Reactome, WikiPathways, GO), and cell adhesion molecules (KEGG).  SMAD4, a key component of the TGF-β signaling pathway, also shows significant enrichment and regulates genes involved in focal adhesion, ECM-receptor interaction, and cytoskeleton organization (KEGG, WikiPathways, Reactome).  The overlap of RELB and SMAD4 target genes in pathways like ECM-receptor interaction and cell adhesion molecules suggests a potential coordinated regulatory mechanism.  TFAP2C, involved in cell differentiation and development, and POU5F1, a pluripotency factor, may play more subtle roles, potentially influencing the overall cellular context of the immune response.\n\n",
+    "Based on the provided data, several TFs emerge as potential upstream regulators.  RELB, a member of the NF-kB family, is strongly implicated, given its association with genes like *GBP5* and *CD274*, both involved in immune responses.  These genes are also enriched in pathways related to interferon signaling (Reactome, GO), complement activation (Reactome, WikiPathways, GO), and cell adhesion molecules (KEGG).  SMAD4, a key component of the TGF-β signaling pathway, also shows significant enrichment and regulates genes involved in focal adhesion, ECM-receptor interaction, and cytoskeleton organization (KEGG, WikiPathways, Reactome).  The overlap of RELB and SMAD4 target genes in pathways like ECM-receptor interaction and cell adhesion molecules suggests a potential coordinated regulatory mechanism.  TFAP2C, involved in cell differentiation and development, and POU5F1, a pluripotency factor, may play more subtle roles, potentially influencing the overall cellular context of the immune response.\n\n",
     
     "**3. Novel Interactions:**\n",
     "Identifying truly *novel* interactions requires extensive literature review beyond the scope of this analysis.  However, some interactions warrant further investigation. For example, the association of TFAP2C with genes like *KCNK17* (potassium channel) and *NOS1AP* (nitric oxide synthase adaptor protein) in the context of uveitis requires further exploration.  Similarly, the involvement of POU5F1, typically associated with pluripotency, in regulating genes like *ROR1* (receptor tyrosine kinase) in this inflammatory context is intriguing and needs further investigation to determine if this is a novel finding or a previously underappreciated role of POU5F1 in immune-related processes.  The literature should be consulted to determine if these interactions have been previously reported in the context of uveitis or similar inflammatory conditions.\n\n",
@@ -998,6 +1082,22 @@ create_llm_prompt_chea <- function(enrichment_results, analysis_type, pathway_re
 }
 
 
+#' Create LLM Prompt for GO Enrichment Analysis
+#'
+#' Creates a prompt for a Large Language Model (LLM) to analyze Gene Ontology (GO) enrichment results,
+#' along with other relevant data such as ChEA transcription factor enrichment and STRING protein-protein interaction data.
+#'
+#' @param enrichment_results A data frame containing GO enrichment results. Must have columns "Description", "pvalue", and "Gene".
+#' @param analysis_type Character string specifying the type of analysis (e.g., "GO").
+#' @param chea_results A data frame containing ChEA transcription factor enrichment results (optional).
+#' @param string_results A list containing STRING protein-protein interaction data (optional).
+#' @param gene_symbols A vector of gene symbols used in the analysis.
+#' @param string_network_properties A data frame containing STRING network properties (optional).
+#' @param experimental_design A character string describing the experimental design (optional).
+#'
+#' @return A character string containing the LLM prompt.
+#'
+#' @export
 create_llm_prompt_go <- function(enrichment_results, analysis_type, chea_results = NULL, string_results = NULL, gene_symbols = NULL, string_network_properties = NULL, experimental_design = NULL) {
   if (is.null(enrichment_results) || nrow(enrichment_results) == 0) {
     return(paste0("No significant results found for ", analysis_type, " analysis."))
@@ -1146,7 +1246,6 @@ create_llm_prompt_go <- function(enrichment_results, analysis_type, chea_results
     "   - *Review the above network and ensure that every interaction included meets the grounding criteria, that each interaction includes only one gene and one GO term, and that any gene included in the network is also present in the provided Chea or string data. If any interaction does not meet these criteria, remove it from the network and revise the explanation column accordingly*.\n",
     "   - Format the output within a ```tsv block, by adding ```tsv before the network content and ``` after the network content.\n",
     
-    
     "\n\n**Example Output:**\n",
     "**1. Summary and Categorization:**\n",
     "The significantly enriched GO terms reveal a strong dysregulation of the immune system in uveitis patients compared to healthy controls.  Specifically, numerous GO terms related to B cell and T cell mediated immunity, complement activation, and acute inflammatory responses are highly enriched.  This suggests a complex interplay of humoral and cellular immune responses contributing to the pathogenesis of uveitis.\n\n",
@@ -1161,7 +1260,7 @@ create_llm_prompt_go <- function(enrichment_results, analysis_type, chea_results
     "**Potential Upstream Regulators:**\n",
     "Based on the genes involved in the enriched GO terms, several transcription factors and other potential upstream regulators emerge as candidates:\n",
     "* **RELB:**  This transcription factor is implicated in inflammation and is enriched in the ChEA analysis, regulating *GBP5*, *CD274*, *MMP19*, and *GPR84*, all of which are involved in immune responses.\n",
-    "* **SMAD4:** This transcription factor, involved in TGF-β signaling, is also enriched in the ChEA analysis and regulates several genes involved in immune response, cell morphogenesis, and cell contraction.\n",
+    "* **SMAD4:** This transcription factor, involved in TGF-b signaling, is also enriched in the ChEA analysis and regulates several genes involved in immune response, cell morphogenesis, and cell contraction.\n",
     
     "**3. Interaction Networks and Similar Systems:**\n",
     "The STRING data reveals numerous interactions between the genes involved in the enriched GO terms.  For example, the complement components (C1QA, C1QB, C1QC) show strong interactions, as expected.  Several interactions are observed between genes involved in immune response (e.g., *FCGR1A*, *CD274*, *PDCD1LG2*, *GBP1*, *GBP5*, *GBP6*), indicating a coordinated response.  Interactions are also observed between genes involved in cell movement and contraction (*ANK2*, *NOS1AP*, *FGF13*, *PARVA*), suggesting a functional relationship.  The high scores for interactions between Y-chromosome genes (e.g., *UTY*, *KDM5D*, *USP9Y*, *DDX3Y*) suggest a potential sex-specific component to the disease.\n\n",
@@ -1198,6 +1297,22 @@ create_llm_prompt_go <- function(enrichment_results, analysis_type, chea_results
 }
 
 
+#' Create LLM Prompt for STRING Interaction Analysis
+#'
+#' Creates a prompt for a Large Language Model (LLM) to analyze STRING protein-protein interaction data,
+#' along with other relevant data such as pathway enrichment results and ChEA transcription factor enrichment.
+#'
+#' @param interaction_results A list containing STRING interaction results. Must have elements `interactions` (data frame of interactions) and `network_properties` (data frame of network properties).
+#' @param analysis_type Character string specifying the type of analysis (e.g., "STRING").
+#' @param pathway_results A list containing pathway enrichment results (KEGG, WikiPathways, Reactome, GO) (optional).
+#' @param chea_results A data frame containing ChEA transcription factor enrichment results (optional).
+#' @param gene_symbols A vector of gene symbols used in the analysis.
+#' @param string_network_properties A data frame containing STRING network properties (optional).
+#' @param experimental_design A character string describing the experimental design (optional).
+#'
+#' @return A character string containing the LLM prompt.
+#'
+#' @export
 create_llm_prompt_string <- function(interaction_results, analysis_type, pathway_results = NULL, chea_results = NULL, gene_symbols = NULL, string_network_properties = NULL, experimental_design = NULL) {
   if (is.null(interaction_results) || is.null(interaction_results$interactions) || nrow(interaction_results$interactions) == 0) {
     return(paste0("No significant results found for ", analysis_type, " analysis."))
@@ -1395,7 +1510,6 @@ create_llm_prompt_string <- function(interaction_results, analysis_type, pathway
     "   - *Review the above network and ensure that every interaction included meets the grounding criteria, that each interaction includes only one gene and one pathway, GO term, or transcription factor. If any interaction does not meet these criteria, remove it from the network and revise the explanation column accordingly*.\n",
     "   - Format the output within a ```tsv block, by adding ```tsv before the network content and ``` after the network content.\n",
     
-    
     "\n\n**Example Output:**\n",
     "**1. Summary of Interactions:**\n",
     "The STRING analysis reveals a highly interconnected network of proteins, predominantly centered around the complement system (C1QA, C1QB, C1QC) and immune response genes (CD274, PDCD1LG2, FCGR1A).  These interactions, particularly the high scores, suggest a complex interplay between immune response, complement activation, and extracellular matrix dynamics in uveitis.\n\n",
@@ -1428,5 +1542,4 @@ create_llm_prompt_string <- function(interaction_results, analysis_type, pathway
   )
   return(prompt)
 }
-
 

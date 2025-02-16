@@ -1,34 +1,56 @@
-library(dplyr)
-library(stringr)
-
-# Helper function to save results to a text file
-save_results <- function(results, filename, type = "original") {
-  if (is.null(results) || (is.list(results) && "error" %in% names(results))) {
-    message(paste("Warning: No results to save for", filename, type, "results."))
-    return()
-  }
-  
-  tryCatch({
-    if (is.list(results) && !is.data.frame(results)) {
-      # Convert list of vectors to a data frame
-      results_df <- data.frame(matrix(unlist(lapply(results, function(x) paste(x, collapse = ", "))), nrow = 1, byrow = TRUE), stringsAsFactors = FALSE)
-      colnames(results_df) <- names(results)
-      write.table(results_df, file = filename, sep = "\t", row.names = FALSE, quote = FALSE)
-    } else {
-      write.table(results, file = filename, sep = "\t", row.names = FALSE, quote = FALSE)
-    }
-  }, error = function(e) {
-    message(paste("Error saving filtered results to", filename, ":", e$message))
-  })
-}
-
-# Function to perform pathway comparison
+#' Pathway Comparison Analysis
+#'
+#' Performs a comparison of pathway enrichment results from KEGG, WikiPathways, Reactome, and GO analyses.
+#' Identifies overlapping and unique genes across the different pathway databases.
+#'
+#' @param gene_symbols A vector of gene symbols used in the analysis.
+#' @param kegg_results A data frame containing KEGG enrichment results.
+#' @param wp_results A data frame containing WikiPathways enrichment results.
+#' @param reactome_results A data frame containing Reactome enrichment results.
+#' @param go_results A data frame containing GO enrichment results.
+#' @param output_dir Character string specifying the directory to save the results to. Default is "enrichment_results".
+#'
+#' @return A list containing the pathway comparison results, including overlapping and unique genes for each pathway database. Returns a list with an "error" element if the analysis fails.
+#'
+#' @importFrom dplyr %>%
+#' @importFrom stringr strsplit
+#' @export
 perform_pathway_comparison <- function(gene_symbols, kegg_results, wp_results, reactome_results, go_results, output_dir = "enrichment_results") {
   
   # Check if any results are NULL
   if (is.null(kegg_results) && is.null(wp_results) && is.null(reactome_results) && is.null(go_results)) {
     message("Warning: No valid pathway results provided for comparison.")
     return(list(error = "No valid pathway results provided"))
+  }
+  
+  #' Save Results to File
+  #'
+  #' Helper function to save pathway comparison results to a tab-separated text file.
+  #'
+  #' @param results The results object to save. Can be a data frame or a list.
+  #' @param filename The name of the file to save the results to.
+  #' @param type Character string specifying the type of results being saved. Must be "original" or "filtered". Default is "original".
+  #'
+  #' @return None (side effect: saves a file).
+  #'
+  save_results <- function(results, filename, type = "original") {
+    if (is.null(results) || (is.list(results) && "error" %in% names(results))) {
+      message(paste("Warning: No results to save for", filename, type, "results."))
+      return()
+    }
+    
+    tryCatch({
+      if (is.list(results) && !is.data.frame(results)) {
+        # Convert list of vectors to a data frame
+        results_df <- data.frame(matrix(unlist(lapply(results, function(x) paste(x, collapse = ", "))), nrow = 1, byrow = TRUE), stringsAsFactors = FALSE)
+        colnames(results_df) <- names(results)
+        write.table(results_df, file = filename, sep = "\t", row.names = FALSE, quote = FALSE)
+      } else {
+        write.table(results, file = filename, sep = "\t", row.names = FALSE, quote = FALSE)
+      }
+    }, error = function(e) {
+      message(paste("Error saving filtered results to", filename, ":", e$message))
+    })
   }
   
   tryCatch({

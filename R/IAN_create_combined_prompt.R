@@ -1,4 +1,20 @@
-# create_combined_prompt_3.R
+#' Create Combined LLM Prompt
+#'
+#' Creates a combined prompt for a Large Language Model (LLM) by integrating results from multiple agents,
+#' STRING protein-protein interaction data, ChEA transcription factor enrichment results, STRING network properties,
+#' pathway comparison results, and experimental design information. The prompt includes an additional step to generate a title.
+#'
+#' @param results A list of results from individual agents. Each element should be a list with `agent_id` and `response` elements.
+#' @param gene_symbols A vector of gene symbols used in the analysis.
+#' @param string_interactions A list containing STRING protein-protein interaction data.
+#' @param chea_results A data frame containing ChEA transcription factor enrichment results.
+#' @param string_network_properties A data frame containing STRING network properties.
+#' @param comparison_results A list containing pathway comparison results.
+#' @param experimental_design A character string describing the experimental design (optional).
+#'
+#' @return A character string containing the combined LLM prompt.
+#'
+#' @export
 create_combined_prompt <- function(results, gene_symbols, string_interactions, chea_results, string_network_properties, comparison_results, experimental_design = NULL) {
   
   # Start with a basic prompt template

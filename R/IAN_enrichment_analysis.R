@@ -1,6 +1,14 @@
-# enrichment_analysis_6.R
+#' Save Results to File
+#'
+#' Helper function to save enrichment analysis results to a tab-separated text file.
+#'
+#' @param results The results object to save. Can be an `enrichResult` object, a data frame, or a list with an "error" element.
+#' @param filename The name of the file to save the results to.
+#' @param type Character string specifying the type of results being saved. Must be "original" or "filtered". Default is "original".
+#'
+#' @return None (side effect: saves a file).
+#'
 
-# Helper function to save results to a text file
 save_results <- function(results, filename, type = "original") {
   if (is.null(results) || (is.list(results) && "error" %in% names(results))) {
     message(paste("Warning: No results to save for", filename, type, "results."))
@@ -30,6 +38,23 @@ save_results <- function(results, filename, type = "original") {
   }
 }
 
+#' Perform WikiPathway Enrichment Analysis
+#'
+#' Performs WikiPathway enrichment analysis using the `enrichWP` function from the `clusterProfiler` package.
+#'
+#' @param gene_ids A vector of gene identifiers (ENTREZIDs).
+#' @param gene_mapping A data frame containing gene mappings between ENTREZID and SYMBOL. Must have columns named "ENTREZID" and "SYMBOL".
+#' @param organism Character string specifying the organism. Must be "human" or "mouse".
+#' @param pvalue Numeric value specifying the p-value threshold for filtering results. Default is 0.05.
+#' @param output_dir Character string specifying the directory to save the results to. Default is "enrichment_results".
+#'
+#' @return A data frame containing the filtered WikiPathway enrichment results, or a list with an "error" element if the analysis fails.
+#'
+#' @importFrom clusterProfiler enrichWP
+#' @importFrom dplyr filter arrange slice mutate left_join group_by summarize select
+#' @importFrom tidyr unnest
+#' @importFrom stringr strsplit
+#' @export
 perform_wp_enrichment <- function(gene_ids, gene_mapping, organism, pvalue = 0.05, output_dir = "enrichment_results") {
   if (missing(organism)) {
     stop("Error: The 'organism' argument is missing. Please specify either 'human' or 'mouse'.")
@@ -76,6 +101,23 @@ perform_wp_enrichment <- function(gene_ids, gene_mapping, organism, pvalue = 0.0
 }
 
 
+#' Perform KEGG Enrichment Analysis
+#'
+#' Performs KEGG enrichment analysis using the `enrichKEGG` function from the `clusterProfiler` package.
+#'
+#' @param gene_ids A vector of gene identifiers (ENTREZIDs).
+#' @param gene_mapping A data frame containing gene mappings between ENTREZID and SYMBOL. Must have columns named "ENTREZID" and "SYMBOL".
+#' @param organism Character string specifying the organism. Must be "human" or "mouse".
+#' @param pvalue Numeric value specifying the p-value threshold for filtering results. Default is 0.05.
+#' @param output_dir Character string specifying the directory to save the results to. Default is "enrichment_results".
+#'
+#' @return A data frame containing the filtered KEGG enrichment results, or a list with an "error" element if the analysis fails.
+#'
+#' @importFrom clusterProfiler enrichKEGG
+#' @importFrom dplyr filter arrange slice mutate left_join group_by summarize select
+#' @importFrom tidyr unnest
+#' @importFrom stringr strsplit
+#' @export
 perform_kegg_enrichment <- function(gene_ids, gene_mapping, organism, pvalue = 0.05, output_dir = "enrichment_results") {
   
   # Check organism input
@@ -150,6 +192,23 @@ perform_kegg_enrichment <- function(gene_ids, gene_mapping, organism, pvalue = 0
 
 
 
+#' Perform Reactome Pathway Enrichment Analysis
+#'
+#' Performs Reactome pathway enrichment analysis using the `enrichPathway` function from the `ReactomePA` package.
+#'
+#' @param gene_ids A vector of gene identifiers (ENTREZIDs).
+#' @param gene_mapping A data frame containing gene mappings between ENTREZID and SYMBOL. Must have columns named "ENTREZID" and "SYMBOL".
+#' @param organism Character string specifying the organism. Must be "human" or "mouse".
+#' @param pvalue Numeric value specifying the p-value threshold for filtering results. Default is 0.05.
+#' @param output_dir Character string specifying the directory to save the results to. Default is "enrichment_results".
+#'
+#' @return A data frame containing the filtered Reactome pathway enrichment results, or a list with an "error" element if the analysis fails.
+#'
+#' @importFrom ReactomePA enrichPathway
+#' @importFrom dplyr filter arrange slice mutate left_join group_by summarize select
+#' @importFrom tidyr unnest
+#' @importFrom stringr strsplit
+#' @export
 perform_reactome_enrichment <- function(gene_ids, gene_mapping, organism, pvalue = 0.05, output_dir = "enrichment_results") {
   
   # Check organism input
@@ -191,6 +250,20 @@ perform_reactome_enrichment <- function(gene_ids, gene_mapping, organism, pvalue
 
 
 
+#' Perform ChEA Enrichment Analysis
+#'
+#' Performs ChEA (ChIP-X Enrichment Analysis) using the `enrichr` function from the `enrichR` package.
+#'
+#' @param gene_symbols A vector of gene symbols.
+#' @param organism Character string specifying the organism. Must be "human" or "mouse".
+#' @param pvalue Numeric value specifying the p-value threshold for filtering results. Default is 0.05.
+#' @param output_dir Character string specifying the directory to save the results to. Default is "enrichment_results".
+#'
+#' @return A data frame containing the filtered ChEA enrichment results, or a list with an "error" element if the analysis fails.
+#'
+#' @importFrom enrichR setEnrichrSite enrichr
+#' @importFrom dplyr filter select
+#' @export
 perform_chea_enrichment <- function(gene_symbols, organism, pvalue = 0.05, output_dir = "enrichment_results") {
   
   # Check organism input
@@ -255,6 +328,24 @@ perform_chea_enrichment <- function(gene_symbols, organism, pvalue = 0.05, outpu
 
 
 
+#' Perform GO Enrichment Analysis
+#'
+#' Performs Gene Ontology (GO) enrichment analysis using the `enrichGO` function from the `clusterProfiler` package.
+#'
+#' @param gene_ids A vector of gene identifiers (ENTREZIDs).
+#' @param gene_mapping A data frame containing gene mappings between ENTREZID and SYMBOL. Must have columns named "ENTREZID" and "SYMBOL".
+#' @param organism Character string specifying the organism. Must be "human" or "mouse".
+#' @param ont Character string specifying the GO ontology to use. Must be one of "BP" (biological process), "CC" (cellular component), or "MF" (molecular function). Default is "BP".
+#' @param pvalue Numeric value specifying the p-value threshold for filtering results. Default is 0.05.
+#' @param output_dir Character string specifying the directory to save the results to. Default is "enrichment_results".
+#'
+#' @return A data frame containing the filtered GO enrichment results, or NULL if the analysis fails.
+#'
+#' @importFrom clusterProfiler enrichGO
+#' @importFrom dplyr filter arrange slice mutate left_join group_by summarize select
+#' @importFrom tidyr unnest
+#' @importFrom stringr strsplit
+#' @export
 perform_go_enrichment <- function(gene_ids, gene_mapping, organism, ont = "BP", pvalue = 0.05, output_dir = "enrichment_results") {
   
   # Check organism input
@@ -328,6 +419,22 @@ perform_go_enrichment <- function(gene_ids, gene_mapping, organism, ont = "BP", 
 }
 
 
+#' Perform STRING Interaction Analysis
+#'
+#' Retrieves protein-protein interactions from the STRING database and performs network analysis.
+#'
+#' @param gene_mapping A data frame containing gene mappings between SYMBOL and STRING_id. Must have columns named "SYMBOL" and "STRING_id".
+#' @param organism Character string specifying the organism. Must be "human" or "mouse".
+#' @param score_threshold Numeric value specifying the minimum combined score for interactions. Default is 0.
+#' @param output_dir Character string specifying the directory to save the results to. Default is "enrichment_results".
+#'
+#' @return A list containing two data frames: `interactions` (filtered STRING interactions) and `network_properties` (network properties of the genes).  Returns a list with an "error" element if the analysis fails.
+#'
+#' @importFrom STRINGdb STRINGdb
+#' @importFrom plyr mapvalues
+#' @importFrom dplyr select distinct arrange slice desc mutate scale
+#' @importFrom igraph graph_from_data_frame simplify degree betweenness closeness eigen_centrality
+#' @export
 perform_string_interactions <- function(gene_mapping, organism, score_threshold = 0, output_dir = "enrichment_results") {
   library(STRINGdb)
   library(plyr)
@@ -465,5 +572,3 @@ perform_string_interactions <- function(gene_mapping, organism, score_threshold 
     return(list(error = "STRINGdb Interaction Retrieval Failed", message = e$message))
   })
 }
-
-

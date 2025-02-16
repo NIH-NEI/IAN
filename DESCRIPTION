@@ -1,0 +1,36 @@
+Package: IAN
+Type: Package
+Title: IAN : Integrated Enrichment Analysis Using A Multi-Agent AI System
+Version: 0.1.0
+Author: Vijay Nagarajan [aut, cre]
+Maintainer: Vijay Nagarajan <nagarajanv@nih.gov>
+Description: IAN is an R package for integrated enrichment analysis, leveraging a multi-agent AI system and Large Language Models. It summarizes and interprets enrichment results from various "Omics" data sources (Seurat, DESeq2, etc.) using pathway databases and protein-protein interaction data. IAN provides insightful interpretations and novel observations in an easy-to-navigate HTML report. It helps researchers explore and decipher complex biological systems by augmenting LLM summarization abilities.
+License: file LICENSE
+Encoding: UTF-8
+LazyData: true
+Imports:
+    igraph,
+    Seurat,
+    rollama,
+    BiocManager,
+    clusterProfiler,
+    org.Hs.eg.db,
+    dplyr,
+    plyr,
+    tidyr,
+    data.table,
+    httr,
+    jsonlite,
+    Matrix,
+    visNetwork,
+    ReactomePA,
+    STRINGdb,
+    enrichR,
+    furrr,
+    future,
+    progressr,
+    readr,
+    stringr
+Suggests: 
+    testthat (>= 3.0.0)
+RoxygenNote: 7.3.2

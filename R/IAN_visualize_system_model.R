@@ -1,11 +1,18 @@
-# visualize_system_model.R
-
-library(stringr)
-library(dplyr)
-library(visNetwork)
-library(igraph)
-
-# Function to extract the system model network from LLM response and visualize
+#' Visualize System Model Network
+#'
+#' Extracts the system model network from an LLM response in TSV format and visualizes it using the `visNetwork` package.
+#'
+#' @param llm_response Character string containing the LLM response with the system network in TSV format.
+#' @param html_file Character string specifying the name of the HTML file to save the visualization to. Default is "system_model_network.html".
+#' @param gene_symbols A vector of gene symbols used in the analysis.
+#'
+#' @return A `visNetwork` object representing the system model network, or NULL if no valid TSV block is found or the visualization fails.
+#'
+#' @importFrom stringr str_match_all str_split
+#' @importFrom dplyr %>% rename select distinct mutate
+#' @importFrom visNetwork visNetwork visEdges visNodes visOptions visSave
+#' @importFrom igraph graph_from_data_frame
+#' @export
 visualize_system_model <- function(llm_response, html_file = "system_model_network.html", gene_symbols) {
   
   message("Starting visualize_system_model function...")
@@ -48,7 +55,7 @@ visualize_system_model <- function(llm_response, html_file = "system_model_netwo
   # Rename columns
   colnames(system_network_df) <- c("source", "interaction", "target")
   message("TSV data successfully read into system_network_df.")
-
+  
   # 1. Create Nodes Data Frame
   # 1. Create Nodes Data Frame with labels and groups
   nodes <- data.frame(id = unique(c(system_network_df$source, system_network_df$target)),

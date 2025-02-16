@@ -1,8 +1,17 @@
-# system_model_prompt_generator.R
-library(stringr)
-library(dplyr)
-
-# Function to extract and process the system network, and return a prompt for the rest of the analysis
+#' Generate System Model Prompt
+#'
+#' Generates a prompt for a Large Language Model (LLM) to analyze a system representation network
+#' and create a mechanistic model, including a summary, potential upstream regulators, and a hypothesis
+#' about the molecular mechanisms contributing to the phenotype.
+#'
+#' @param llm_response Character string containing the LLM response with the system network in TSV format.
+#' @param gene_symbols A vector of gene symbols used in the analysis.
+#' @param experimental_design A character string describing the experimental design (optional).
+#'
+#' @return A character string containing the LLM prompt, or NULL if no valid TSV block is found in the LLM response.
+#'
+#' @importFrom stringr str_match_all
+#' @export
 generate_system_model_prompt <- function(llm_response, gene_symbols, experimental_design = NULL) {
   
   # Extract the system network from LLM response
@@ -43,7 +52,7 @@ generate_system_model_prompt <- function(llm_response, gene_symbols, experimenta
                    " - Several genes emerge as potential upstream regulators:
                   * **RELB:** This transcription factor is centrally positioned, directly targeting both GBP5 (involved in interferon signaling) and CD274 (PD-L1, involved in T cell costimulation).  Its influence on these genes suggests a role in shaping the immune response.
 
-                  * **SMAD4:**  A key mediator of TGF-β signaling, SMAD4's association with FN1 (fibronectin), a crucial component of the extracellular matrix and focal adhesions, highlights its potential role in regulating cell adhesion and tissue remodeling processes relevant to inflammation.\n\n",
+                  * **SMAD4:**  A key mediator of TGF-b signaling, SMAD4's association with FN1 (fibronectin), a crucial component of the extracellular matrix and focal adhesions, highlights its potential role in regulating cell adhesion and tissue remodeling processes relevant to inflammation.\n\n",
                    
                    "*Mechanistic Model*\n",
                    " - The identified relationships suggest a mechanistic model where upstream regulators like RELB and SMAD4 influence the phenotype (uveitis) through their downstream targets.  RELB's regulation of GBP5 and CD274 suggests a modulation of interferon signaling and T cell activity, potentially contributing to the inflammatory response characteristic of uveitis.\n\n",

@@ -1,15 +1,44 @@
-# multi_agent_system_5.R
+#' Multi-Agent System with Gemini API Integration
+#'
+#' This script defines a multi-agent system where agents interact with the Gemini API to generate responses based on predefined prompts.
+#' It includes functions for making API requests, defining agent behavior, and managing the environment in which agents operate.
+#'
+#' @section Functions:
+#' \itemize{
+#'   \item{\code{\link{make_gemini_request}}}{: Sends a request to the Gemini API with a given prompt and configuration.}
+#' }
+#'
+#' @section Classes:
+#' \itemize{
+#'   \item{\code{\link{Agent}}}{: Represents an agent in the multi-agent system.}
+#'   \item{\code{\link{Environment}}}{: Represents the environment in which the agents operate.}
+#' }
+#'
+#' @importFrom future plan
+#' @importFrom furrr future_map
+#' @importFrom progressr with_progress progressor
+#' @importFrom httr POST content_type_json encode content status_code
+#' @importFrom stringr paste0
+#' @name multi_agent_system
+#' @docType package
+NULL
 
-library(future)
-library(furrr)
-library(dplyr)
-library(plyr)
-library(stringr)
-library(httr)
-library(R6)
-library(progressr)
-
-# --- Gemini API Request Function ---
+#' Make Gemini API Request
+#'
+#' Sends a request to the Gemini API with a given prompt and configuration.
+#'
+#' @param prompt Character string containing the prompt to send to the Gemini API.
+#' @param temperature Numeric value controlling the randomness of the response.
+#' @param max_output_tokens Integer specifying the maximum number of tokens in the response.
+#' @param api_key Character string containing the Gemini API key.
+#' @param model_query Character string specifying the model to query.
+#' @param delay_seconds Numeric value specifying the delay in seconds after sending the request.
+#'
+#' @return Character string containing the response from the Gemini API, or a list with an "error" element if the request fails.
+#'
+#' @importFrom httr POST content_type_json encode content status_code
+#' @importFrom stringr paste0
+#' @export
 make_gemini_request <- function(prompt, temperature, max_output_tokens, api_key, model_query, delay_seconds) {
   req_body <- list(
     contents = list(
@@ -47,6 +76,11 @@ make_gemini_request <- function(prompt, temperature, max_output_tokens, api_key,
   }
 }
 
+#' Agent Class
+#'
+#' Represents an agent in the multi-agent system.
+#'
+#' @export
 Agent <- R6::R6Class(
   "Agent",
   public = list(
@@ -54,11 +88,23 @@ Agent <- R6::R6Class(
     prompt = NULL,
     prompt_type = NULL,  # Added prompt_type
     response = NULL,
+    #' @param id The ID of the agent.
+    #' @param prompt The prompt for the agent.
+    #' @param prompt_type The type of prompt for the agent.
     initialize = function(id, prompt, prompt_type) {  # Added prompt_type parameter
       self$id <- id
       self$prompt <- prompt
       self$prompt_type <- prompt_type # Initialize the prompt type here
     },
+    #' @description
+    #' Gets the response from the Gemini API.
+    #' @param make_gemini_request_func The function to make the Gemini API request.
+    #' @param temperature Numeric value controlling the randomness of the response.
+    #' @param max_output_tokens Integer specifying the maximum number of tokens in the response.
+    #' @param api_key Character string containing the Gemini API key.
+    #' @param model_query Character string specifying the model to query.
+    #' @param delay_seconds Numeric value specifying the delay in seconds after sending the request.
+    #' @return The response from the Gemini API.
     get_response = function(make_gemini_request_func, temperature, max_output_tokens, api_key, model_query, delay_seconds) {
       self$response <- make_gemini_request_func(self$prompt, temperature, max_output_tokens, api_key, model_query, delay_seconds)
       return(self$response)
@@ -66,17 +112,38 @@ Agent <- R6::R6Class(
   )
 )
 
-# --- Environment Class ---
+#' Environment Class
+#'
+#' Represents the environment in which the agents operate.
+#'
+#' @export
 Environment <- R6::R6Class(
   "Environment",
   public = list(
     agents = list(),
+    #' @param prompts A list of prompts for the agents.
+    #' @param prompt_types A list of prompt types for the agents.
     initialize = function(prompts, prompt_types) { # Accepts prompt types
       num_agents <- length(prompts)
       for (i in 1:num_agents) {
         self$agents[[i]] <- Agent$new(i, prompts[[i]], prompt_types[[i]])  # Pass prompt type here
       }
     },
+    #' @description
+    #' Runs the agents in the environment.
+    #' @param make_gemini_request_func The function to make the Gemini API request.
+    #' @param temperature Numeric value controlling the randomness of the response.
+    #' @param max_output_tokens Integer specifying the maximum number of tokens in the response.
+    #' @param api_key Character string containing the Gemini API key.
+    #' @param model_query Character string specifying the model to query.
+    #' @param delay_seconds Numeric value specifying the delay in seconds after sending the request.
+    #' @param num_workers Integer specifying the number of workers to use for parallel execution.
+    #' @param max_retries Integer specifying the maximum number of retries for each agent.
+    #' @return A list of results from the agents.
+    #'
+    #' @importFrom future plan
+    #' @importFrom furrr future_map
+    #' @importFrom progressr with_progress progressor
     run_agents = function(make_gemini_request_func, temperature, max_output_tokens, api_key, model_query, delay_seconds, num_workers, max_retries = 3) {
       plan(multisession, workers = num_workers)
       
@@ -120,5 +187,5 @@ Environment <- R6::R6Class(
       plan(sequential)
       return(results)
     }
-    )
+  )
 )

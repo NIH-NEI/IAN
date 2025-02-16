@@ -1,89 +1,104 @@
-# network_prompt_generator.R
-
-library(stringr)
-library(dplyr)
-library(readr)
-
-# Function to extract and combine TSV blocks from a text file
-extract_and_combine_tsv_blocks <- function(file_path) {
-  tryCatch({
-    # Read the file
-    text <- readChar(file_path, file.info(file_path)$size)
-    
-    # Regular expression to find TSV blocks
-    pattern <- "\\s*```(?i)tsv\\s*([\\s\\S]*?)\\s*```\\s*"
-    
-    matches <- str_match_all(text, pattern)[[1]]
-    
-    if (nrow(matches) > 0) {
-      # Extract the TSV content
-      tsv_contents <- matches[, 2]
+#' Generate Network Revision Prompt
+#'
+#' Generates a prompt for a Large Language Model (LLM) to revise a system representation network,
+#' integrating information from STRING protein-protein interaction data and experimental design.
+#'
+#' @param file_path Character string specifying the path to the text file containing the initial network data in TSV format.
+#' @param gene_symbols A vector of gene symbols used in the analysis.
+#' @param experimental_design A character string describing the experimental design (optional).
+#' @param string_results A list containing STRING protein-protein interaction data (optional).
+#'
+#' @return A character string containing the LLM prompt, or NULL if the network data is invalid or the file cannot be processed.
+#'
+#' @importFrom stringr str_match_all str_split str_to_upper
+#' @importFrom dplyr filter transmute bind_rows
+#' @importFrom readr read_tsv
+#' @export
+generate_network_revision_prompt <- function(file_path, gene_symbols, experimental_design = NULL, string_results = NULL) {
+  
+  #' Extract and Combine TSV Blocks from a Text File
+  #'
+  #' Extracts TSV (tab-separated values) blocks enclosed in ```tsv ... ``` tags from a text file and combines them into a single data frame.
+  #'
+  #' @param file_path Character string specifying the path to the text file.
+  #'
+  #' @return A data frame containing the combined TSV data, or NULL if no valid TSV blocks are found or the file cannot be processed.
+  extract_and_combine_tsv_blocks <- function(file_path) {
+    tryCatch({
+      # Read the file
+      text <- readChar(file_path, file.info(file_path)$size)
       
-      processed_dfs <- lapply(tsv_contents, function(tsv_content) {
-        tryCatch({
-          
-          lines <- str_split(tsv_content, "\n", simplify = TRUE)
-          lines <- lines[lines != ""] #remove empty strings
-          
-          if (length(lines) == 0) {
-            return(NULL)
-          }
-          
-          # Process header line
-          header_line <- lines[1]
-          header_fields <- str_split(header_line, "\\t", simplify = TRUE)
-          num_header_fields <- length(header_fields)
-          
-          
-          # Process data lines
-          processed_lines <- lapply(lines[-1], function(line) {
-            fields <- str_split(line, "\\t", simplify = TRUE)
-            num_fields <- length(fields)
+      # Regular expression to find TSV blocks
+      pattern <- "\\s*```(?i)tsv\\s*([\\s\\S]*?)\\s*```\\s*"
+      
+      matches <- str_match_all(text, pattern)[[1]]
+      
+      if (nrow(matches) > 0) {
+        # Extract the TSV content
+        tsv_contents <- matches[, 2]
+        
+        processed_dfs <- lapply(tsv_contents, function(tsv_content) {
+          tryCatch({
             
-            if(num_fields < num_header_fields) {
-              fields <- c(fields, rep("", num_header_fields - num_fields)) # Pad with empty strings if fewer columns
-            } else if (num_fields > num_header_fields){
-              fields <- fields[1:num_header_fields] #Truncate columns if there are too many
+            lines <- str_split(tsv_content, "\n", simplify = TRUE)
+            lines <- lines[lines != ""] #remove empty strings
+            
+            if (length(lines) == 0) {
+              return(NULL)
             }
-            paste(fields, collapse = "\t") # Re-combine to form the tsv row.
+            
+            # Process header line
+            header_line <- lines[1]
+            header_fields <- str_split(header_line, "\\t", simplify = TRUE)
+            num_header_fields <- length(header_fields)
+            
+            
+            # Process data lines
+            processed_lines <- lapply(lines[-1], function(line) {
+              fields <- str_split(line, "\\t", simplify = TRUE)
+              num_fields <- length(fields)
+              
+              if(num_fields < num_header_fields) {
+                fields <- c(fields, rep("", num_header_fields - num_fields)) # Pad with empty strings if fewer columns
+              } else if (num_fields > num_header_fields){
+                fields <- fields[1:num_header_fields] #Truncate columns if there are too many
+              }
+              paste(fields, collapse = "\t") # Re-combine to form the tsv row.
+            })
+            
+            processed_tsv_content <- paste(c(header_line, unlist(processed_lines)), collapse = "\n")
+            
+            df <- read.csv(text = processed_tsv_content, stringsAsFactors = FALSE, header=TRUE, row.names = NULL, fill = FALSE, sep = "\t")
+            return(df)
+            
+          }, error = function(e){
+            message(paste("Error processing TSV block:", e$message))
+            return(NULL)
           })
           
-          processed_tsv_content <- paste(c(header_line, unlist(processed_lines)), collapse = "\n")
-          
-          df <- read.csv(text = processed_tsv_content, stringsAsFactors = FALSE, header=TRUE, row.names = NULL, fill = FALSE, sep = "\t")
-          return(df)
-          
-        }, error = function(e){
-          message(paste("Error processing TSV block:", e$message))
-          return(NULL)
         })
         
-      })
-      
-      # Remove any NULL data frames resulting from failed reads
-      processed_dfs <- processed_dfs[!sapply(processed_dfs, is.null)]
-      
-      # Combine all data frames
-      if (length(processed_dfs) > 0){
-        combined_df <- bind_rows(processed_dfs)
-        return(combined_df)
+        # Remove any NULL data frames resulting from failed reads
+        processed_dfs <- processed_dfs[!sapply(processed_dfs, is.null)]
+        
+        # Combine all data frames
+        if (length(processed_dfs) > 0){
+          combined_df <- bind_rows(processed_dfs)
+          return(combined_df)
+        } else {
+          message("No valid TSV blocks to combine.")
+          return(NULL)
+        }
+        
       } else {
-        message("No valid TSV blocks to combine.")
+        message("No TSV blocks found in the file.")
         return(NULL)
       }
-      
-    } else {
-      message("No TSV blocks found in the file.")
+    }, error = function(e) {
+      message(paste("Error processing file:", e$message))
       return(NULL)
-    }
-  }, error = function(e) {
-    message(paste("Error processing file:", e$message))
-    return(NULL)
-  })
-}
-
-# Function to process the text file and generate prompt for network revision
-generate_network_revision_prompt <- function(file_path, gene_symbols, experimental_design = NULL, string_results = NULL) {
+    })
+  }
   
   # Extract and combine network data
   combined_df <- extract_and_combine_tsv_blocks(file_path)

@@ -1,3 +1,23 @@
+#' Map Gene IDs
+#'
+#' Maps gene identifiers from various input types (findmarker, DESeq2, or custom file) to ENTREZID and SYMBOL.
+#'
+#' @param input_type Character string specifying the input type. Must be one of "findmarker", "deseq", or "custom".
+#' @param markers Data frame containing marker genes (required if `input_type` is "findmarker").
+#' @param deg_file Path to a file containing differentially expressed genes (required if `input_type` is "custom").
+#' @param organism Character string specifying the organism. Must be "human" or "mouse".
+#' @param gene_type Character string specifying the gene identifier type in the input data. Must be one of "ENSEMBL", "ENTREZID", or "SYMBOL".
+#' @param pvalue Numeric value specifying the p-value threshold for filtering marker genes (used if `input_type` is "findmarker"). Default is 0.05.
+#' @param log2FC Numeric value specifying the log2 fold change threshold for filtering marker genes (used if `input_type` is "findmarker"). Default is 1.
+#' @param deseq_results Data frame containing DESeq2 results (required if `input_type` is "deseq").
+#'
+#' @return A data frame with two columns: ENTREZID and SYMBOL, containing the mapped gene identifiers.
+#'
+#'
+#' @importFrom clusterProfiler bitr
+#' @importFrom dplyr filter
+#' @importFrom dplyr select
+#' @export
 map_gene_ids <- function(input_type, markers = NULL, deg_file = NULL, organism = NULL, gene_type = NULL, pvalue = 0.05, log2FC = 1, deseq_results = NULL) {
   # Input validation
   if (!(organism %in% c("human", "mouse"))) {
