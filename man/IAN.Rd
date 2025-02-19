@@ -24,6 +24,8 @@ IAN(
 \arguments{
 \item{experimental_design}{A character string describing the experimental design (optional, default is NULL).}
 
+\item{deseq_results}{A data frame containing DESeq2 results (required if `input_type` is "deseq").}
+
 \item{markeringroup}{A data frame containing marker genes (required if `input_type` is "findmarker", default is NULL).}
 
 \item{deg_file}{Path to a file containing differentially expressed genes (required if `input_type` is "custom", default is NULL).}

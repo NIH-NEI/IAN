@@ -2,7 +2,7 @@
 % Please edit documentation in R/IAN_create_combined_prompt.R
 \name{create_combined_prompt}
 \alias{create_combined_prompt}
-\title{Create Combined LLM Prompt}
+\title{IAN_create_combined_prompt.R}
 \usage{
 create_combined_prompt(
   results,

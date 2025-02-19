@@ -2,7 +2,7 @@
 % Please edit documentation in R/IAN_gene_id_mapper.R
 \name{map_gene_ids}
 \alias{map_gene_ids}
-\title{Map Gene IDs}
+\title{IAN_gene_id_mapper.R}
 \usage{
 map_gene_ids(
   input_type,

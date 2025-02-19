@@ -1,4 +1,4 @@
-#' Save Results to File
+#' IAN_enrichment_analysis.R
 #'
 #' Helper function to save enrichment analysis results to a tab-separated text file.
 #'
@@ -265,7 +265,7 @@ perform_reactome_enrichment <- function(gene_ids, gene_mapping, organism, pvalue
 #' @importFrom dplyr filter select
 #' @export
 perform_chea_enrichment <- function(gene_symbols, organism, pvalue = 0.05, output_dir = "enrichment_results") {
-  
+
   # Check organism input
   organism <- tolower(organism)
   if (!(organism %in% c("human", "mouse"))) {
@@ -283,7 +283,7 @@ perform_chea_enrichment <- function(gene_symbols, organism, pvalue = 0.05, outpu
   }
   
   tryCatch({
-    setEnrichrSite("Enrichr")
+    enrichR::setEnrichrSite("Enrichr") # Use enrichR::
     
     # Check gene_symbols
     if (length(gene_symbols) == 0 || all(is.na(gene_symbols))) {
@@ -291,29 +291,35 @@ perform_chea_enrichment <- function(gene_symbols, organism, pvalue = 0.05, outpu
       return(list(error = "ChEA Enrichment Failed", message = "Empty or NA gene symbols"))
     }
     
-    enriched <- enrichr(gene_symbols, c("ChEA_2022"))
+    enriched <- enrichR::enrichr(gene_symbols, c("ChEA_2022")) # Use enrichR::
     
     if (!"ChEA_2022" %in% names(enriched)) {
       message("Warning: 'ChEA_2022' not found in enriched results. Returning NULL.")
       return(list(error = "ChEA Enrichment Failed", message = "'ChEA_2022' not found"))
     }
-    
+
     chea_results <- enriched$ChEA_2022 %>%
-      dplyr::filter(P.value <= !!pvalue) %>%
       dplyr::select(Term, P.value, Genes)
     
+    # Handle NA values and special characters
+    chea_results <- chea_results %>%
+      dplyr::filter(!is.na(Term)) %>%
+      dplyr::mutate(Term = iconv(Term, to = "UTF-8", sub = "byte"))
+    
     # Filter based on organism
-    if (organism == "human") {
-      chea_results <- chea_results %>%
-        dplyr::filter(grepl("Human", Term, ignore.case = TRUE))
-    } else if (organism == "mouse") {
-      chea_results <- chea_results %>%
-        dplyr::filter(grepl("Mouse", Term, ignore.case = TRUE))
+    if (nrow(chea_results) > 0) {
+      if (organism == "human") {
+        chea_results <- chea_results %>%
+          dplyr::filter(grepl("Human", Term, ignore.case = TRUE, fixed = TRUE))
+      } else if (organism == "mouse") {
+        chea_results <- chea_results %>%
+          dplyr::filter(grepl("Mouse", Term, ignore.case = TRUE, fixed = TRUE))
+      }
     }
     
     # Save original results
     save_results(enriched$ChEA_2022, file.path(output_dir, "chea_enrichment_original.txt"), type = "original")
-    
+  
     # Save filtered results
     save_results(chea_results, file.path(output_dir, "chea_enrichment_filtered.txt"), type = "filtered")
     
@@ -322,9 +328,8 @@ perform_chea_enrichment <- function(gene_symbols, organism, pvalue = 0.05, outpu
     message(paste("Error in ChEA enrichment:", e$message))
     return(list(error = "ChEA Enrichment Failed", message = e$message))
   })
+  
 }
-
-
 
 
 
@@ -436,11 +441,6 @@ perform_go_enrichment <- function(gene_ids, gene_mapping, organism, ont = "BP", 
 #' @importFrom igraph graph_from_data_frame simplify degree betweenness closeness eigen_centrality
 #' @export
 perform_string_interactions <- function(gene_mapping, organism, score_threshold = 0, output_dir = "enrichment_results") {
-  library(STRINGdb)
-  library(plyr)
-  library(dplyr)
-  library(igraph)
-  
   # Validate organism input
   if (missing(organism)) {
     stop("Error: The 'organism' argument is missing. Please specify either 'human' or 'mouse'.")
@@ -451,9 +451,6 @@ perform_string_interactions <- function(gene_mapping, organism, score_threshold 
   }
   
   tryCatch({
-    library(STRINGdb) # Load STRINGdb library here
-    library(plyr)
-    library(dplyr) # Load dplyr library here
     
     # Set species based on organism
     species <- ifelse(organism == "human", 9606, 10090)
@@ -494,7 +491,6 @@ perform_string_interactions <- function(gene_mapping, organism, score_threshold 
     
     # Rearrange data columns
     deg_interactions <- tryCatch({
-      library(dplyr)
       dplyr::select(string_interactions, Protein1, Protein2, combined_score)
     }, error = function(e) {
       message(paste("Error in dplyr::select:", e$message))

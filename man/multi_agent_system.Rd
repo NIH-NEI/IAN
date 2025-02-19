@@ -3,21 +3,21 @@
 \docType{package}
 \name{multi_agent_system}
 \alias{multi_agent_system}
-\title{Multi-Agent System with Gemini API Integration}
+\title{IAN_multi_agent_system.R}
 \description{
 This script defines a multi-agent system where agents interact with the Gemini API to generate responses based on predefined prompts.
 It includes functions for making API requests, defining agent behavior, and managing the environment in which agents operate.
 }
 \section{Functions}{
 
-\itemize{
+\describe{
   \item{\code{\link{make_gemini_request}}}{: Sends a request to the Gemini API with a given prompt and configuration.}
 }
 }
 
 \section{Classes}{
 
-\itemize{
+\describe{
   \item{\code{\link{Agent}}}{: Represents an agent in the multi-agent system.}
   \item{\code{\link{Environment}}}{: Represents the environment in which the agents operate.}
 }

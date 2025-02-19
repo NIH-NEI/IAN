@@ -1,15 +1,15 @@
-#' Multi-Agent System with Gemini API Integration
+#' IAN_multi_agent_system.R
 #'
 #' This script defines a multi-agent system where agents interact with the Gemini API to generate responses based on predefined prompts.
 #' It includes functions for making API requests, defining agent behavior, and managing the environment in which agents operate.
 #'
 #' @section Functions:
-#' \itemize{
+#' \describe{
 #'   \item{\code{\link{make_gemini_request}}}{: Sends a request to the Gemini API with a given prompt and configuration.}
 #' }
-#'
+
 #' @section Classes:
-#' \itemize{
+#' \describe{
 #'   \item{\code{\link{Agent}}}{: Represents an agent in the multi-agent system.}
 #'   \item{\code{\link{Environment}}}{: Represents the environment in which the agents operate.}
 #' }
@@ -144,48 +144,50 @@ Environment <- R6::R6Class(
     #' @importFrom future plan
     #' @importFrom furrr future_map
     #' @importFrom progressr with_progress progressor
-    run_agents = function(make_gemini_request_func, temperature, max_output_tokens, api_key, model_query, delay_seconds, num_workers, max_retries = 3) {
-      plan(multisession, workers = num_workers)
+run_agents = function(make_gemini_request_func, temperature, max_output_tokens, api_key, model_query, delay_seconds, num_workers, max_retries = 3) {
+  library(future)
+  future::plan(multisession, workers = num_workers)
+  
+  with_progress({
+    p <- progressor(along = self$agents) # Create progressor
+    results <- future_map(self$agents, function(agent) {
       
-      with_progress({
-        p <- progressor(along = self$agents) # Create progressor
-        results <- future_map(self$agents, function(agent) {
-          
-          cat(paste("Agent", agent$id, "is starting execution of", agent$prompt_type, "\n"))
-          p(sprintf("Agent %d is starting execution of %s", agent$id, agent$prompt_type))
-          
-          retries <- 0
-          response <- NULL
-          while (retries <= max_retries) {
-            response <- tryCatch({
-              agent$get_response(make_gemini_request_func, temperature, max_output_tokens, api_key, model_query, delay_seconds)
-            }, error = function(e) {
-              cat(paste("Error during agent", agent$id, "execution:", e$message, "\n"))
-              return(list(error = e$message))
-            })
-            
-            if (is.list(response) && !is.null(response$error) && grepl("Request failed with status code: 503", response$error, fixed = TRUE)) {
-              retries <- retries + 1
-              cat(paste("Agent", agent$id, "returned 503 error. Retrying (attempt", retries, "of", max_retries, ")", "\n"))
-              Sys.sleep(delay_seconds * 2) # Wait longer before retrying
-            } else {
-              break # Exit the loop if no 503 error or if successful
-            }
-          }
-          
-          if (retries > max_retries) {
-            cat(paste("Agent", agent$id, "failed after", max_retries, "retries.", "\n"))
-            return(list(agent_id = agent$id, response = list(error = "Failed after multiple retries")))
-          } else {
-            cat(paste("Agent", agent$id, "completed execution of", agent$prompt_type, "\n"))
-            p(sprintf("Agent %d completed execution of %s", agent$id, agent$prompt_type))
-            return(list(agent_id = agent$id, response = response))
-          }
-        }, .progress = FALSE) # Disable future_map's progress
-      })
+      cat(paste("Agent", agent$id, "is starting execution of", agent$prompt_type, "\n"))
+      p(sprintf("Agent %d is starting execution of %s", agent$id, agent$prompt_type))
       
-      plan(sequential)
-      return(results)
-    }
+      retries <- 0
+      response <- NULL
+      while (retries <= max_retries) {
+        response <- tryCatch({
+          agent$get_response(make_gemini_request_func, temperature, max_output_tokens, api_key, model_query, delay_seconds)
+        }, error = function(e) {
+          cat(paste("Error during agent", agent$id, "execution:", e$message, "\n"))
+          return(list(error = e$message))
+        })
+        
+        if (is.list(response) && !is.null(response$error) && grepl("Request failed with status code: 503", response$error, fixed = TRUE)) {
+          retries <- retries + 1
+          cat(paste("Agent", agent$id, "returned 503 error. Retrying (attempt", retries, "of", max_retries, ")", "\n"))
+          Sys.sleep(delay_seconds * 2) # Wait longer before retrying
+        } else {
+          break # Exit the loop if no 503 error or if successful
+        }
+      }
+      
+      if (retries > max_retries) {
+        cat(paste("Agent", agent$id, "failed after", max_retries, "retries.", "\n"))
+        return(list(agent_id = agent$id, response = list(error = "Failed after multiple retries")))
+      } else {
+        cat(paste("Agent", agent$id, "completed execution of", agent$prompt_type, "\n"))
+        p(sprintf("Agent %d completed execution of %s", agent$id, agent$prompt_type))
+        return(list(agent_id = agent$id, response = response))
+      }
+    }, .progress = FALSE) # Disable future_map's progress
+  })
+  
+  future::plan(sequential) # Use future::plan
+  return(results)
+}
+    
   )
 )

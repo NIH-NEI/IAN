@@ -2,7 +2,7 @@
 % Please edit documentation in R/IAN_visualize_system_model.R
 \name{visualize_system_model}
 \alias{visualize_system_model}
-\title{Visualize System Model Network}
+\title{IAN_visualize_system_model.R}
 \usage{
 visualize_system_model(
   llm_response,

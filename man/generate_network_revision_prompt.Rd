@@ -2,7 +2,7 @@
 % Please edit documentation in R/IAN_network_prompt_generator.R
 \name{generate_network_revision_prompt}
 \alias{generate_network_revision_prompt}
-\title{Generate Network Revision Prompt}
+\title{IAN_network_prompt_generator.R}
 \usage{
 generate_network_revision_prompt(
   file_path,

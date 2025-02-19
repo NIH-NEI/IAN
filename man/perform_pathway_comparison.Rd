@@ -2,7 +2,7 @@
 % Please edit documentation in R/IAN_pathway_comparison.R
 \name{perform_pathway_comparison}
 \alias{perform_pathway_comparison}
-\title{Pathway Comparison Analysis}
+\title{IAN_pathway_comparison.R}
 \usage{
 perform_pathway_comparison(
   gene_symbols,
@@ -25,17 +25,9 @@ perform_pathway_comparison(
 \item{go_results}{A data frame containing GO enrichment results.}
 
 \item{output_dir}{Character string specifying the directory to save the results to. Default is "enrichment_results".}
-
-\item{results}{The results object to save. Can be a data frame or a list.}
-
-\item{filename}{The name of the file to save the results to.}
-
-\item{type}{Character string specifying the type of results being saved. Must be "original" or "filtered". Default is "original".}
 }
 \value{
 A list containing the pathway comparison results, including overlapping and unique genes for each pathway database. Returns a list with an "error" element if the analysis fails.
-
-None (side effect: saves a file).
 }
 \description{
 Performs a comparison of pathway enrichment results from KEGG, WikiPathways, Reactome, and GO analyses.

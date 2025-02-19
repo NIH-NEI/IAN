@@ -2,7 +2,7 @@
 % Please edit documentation in R/IAN_enrichment_analysis.R
 \name{save_results}
 \alias{save_results}
-\title{Save Results to File}
+\title{IAN_enrichment_analysis.R}
 \usage{
 save_results(results, filename, type = "original")
 }

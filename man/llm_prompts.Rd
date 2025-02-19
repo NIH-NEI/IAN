@@ -4,14 +4,14 @@
 \name{llm_prompts}
 \alias{IAN-package}
 \alias{llm_prompts}
-\title{LLM Prompt Creation Functions}
+\title{IAN_llm_prompts.R}
 \description{
 This script defines functions to create prompts for Large Language Models (LLMs) based on various enrichment analysis results.
 The prompts are designed to guide the LLM in analyzing the data and generating insights about the underlying biological mechanisms.
 }
 \section{Functions}{
 
-\itemize{
+\describe{
   \item{\code{\link{create_llm_prompt_wp}}}{: Creates an LLM prompt for WikiPathways enrichment analysis.}
   \item{\code{\link{create_llm_prompt_kegg}}}{: Creates an LLM prompt for KEGG enrichment analysis.}
   \item{\code{\link{create_llm_prompt_reactome}}}{: Creates an LLM prompt for Reactome enrichment analysis.}

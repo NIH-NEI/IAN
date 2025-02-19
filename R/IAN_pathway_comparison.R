@@ -1,4 +1,4 @@
-#' Pathway Comparison Analysis
+#' IAN_pathway_comparison.R
 #'
 #' Performs a comparison of pathway enrichment results from KEGG, WikiPathways, Reactome, and GO analyses.
 #' Identifies overlapping and unique genes across the different pathway databases.
@@ -23,16 +23,6 @@ perform_pathway_comparison <- function(gene_symbols, kegg_results, wp_results, r
     return(list(error = "No valid pathway results provided"))
   }
   
-  #' Save Results to File
-  #'
-  #' Helper function to save pathway comparison results to a tab-separated text file.
-  #'
-  #' @param results The results object to save. Can be a data frame or a list.
-  #' @param filename The name of the file to save the results to.
-  #' @param type Character string specifying the type of results being saved. Must be "original" or "filtered". Default is "original".
-  #'
-  #' @return None (side effect: saves a file).
-  #'
   save_results <- function(results, filename, type = "original") {
     if (is.null(results) || (is.list(results) && "error" %in% names(results))) {
       message(paste("Warning: No results to save for", filename, type, "results."))

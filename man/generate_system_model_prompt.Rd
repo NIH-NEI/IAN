@@ -2,7 +2,7 @@
 % Please edit documentation in R/IAN_system_model_prompt_generator.R
 \name{generate_system_model_prompt}
 \alias{generate_system_model_prompt}
-\title{Generate System Model Prompt}
+\title{IAN_system_model_prompt_generator.R}
 \usage{
 generate_system_model_prompt(
   llm_response,

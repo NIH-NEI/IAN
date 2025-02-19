@@ -1,4 +1,4 @@
-#' Map Gene IDs
+#' IAN_gene_id_mapper.R
 #'
 #' Maps gene identifiers from various input types (findmarker, DESeq2, or custom file) to ENTREZID and SYMBOL.
 #'
@@ -77,12 +77,12 @@ map_gene_ids <- function(input_type, markers = NULL, deg_file = NULL, organism =
   
   # Load necessary libraries
   library(organism_db, character.only = TRUE)
-  library(dplyr)
   
   # Prepare gene list and fromType based on input type
   if (input_type == "findmarker") {
     markers <- markers %>%
-      dplyr::filter(p_val < pvalue & abs(avg_log2FC) > log2FC)
+#      dplyr::filter(p_val < pvalue & abs(avg_log2FC) > log2FC)
+      dplyr::filter(.data[["p_val"]] < pvalue & abs(.data[["avg_log2FC"]]) > log2FC)
     genes <- rownames(markers)
     genes <- sub("\\..*", "", genes)
     deglist <- genes

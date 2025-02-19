@@ -1,4 +1,4 @@
-#' Create Combined LLM Prompt
+#' IAN_create_combined_prompt.R
 #'
 #' Creates a combined prompt for a Large Language Model (LLM) by integrating results from multiple agents,
 #' STRING protein-protein interaction data, ChEA transcription factor enrichment results, STRING network properties,

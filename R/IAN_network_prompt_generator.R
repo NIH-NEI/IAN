@@ -1,4 +1,4 @@
-#' Generate Network Revision Prompt
+#' IAN_network_prompt_generator.R
 #'
 #' Generates a prompt for a Large Language Model (LLM) to revise a system representation network,
 #' integrating information from STRING protein-protein interaction data and experimental design.
@@ -127,12 +127,19 @@ generate_network_revision_prompt <- function(file_path, gene_symbols, experiment
     
     # 4. Create New Dataframe of String based interactions
     if (nrow(filtered_string_interactions) > 0) {
+#      new_interactions <- filtered_string_interactions %>%
+#        transmute(
+#          Node1 = Protein1,
+#          Edge = "interacts with",
+#          Node2 = Protein2,
+#          Explanation = paste0("STRING interaction with combined score: ", combined_score)
+#        )
       new_interactions <- filtered_string_interactions %>%
         transmute(
-          Node1 = Protein1,
+          Node1 = .data[["Protein1"]],
           Edge = "interacts with",
-          Node2 = Protein2,
-          Explanation = paste0("STRING interaction with combined score: ", combined_score)
+          Node2 = .data[["Protein2"]],
+          Explanation = paste0("STRING interaction with combined score: ", .data[["combined_score"]])
         )
     } else {
       new_interactions <- NULL

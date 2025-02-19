@@ -4,6 +4,7 @@
 #' multi-agent system execution, pathway comparison, network revision, system model generation, and visualization.
 #'
 #' @param experimental_design A character string describing the experimental design (optional, default is NULL).
+#' @param deseq_results A data frame containing DESeq2 results (required if `input_type` is "deseq").
 #' @param markeringroup A data frame containing marker genes (required if `input_type` is "findmarker", default is NULL).
 #' @param deg_file Path to a file containing differentially expressed genes (required if `input_type` is "custom", default is NULL).
 #' @param gene_type Character string specifying the gene identifier type in the input data. Must be one of "ENSEMBL", "ENTREZID", or "SYMBOL" (required if `input_type` is "deseq", "findmarker", or "custom", default is NULL).
@@ -31,28 +32,19 @@
 IAN <- function(experimental_design = NULL, deseq_results = NULL, markeringroup = NULL, deg_file = NULL, gene_type = NULL, organism = NULL, input_type = NULL, pvalue = 0.05, ont = "BP", score_threshold = 0, output_dir = "enrichment_results", model = "gemini-1.5-flash-latest", temperature = 0, api_key_file = NULL) {
   
   # Source the functions
-  source("IAN/R/IAN_gene_id_mapper.R")
-  source("IAN/R/IAN_enrichment_analysis.R")
-  source("IAN/R/IAN_multi_agent_system.R")
-  source("IAN/R/IAN_llm_prompts.R")
-  source("IAN/R/IAN_create_combined_prompt.R") # Source the new file
-  source("IAN/R/IAN_pathway_comparison.R") # Source the pathway comparison script
-  source("IAN/R/IAN_network_prompt_generator.R") # Source the combined network prompt generator script
-  source("IAN/R/IAN_system_model_prompt_generator.R") # Source the system model prompt generator script
-  source("IAN/R/IAN_visualize_system_model.R") # To visualize system model
-  
-  # Load necessary libraries
-  library(dplyr)
-  library(clusterProfiler)
-  library(ReactomePA)
-  library(enrichR)
-  library(stringr)
-  #library(dplyr)
-  library(readr)
-  #library(tidyverse)
+  #source("IAN/R/IAN_gene_id_mapper.R")
+  #source("IAN/R/IAN_enrichment_analysis.R")
+  #source("IAN/R/IAN_multi_agent_system.R")
+  #source("IAN/R/IAN_llm_prompts.R")
+  #source("IAN/R/IAN_create_combined_prompt.R") # Source the new file
+  #source("IAN/R/IAN_pathway_comparison.R") # Source the pathway comparison script
+  #source("IAN/R/IAN_network_prompt_generator.R") # Source the combined network prompt generator script
+  #source("IAN/R/IAN_system_model_prompt_generator.R") # Source the system model prompt generator script
+  #source("IAN/R/IAN_visualize_system_model.R") # To visualize system model
   
   # --- Configuration ---
-  num_workers <- availableCores() - 1
+  #num_workers <- parallel::availableCores() - 1
+  num_workers <- parallel::detectCores() - 1
   #model <- "gemini-1.5-flash-latest"  # Optimized
   #model <- "gemini-1.5-flash-8b"  # Or your preferred Gemini model
   #model <- "gemini-2.0-flash-exp"  # Or your preferred Gemini model
@@ -180,9 +172,29 @@ IAN <- function(experimental_design = NULL, deseq_results = NULL, markeringroup 
   if (is.null(gene_mapping) || (is.list(gene_mapping) && "error" %in% names(gene_mapping))) {
     print("Gene ID mapping failed. Please check your input parameters and data.")
   } else {
+    
+    print("Structure of gene_mapping:")
+    print(str(gene_mapping))
+    print("First few rows of gene_mapping:")
+    print(head(gene_mapping))
+    
+    # Check if ENTREZID and SYMBOL columns exist
+    if (!("ENTREZID" %in% colnames(gene_mapping) && "SYMBOL" %in% colnames(gene_mapping))) {
+      stop("Error: gene_mapping does not contain ENTREZID and SYMBOL columns.")
+    }
+    
     # Extract gene IDs and symbols
     gene_ids <- gene_mapping$ENTREZID
     gene_symbols <- gene_mapping$SYMBOL # Get gene symbols from mapping
+    
+    print("Contents of gene_symbols (in IAN function) AFTER extraction:")
+    print(gene_symbols)
+    print("Length of gene_symbols (in IAN function) AFTER extraction:")
+    print(length(gene_symbols))
+    print("Class of gene_symbols (in IAN function) AFTER extraction:")
+    print(class(gene_symbols))   
+    
+    
     
     # --- Perform Enrichment Analyses ---
     
@@ -272,9 +284,9 @@ IAN <- function(experimental_design = NULL, deseq_results = NULL, markeringroup 
     })
     
     # --- Save the character vector to a file in the output directory ---
-    file_conn_vector <- file(file.path(output_dir, "final_response.txt"), "w")
-    writeLines(final_response, file_conn_vector)
-    close(file_conn_vector)
+    file_conn_vector <- base::file(file.path(output_dir, "final_response.txt"), "w")
+    base::writeLines(final_response, file_conn_vector)
+    base::close(file_conn_vector)
     
     # --- Print results to console ---
     for (i in seq_along(results)) {
@@ -310,9 +322,9 @@ IAN <- function(experimental_design = NULL, deseq_results = NULL, markeringroup 
     network_revision_response <- make_gemini_request(network_revision_prompt, temperature, max_output_tokens, api_key, model_query, delay_seconds)
     
     # --- Save the character vector to a file in the output directory ---
-    file_conn_vector <- file(file.path(output_dir, "integrated_network.txt"), "w")
-    writeLines(network_revision_response, file_conn_vector)
-    close(file_conn_vector)
+    file_conn_vector <- base::file(file.path(output_dir, "integrated_network.txt"), "w")
+    base::writeLines(network_revision_response, file_conn_vector)
+    base::close(file_conn_vector)
     
     # 3. Generate prompt for the rest of the analysis using the output of step 2
     system_model_prompt <- generate_system_model_prompt(network_revision_response, gene_symbols, experimental_design)
@@ -320,9 +332,9 @@ IAN <- function(experimental_design = NULL, deseq_results = NULL, markeringroup 
     # 4. Make final request to LLM
     system_model_response <- make_gemini_request(system_model_prompt,temperature, max_output_tokens, api_key, model_query, delay_seconds)
     
-    file_conn_vector <- file(file.path(output_dir, "system_model.txt"), "w")
-    writeLines(system_model_response, file_conn_vector)
-    close(file_conn_vector)
+    file_conn_vector <- base::file(file.path(output_dir, "system_model.txt"), "w")
+    base::writeLines(system_model_response, file_conn_vector)
+    base::close(file_conn_vector)
     
     # Call the visualization function, passing the response and the desired HTML file name
     system_model_network = visualize_system_model(system_model_response, html_file = "system_model_network.html", gene_symbols)
@@ -346,7 +358,6 @@ IAN <- function(experimental_design = NULL, deseq_results = NULL, markeringroup 
     # Store the extracted title in a variable
     report_title <- title_extraction
     
-    library(igraph)
     rmarkdown::render("report_template.Rmd", output_dir = output_dir)
   }
 }

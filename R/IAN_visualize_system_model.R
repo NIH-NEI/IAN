@@ -1,4 +1,4 @@
-#' Visualize System Model Network
+#' IAN_visualize_system_model.R
 #'
 #' Extracts the system model network from an LLM response in TSV format and visualizes it using the `visNetwork` package.
 #'

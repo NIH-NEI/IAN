@@ -1,4 +1,4 @@
-#' Generate System Model Prompt
+#' IAN_system_model_prompt_generator.R
 #'
 #' Generates a prompt for a Large Language Model (LLM) to analyze a system representation network
 #' and create a mechanistic model, including a summary, potential upstream regulators, and a hypothesis

@@ -10,18 +10,12 @@ Encoding: UTF-8
 LazyData: true
 Imports:
     igraph,
-    Seurat,
-    rollama,
     BiocManager,
     clusterProfiler,
-    org.Hs.eg.db,
     dplyr,
     plyr,
     tidyr,
-    data.table,
     httr,
-    jsonlite,
-    Matrix,
     visNetwork,
     ReactomePA,
     STRINGdb,
@@ -30,7 +24,9 @@ Imports:
     future,
     progressr,
     readr,
-    stringr
+    stringr,
+    methods,
+	rmarkdown    
 Suggests: 
     testthat (>= 3.0.0)
 RoxygenNote: 7.3.2
