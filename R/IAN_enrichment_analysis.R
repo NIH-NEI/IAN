@@ -7,6 +7,7 @@
 #' @param type Character string specifying the type of results being saved. Must be "original" or "filtered". Default is "original".
 #'
 #' @return None (side effect: saves a file).
+#' @importFrom utils write.table
 #'
 
 save_results <- function(results, filename, type = "original") {
@@ -54,7 +55,9 @@ save_results <- function(results, filename, type = "original") {
 #' @importFrom dplyr filter arrange slice mutate left_join group_by summarize select
 #' @importFrom tidyr unnest
 #' @importFrom stringr strsplit
+#' @importFrom dplyr .data
 #' @export
+
 perform_wp_enrichment <- function(gene_ids, gene_mapping, organism, pvalue = 0.05, output_dir = "enrichment_results") {
   if (missing(organism)) {
     stop("Error: The 'organism' argument is missing. Please specify either 'human' or 'mouse'.")
@@ -76,19 +79,29 @@ perform_wp_enrichment <- function(gene_ids, gene_mapping, organism, pvalue = 0.0
     # Save original results
     save_results(wp_enrichment@result, file.path(output_dir, "wp_enrichment_original.txt"), type = "original")
     
-    wp_enrichment_results <- wp_enrichment@result %>%
-      dplyr::filter(pvalue < !!pvalue) %>%
-      dplyr::arrange(pvalue) %>%
-      dplyr::slice(1:min(nrow(.), 100)) %>%
-      dplyr::mutate(geneID = strsplit(geneID, "/")) %>%
-      tidyr::unnest(geneID) %>%
-      dplyr::mutate(geneID = as.character(geneID)) %>%
-      dplyr::left_join(gene_mapping, by = c("geneID" = "ENTREZID")) %>%
-      dplyr::mutate(Gene = ifelse(!is.na(SYMBOL), SYMBOL, geneID)) %>%
-      dplyr::group_by(ID, Description, pvalue) %>%
-      dplyr::summarize(., geneID = paste(unique(geneID), collapse = ","),
-                       Gene = paste(unique(Gene), collapse = ","), .groups = "drop") %>%
-      dplyr::select(ID, Description, pvalue, Gene)
+    wp_enrichment_results <- local({
+      # Define column names within a local environment
+      ID <- NULL
+      Description <- NULL
+      Gene <- NULL
+      SYMBOL <- NULL
+      geneID <- NULL
+      . <- NULL
+      
+      wp_enrichment@result %>%
+        dplyr::filter(.data[["pvalue"]] < !!pvalue) %>%
+        dplyr::arrange(.data[["pvalue"]]) %>%
+        dplyr::slice(1:min(nrow(.), 100)) %>%
+        dplyr::mutate(geneID = strsplit(.data[["geneID"]], "/")) %>%
+        tidyr::unnest(geneID) %>%
+        dplyr::mutate(geneID = as.character(geneID)) %>%
+        dplyr::left_join(gene_mapping, by = c("geneID" = "ENTREZID")) %>%
+        dplyr::mutate(Gene = ifelse(!is.na(SYMBOL), SYMBOL, geneID)) %>%
+        dplyr::group_by(ID, Description, pvalue) %>%
+        dplyr::summarize(., geneID = paste(unique(geneID), collapse = ","),
+                         Gene = paste(unique(Gene), collapse = ","), .groups = "drop") %>%
+        dplyr::select(ID, Description, pvalue, Gene)
+    })
     
     # Save filtered results
     save_results(wp_enrichment_results, file.path(output_dir, "wp_enrichment_filtered.txt"), type = "filtered")
@@ -117,6 +130,7 @@ perform_wp_enrichment <- function(gene_ids, gene_mapping, organism, pvalue = 0.0
 #' @importFrom dplyr filter arrange slice mutate left_join group_by summarize select
 #' @importFrom tidyr unnest
 #' @importFrom stringr strsplit
+#' @importFrom dplyr .data
 #' @export
 perform_kegg_enrichment <- function(gene_ids, gene_mapping, organism, pvalue = 0.05, output_dir = "enrichment_results") {
   
@@ -166,19 +180,29 @@ perform_kegg_enrichment <- function(gene_ids, gene_mapping, organism, pvalue = 0
     # Save original results
     save_results(kegg_enrichment@result, file.path(output_dir, "kegg_enrichment_original.txt"), type = "original")
     
-    kegg_enrichment_results <- kegg_enrichment@result %>%
-      dplyr::filter(pvalue < !!pvalue) %>%
-      dplyr::arrange(pvalue) %>%
-      dplyr::slice(1:min(nrow(.), 100)) %>%
-      dplyr::mutate(geneID = strsplit(geneID, "/")) %>%
-      tidyr::unnest(geneID) %>%
-      dplyr::mutate(geneID = as.character(geneID)) %>%
-      dplyr::left_join(gene_mapping, by = c("geneID" = "ENTREZID")) %>%
-      dplyr::mutate(Gene = ifelse(!is.na(SYMBOL), SYMBOL, geneID)) %>%
-      dplyr::group_by(ID, Description, pvalue) %>%
-      dplyr::summarize(., geneID = paste(unique(geneID), collapse = ","),
-                       Gene = paste(unique(Gene), collapse = ","), .groups = "drop") %>%
-      dplyr::select(ID, Description, pvalue, Gene)
+    kegg_enrichment_results <- local({
+      # Define column names within a local environment
+      ID <- NULL
+      Description <- NULL
+      Gene <- NULL
+      SYMBOL <- NULL
+      geneID <- NULL
+      . <- NULL
+      
+      kegg_enrichment@result %>%
+        dplyr::filter(.data[["pvalue"]] < !!pvalue) %>%
+        dplyr::arrange(.data[["pvalue"]]) %>%
+        dplyr::slice(1:min(nrow(.), 100)) %>%
+        dplyr::mutate(geneID = strsplit(.data[["geneID"]], "/")) %>%
+        tidyr::unnest(geneID) %>%
+        dplyr::mutate(geneID = as.character(geneID)) %>%
+        dplyr::left_join(gene_mapping, by = c("geneID" = "ENTREZID")) %>%
+        dplyr::mutate(Gene = ifelse(!is.na(SYMBOL), SYMBOL, geneID)) %>%
+        dplyr::group_by(ID, Description, pvalue) %>%
+        dplyr::summarize(., geneID = paste(unique(geneID), collapse = ","),
+                         Gene = paste(unique(Gene), collapse = ","), .groups = "drop") %>%
+        dplyr::select(ID, Description, pvalue, Gene)
+    })
     
     # Save filtered results
     save_results(kegg_enrichment_results, file.path(output_dir, "kegg_enrichment_filtered.txt"), type = "filtered")
@@ -189,7 +213,6 @@ perform_kegg_enrichment <- function(gene_ids, gene_mapping, organism, pvalue = 0
     return(list(error = "KEGG Enrichment Failed", message = e$message))
   })
 }
-
 
 
 #' Perform Reactome Pathway Enrichment Analysis
@@ -208,6 +231,7 @@ perform_kegg_enrichment <- function(gene_ids, gene_mapping, organism, pvalue = 0
 #' @importFrom dplyr filter arrange slice mutate left_join group_by summarize select
 #' @importFrom tidyr unnest
 #' @importFrom stringr strsplit
+#' @importFrom dplyr .data
 #' @export
 perform_reactome_enrichment <- function(gene_ids, gene_mapping, organism, pvalue = 0.05, output_dir = "enrichment_results") {
   
@@ -224,19 +248,29 @@ perform_reactome_enrichment <- function(gene_ids, gene_mapping, organism, pvalue
     # Save original results
     save_results(reactome_enrichment@result, file.path(output_dir, "reactome_enrichment_original.txt"), type = "original")
     
-    reactome_enrichment_results <- reactome_enrichment@result %>%
-      dplyr::filter(pvalue < !!pvalue) %>%
-      dplyr::arrange(pvalue) %>%
-      dplyr::slice(1:min(nrow(.), 100)) %>%
-      dplyr::mutate(geneID = strsplit(geneID, "/")) %>%
-      tidyr::unnest(geneID) %>%
-      dplyr::mutate(geneID = as.character(geneID)) %>%
-      dplyr::left_join(gene_mapping, by = c("geneID" = "ENTREZID")) %>%
-      dplyr::mutate(Gene = ifelse(!is.na(SYMBOL), SYMBOL, geneID)) %>%
-      dplyr::group_by(ID, Description, pvalue) %>%
-      dplyr::summarize(., geneID = paste(unique(geneID), collapse = ","),
-                       Gene = paste(unique(Gene), collapse = ","), .groups = "drop") %>%
-      dplyr::select(ID, Description, pvalue, Gene)
+    reactome_enrichment_results <- local({
+      # Define column names within a local environment
+      ID <- NULL
+      Description <- NULL
+      Gene <- NULL
+      SYMBOL <- NULL
+      geneID <- NULL
+      . <- NULL
+      
+      reactome_enrichment@result %>%
+        dplyr::filter(.data[["pvalue"]] < !!pvalue) %>%
+        dplyr::arrange(.data[["pvalue"]]) %>%
+        dplyr::slice(1:min(nrow(.), 100)) %>%
+        dplyr::mutate(geneID = strsplit(.data[["geneID"]], "/")) %>%
+        tidyr::unnest(geneID) %>%
+        dplyr::mutate(geneID = as.character(geneID)) %>%
+        dplyr::left_join(gene_mapping, by = c("geneID" = "ENTREZID")) %>%
+        dplyr::mutate(Gene = ifelse(!is.na(SYMBOL), SYMBOL, geneID)) %>%
+        dplyr::group_by(ID, Description, pvalue) %>%
+        dplyr::summarize(., geneID = paste(unique(geneID), collapse = ","),
+                         Gene = paste(unique(Gene), collapse = ","), .groups = "drop") %>%
+        dplyr::select(ID, Description, pvalue, Gene)
+    })
     
     # Save filtered results
     save_results(reactome_enrichment_results, file.path(output_dir, "reactome_enrichment_filtered.txt"), type = "filtered")
@@ -247,7 +281,6 @@ perform_reactome_enrichment <- function(gene_ids, gene_mapping, organism, pvalue
     return(list(error = "Reactome Enrichment Failed", message = e$message))
   })
 }
-
 
 
 #' Perform ChEA Enrichment Analysis
@@ -263,9 +296,10 @@ perform_reactome_enrichment <- function(gene_ids, gene_mapping, organism, pvalue
 #'
 #' @importFrom enrichR setEnrichrSite enrichr
 #' @importFrom dplyr filter select
+#' @importFrom dplyr .data
 #' @export
 perform_chea_enrichment <- function(gene_symbols, organism, pvalue = 0.05, output_dir = "enrichment_results") {
-
+  
   # Check organism input
   organism <- tolower(organism)
   if (!(organism %in% c("human", "mouse"))) {
@@ -297,29 +331,28 @@ perform_chea_enrichment <- function(gene_symbols, organism, pvalue = 0.05, outpu
       message("Warning: 'ChEA_2022' not found in enriched results. Returning NULL.")
       return(list(error = "ChEA Enrichment Failed", message = "'ChEA_2022' not found"))
     }
-
-    chea_results <- enriched$ChEA_2022 %>%
-      dplyr::select(Term, P.value, Genes)
     
-    # Handle NA values and special characters
-    chea_results <- chea_results %>%
-      dplyr::filter(!is.na(Term)) %>%
-      dplyr::mutate(Term = iconv(Term, to = "UTF-8", sub = "byte"))
-    
-    # Filter based on organism
-    if (nrow(chea_results) > 0) {
-      if (organism == "human") {
-        chea_results <- chea_results %>%
-          dplyr::filter(grepl("Human", Term, ignore.case = TRUE, fixed = TRUE))
-      } else if (organism == "mouse") {
-        chea_results <- chea_results %>%
-          dplyr::filter(grepl("Mouse", Term, ignore.case = TRUE, fixed = TRUE))
-      }
-    }
+    chea_results <- local({
+      Term <- NULL
+      P.value <- NULL
+      Genes <- NULL
+      
+      enriched$ChEA_2022 %>%
+        dplyr::select(.data[["Term"]], .data[["P.value"]], .data[["Genes"]]) %>%
+        dplyr::filter(!is.na(.data[["Term"]])) %>%
+        dplyr::mutate(Term = iconv(.data[["Term"]], to = "UTF-8", sub = "byte")) %>%
+        dplyr::filter(
+          if (organism == "human") {
+            grepl("Human", .data[["Term"]], ignore.case = TRUE, fixed = TRUE)
+          } else {
+            grepl("Mouse", .data[["Term"]], ignore.case = TRUE, fixed = TRUE)
+          }
+        )
+    })
     
     # Save original results
     save_results(enriched$ChEA_2022, file.path(output_dir, "chea_enrichment_original.txt"), type = "original")
-  
+    
     # Save filtered results
     save_results(chea_results, file.path(output_dir, "chea_enrichment_filtered.txt"), type = "filtered")
     
@@ -330,7 +363,6 @@ perform_chea_enrichment <- function(gene_symbols, organism, pvalue = 0.05, outpu
   })
   
 }
-
 
 
 #' Perform GO Enrichment Analysis
@@ -350,6 +382,7 @@ perform_chea_enrichment <- function(gene_symbols, organism, pvalue = 0.05, outpu
 #' @importFrom dplyr filter arrange slice mutate left_join group_by summarize select
 #' @importFrom tidyr unnest
 #' @importFrom stringr strsplit
+#' @importFrom dplyr .data
 #' @export
 perform_go_enrichment <- function(gene_ids, gene_mapping, organism, ont = "BP", pvalue = 0.05, output_dir = "enrichment_results") {
   
@@ -394,22 +427,27 @@ perform_go_enrichment <- function(gene_ids, gene_mapping, organism, ont = "BP", 
     # Save original results
     save_results(go_enrichment@result, file.path(output_dir, "go_enrichment_original.txt"), type = "original")
     
-    go_enrichment_results <- go_enrichment@result
-    
-    go_enrichment_results <- go_enrichment_results %>%
-      dplyr::filter(pvalue < !!pvalue) %>%
-      dplyr::arrange(pvalue) %>%
-      dplyr::slice(1:min(nrow(.), 100))
-    
-    go_enrichment_results <- go_enrichment_results %>%
-      dplyr::mutate(geneID = strsplit(geneID, "/")) %>% 
-      tidyr::unnest(geneID) %>%
-      dplyr::mutate(geneID = as.character(geneID)) %>%
-      dplyr::left_join(gene_mapping, by = c("geneID" = "ENTREZID")) %>%
-      dplyr::mutate(Gene = ifelse(!is.na(SYMBOL), SYMBOL, geneID)) %>% 
-      dplyr::group_by(Description, pvalue) %>%
-      dplyr::summarize(., geneID = paste(unique(geneID), collapse = ", "),
-                       Gene = paste(unique(Gene), collapse = ", "), .groups = "drop") 
+    go_enrichment_results <- local({
+      ID <- NULL
+      Description <- NULL
+      Gene <- NULL
+      SYMBOL <- NULL
+      geneID <- NULL
+      . <- NULL
+      
+      go_enrichment@result %>%
+        dplyr::filter(.data[["pvalue"]] < !!pvalue) %>%
+        dplyr::arrange(.data[["pvalue"]]) %>%
+        dplyr::slice(1:min(nrow(.), 100)) %>%
+        dplyr::mutate(geneID = strsplit(.data[["geneID"]], "/")) %>%
+        tidyr::unnest(geneID) %>%
+        dplyr::mutate(geneID = as.character(geneID)) %>%
+        dplyr::left_join(gene_mapping, by = c("geneID" = "ENTREZID")) %>%
+        dplyr::mutate(Gene = ifelse(!is.na(SYMBOL), SYMBOL, geneID)) %>%
+        dplyr::group_by(Description, pvalue) %>%
+        dplyr::summarize(., geneID = paste(unique(geneID), collapse = ", "),
+                         Gene = paste(unique(Gene), collapse = ", "), .groups = "drop")
+    })
     
     input_go_enrichment <- go_enrichment_results[, c("Description", "pvalue", "Gene")]
     
@@ -422,7 +460,6 @@ perform_go_enrichment <- function(gene_ids, gene_mapping, organism, ont = "BP", 
     return(NULL)
   })
 }
-
 
 #' Perform STRING Interaction Analysis
 #'
@@ -439,6 +476,7 @@ perform_go_enrichment <- function(gene_ids, gene_mapping, organism, ont = "BP", 
 #' @importFrom plyr mapvalues
 #' @importFrom dplyr select distinct arrange slice desc mutate scale
 #' @importFrom igraph graph_from_data_frame simplify degree betweenness closeness eigen_centrality
+#' @importFrom dplyr .data
 #' @export
 perform_string_interactions <- function(gene_mapping, organism, score_threshold = 0, output_dir = "enrichment_results") {
   # Validate organism input
@@ -451,6 +489,8 @@ perform_string_interactions <- function(gene_mapping, organism, score_threshold 
   }
   
   tryCatch({
+    
+    . <- NULL
     
     # Set species based on organism
     species <- ifelse(organism == "human", 9606, 10090)
@@ -491,7 +531,13 @@ perform_string_interactions <- function(gene_mapping, organism, score_threshold 
     
     # Rearrange data columns
     deg_interactions <- tryCatch({
-      dplyr::select(string_interactions, Protein1, Protein2, combined_score)
+      #dplyr::select(string_interactions, Protein1, Protein2, combined_score)
+      local({
+        Protein1 <- NULL
+        Protein2 <- NULL
+        combined_score <- NULL
+        dplyr::select(string_interactions, .data[["Protein1"]], .data[["Protein2"]], .data[["combined_score"]])
+      })
     }, error = function(e) {
       message(paste("Error in dplyr::select:", e$message))
       return(NULL)
@@ -505,7 +551,8 @@ perform_string_interactions <- function(gene_mapping, organism, score_threshold 
     
     # Sort by score and keep top 1000
     deg_interactions <- deg_interactions %>%
-      arrange(desc(combined_score)) %>%
+      #arrange(desc(combined_score)) %>%
+      arrange(desc(.data[["combined_score"]])) %>%
       dplyr::slice(1:min(nrow(.), 1000))
     
     # --- Network Analysis ---
@@ -536,8 +583,7 @@ perform_string_interactions <- function(gene_mapping, organism, score_threshold 
       dplyr::mutate(degree_scaled = scale(degree),
                     betweenness_scaled = scale(betweenness),
                     closeness_scaled = scale(closeness),
-                    eigenvector_scaled = scale(eigenvector_centrality)
-      )
+                    eigenvector_scaled = eigenvector_centrality)
     
     # Calculate a combined property based on the scaled measures
     scaled_cols <- grep("_scaled$", names(node_properties), value = TRUE)
@@ -547,7 +593,8 @@ perform_string_interactions <- function(gene_mapping, organism, score_threshold 
     
     # Sort genes by the combined score
     important_genes <- node_properties %>% 
-      dplyr::arrange(desc(combined_score_prop))
+      #dplyr::arrange(desc(combined_score_prop))
+      dplyr::arrange(desc(.data[["combined_score_prop"]]))
     
     # Save network properties
     save_results(important_genes, file.path(output_dir, "string_network_properties.txt"), type = "filtered")

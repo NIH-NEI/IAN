@@ -2,7 +2,7 @@
 % Please edit documentation in R/IAN.R
 \name{IAN}
 \alias{IAN}
-\title{Perform Integrated Network Analysis}
+\title{Perform Integrated Network Analysis - orchestrator}
 \usage{
 IAN(
   experimental_design = NULL,

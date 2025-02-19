@@ -17,6 +17,8 @@
 #' @importFrom clusterProfiler bitr
 #' @importFrom dplyr filter
 #' @importFrom dplyr select
+#' @importFrom utils read.table
+#' @importFrom dplyr .data
 #' @export
 map_gene_ids <- function(input_type, markers = NULL, deg_file = NULL, organism = NULL, gene_type = NULL, pvalue = 0.05, log2FC = 1, deseq_results = NULL) {
   # Input validation
@@ -82,7 +84,7 @@ map_gene_ids <- function(input_type, markers = NULL, deg_file = NULL, organism =
   if (input_type == "findmarker") {
     markers <- markers %>%
 #      dplyr::filter(p_val < pvalue & abs(avg_log2FC) > log2FC)
-      dplyr::filter(.data[["p_val"]] < pvalue & abs(.data[["avg_log2FC"]]) > log2FC)
+    dplyr::filter(.data[["p_val"]] < pvalue & abs(.data[["avg_log2FC"]]) > log2FC)
     genes <- rownames(markers)
     genes <- sub("\\..*", "", genes)
     deglist <- genes

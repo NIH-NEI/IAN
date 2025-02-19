@@ -15,8 +15,6 @@
 #'
 #' @name llm_prompts
 #' @docType package
-NULL
-
 #' Create LLM Prompt for WikiPathways Enrichment Analysis
 #'
 #' Creates a prompt for a Large Language Model (LLM) to analyze WikiPathways enrichment results,
@@ -33,7 +31,7 @@ NULL
 #' @param experimental_design A character string describing the experimental design (optional).
 #'
 #' @return A character string containing the LLM prompt.
-#'
+#' @importFrom utils head
 #' @export
 create_llm_prompt_wp <- function(enrichment_results, analysis_type, chea_results = NULL, string_results = NULL, gene_symbols = NULL, string_network_properties = NULL, go_results = NULL, experimental_design = NULL) {
   if (is.null(enrichment_results) || nrow(enrichment_results) == 0) {
@@ -297,6 +295,7 @@ create_llm_prompt_wp <- function(enrichment_results, analysis_type, chea_results
 #' @param experimental_design A character string describing the experimental design (optional).
 #'
 #' @return A character string containing the LLM prompt.
+#' @importFrom utils head
 #'
 #' @export
 create_llm_prompt_kegg <- function(enrichment_results, analysis_type, chea_results = NULL, string_results = NULL, gene_symbols = NULL, string_network_properties = NULL, go_results = NULL, experimental_design = NULL) {
@@ -562,6 +561,7 @@ create_llm_prompt_kegg <- function(enrichment_results, analysis_type, chea_resul
 #' @param experimental_design A character string describing the experimental design (optional).
 #'
 #' @return A character string containing the LLM prompt.
+#' @importFrom utils head
 #'
 #' @export
 create_llm_prompt_reactome <- function(enrichment_results, analysis_type, chea_results = NULL, string_results = NULL, gene_symbols = NULL, string_network_properties = NULL, go_results = NULL, experimental_design = NULL) {

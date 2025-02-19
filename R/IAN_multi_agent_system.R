@@ -17,12 +17,9 @@
 #' @importFrom future plan
 #' @importFrom furrr future_map
 #' @importFrom progressr with_progress progressor
-#' @importFrom httr POST content_type_json encode content status_code
-#' @importFrom stringr paste0
 #' @name multi_agent_system
 #' @docType package
-NULL
-
+#' 
 #' Make Gemini API Request
 #'
 #' Sends a request to the Gemini API with a given prompt and configuration.

@@ -12,8 +12,15 @@
 #' @importFrom dplyr %>% rename select distinct mutate
 #' @importFrom visNetwork visNetwork visEdges visNodes visOptions visSave
 #' @importFrom igraph graph_from_data_frame
+#' @importFrom utils head
+#' @importFrom utils read.table
 #' @export
 visualize_system_model <- function(llm_response, html_file = "system_model_network.html", gene_symbols) {
+  
+  id <- NULL
+  target <- NULL
+  from <- NULL
+  to <- NULL
   
   message("Starting visualize_system_model function...")
   

@@ -13,6 +13,7 @@
 #' @param experimental_design A character string describing the experimental design (optional).
 #'
 #' @return A character string containing the combined LLM prompt.
+#' @importFrom utils head
 #'
 #' @export
 create_combined_prompt <- function(results, gene_symbols, string_interactions, chea_results, string_network_properties, comparison_results, experimental_design = NULL) {

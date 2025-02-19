@@ -13,17 +13,22 @@
 #' @importFrom stringr str_match_all str_split str_to_upper
 #' @importFrom dplyr filter transmute bind_rows
 #' @importFrom readr read_tsv
+#' @importFrom utils head
+#' @importFrom utils capture.output
+#' @importFrom dplyr .data
+#' @importFrom base Protein1 Protein2
 #' @export
 generate_network_revision_prompt <- function(file_path, gene_symbols, experimental_design = NULL, string_results = NULL) {
   
-  #' Extract and Combine TSV Blocks from a Text File
-  #'
-  #' Extracts TSV (tab-separated values) blocks enclosed in ```tsv ... ``` tags from a text file and combines them into a single data frame.
-  #'
-  #' @param file_path Character string specifying the path to the text file.
-  #'
-  #' @return A data frame containing the combined TSV data, or NULL if no valid TSV blocks are found or the file cannot be processed.
-  extract_and_combine_tsv_blocks <- function(file_path) {
+#' Extract and Combine TSV Blocks from a Text File
+#'
+#' Extracts TSV (tab-separated values) blocks enclosed in ```tsv ... ``` tags from a text file and combines them into a single data frame.
+#'
+#' @param file_path Character string specifying the path to the text file.
+#' @importFrom utils read.csv
+#'
+#' @return A data frame containing the combined TSV data, or NULL if no valid TSV blocks are found or the file cannot be processed.
+extract_and_combine_tsv_blocks <- function(file_path) {
     tryCatch({
       # Read the file
       text <- readChar(file_path, file.info(file_path)$size)
@@ -123,7 +128,8 @@ generate_network_revision_prompt <- function(file_path, gene_symbols, experiment
     
     # Filter the string interactions to include only genes present in the extracted network
     filtered_string_interactions <- string_interactions %>%
-      filter(Protein1 %in% all_genes & Protein2 %in% all_genes)
+      #filter(Protein1 %in% all_genes & Protein2 %in% all_genes)
+      filter(.data[["Protein1"]] %in% all_genes & .data[["Protein2"]] %in% all_genes)
     
     # 4. Create New Dataframe of String based interactions
     if (nrow(filtered_string_interactions) > 0) {

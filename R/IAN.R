@@ -1,4 +1,4 @@
-#' Perform Integrated Network Analysis
+#' Perform Integrated Network Analysis - orchestrator
 #'
 #' This function performs an integrated network analysis, combining gene ID mapping, enrichment analysis,
 #' multi-agent system execution, pathway comparison, network revision, system model generation, and visualization.
@@ -28,6 +28,7 @@
 #' @importFrom readr read_tsv
 #' @importFrom visNetwork visNetwork visEdges visNodes visOptions visSave
 #' @importFrom igraph graph_from_data_frame
+#' @importFrom utils head
 #' @export
 IAN <- function(experimental_design = NULL, deseq_results = NULL, markeringroup = NULL, deg_file = NULL, gene_type = NULL, organism = NULL, input_type = NULL, pvalue = 0.05, ont = "BP", score_threshold = 0, output_dir = "enrichment_results", model = "gemini-1.5-flash-latest", temperature = 0, api_key_file = NULL) {
   
@@ -173,11 +174,6 @@ IAN <- function(experimental_design = NULL, deseq_results = NULL, markeringroup 
     print("Gene ID mapping failed. Please check your input parameters and data.")
   } else {
     
-    print("Structure of gene_mapping:")
-    print(str(gene_mapping))
-    print("First few rows of gene_mapping:")
-    print(head(gene_mapping))
-    
     # Check if ENTREZID and SYMBOL columns exist
     if (!("ENTREZID" %in% colnames(gene_mapping) && "SYMBOL" %in% colnames(gene_mapping))) {
       stop("Error: gene_mapping does not contain ENTREZID and SYMBOL columns.")
@@ -186,15 +182,6 @@ IAN <- function(experimental_design = NULL, deseq_results = NULL, markeringroup 
     # Extract gene IDs and symbols
     gene_ids <- gene_mapping$ENTREZID
     gene_symbols <- gene_mapping$SYMBOL # Get gene symbols from mapping
-    
-    print("Contents of gene_symbols (in IAN function) AFTER extraction:")
-    print(gene_symbols)
-    print("Length of gene_symbols (in IAN function) AFTER extraction:")
-    print(length(gene_symbols))
-    print("Class of gene_symbols (in IAN function) AFTER extraction:")
-    print(class(gene_symbols))   
-    
-    
     
     # --- Perform Enrichment Analyses ---
     
