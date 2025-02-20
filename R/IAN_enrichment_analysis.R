@@ -343,9 +343,9 @@ perform_chea_enrichment <- function(gene_symbols, organism, pvalue = 0.05, outpu
         dplyr::mutate(Term = iconv(.data[["Term"]], to = "UTF-8", sub = "byte")) %>%
         dplyr::filter(
           if (organism == "human") {
-            grepl("Human", .data[["Term"]], ignore.case = TRUE, fixed = TRUE)
+            grepl("Human", .data[["Term"]], fixed = TRUE)
           } else {
-            grepl("Mouse", .data[["Term"]], ignore.case = TRUE, fixed = TRUE)
+            grepl("Mouse", .data[["Term"]], fixed = TRUE)
           }
         )
     })

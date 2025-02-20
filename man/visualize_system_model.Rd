@@ -7,7 +7,8 @@
 visualize_system_model(
   llm_response,
   html_file = "system_model_network.html",
-  gene_symbols
+  gene_symbols,
+  output_dir
 )
 }
 \arguments{
@@ -16,6 +17,8 @@ visualize_system_model(
 \item{html_file}{Character string specifying the name of the HTML file to save the visualization to. Default is "system_model_network.html".}
 
 \item{gene_symbols}{A vector of gene symbols used in the analysis.}
+
+\item{output_dir}{Character string specifying the directory to save the results to. Default is "enrichment_results".}
 }
 \value{
 A `visNetwork` object representing the system model network, or NULL if no valid TSV block is found or the visualization fails.

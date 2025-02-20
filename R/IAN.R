@@ -324,7 +324,7 @@ IAN <- function(experimental_design = NULL, deseq_results = NULL, markeringroup 
     base::close(file_conn_vector)
     
     # Call the visualization function, passing the response and the desired HTML file name
-    system_model_network = visualize_system_model(system_model_response, html_file = "system_model_network.html", gene_symbols)
+    system_model_network = visualize_system_model(system_model_response, html_file = "system_model_network.html", gene_symbols, output_dir)
     system_model_network
     
     # Extract the title from Step 7
@@ -346,5 +346,6 @@ IAN <- function(experimental_design = NULL, deseq_results = NULL, markeringroup 
     report_title <- title_extraction
     
     rmarkdown::render("report_template.Rmd", output_dir = output_dir)
+    #rmarkdown::render(system.file("doc", "report_template.Rmd", package = "IAN"), output_dir = output_dir)
   }
 }

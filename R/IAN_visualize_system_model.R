@@ -5,6 +5,7 @@
 #' @param llm_response Character string containing the LLM response with the system network in TSV format.
 #' @param html_file Character string specifying the name of the HTML file to save the visualization to. Default is "system_model_network.html".
 #' @param gene_symbols A vector of gene symbols used in the analysis.
+#' @param output_dir Character string specifying the directory to save the results to. Default is "enrichment_results".
 #'
 #' @return A `visNetwork` object representing the system model network, or NULL if no valid TSV block is found or the visualization fails.
 #'
@@ -15,7 +16,7 @@
 #' @importFrom utils head
 #' @importFrom utils read.table
 #' @export
-visualize_system_model <- function(llm_response, html_file = "system_model_network.html", gene_symbols) {
+visualize_system_model <- function(llm_response, html_file = "system_model_network.html", gene_symbols, output_dir) {
   
   id <- NULL
   target <- NULL
@@ -91,7 +92,11 @@ visualize_system_model <- function(llm_response, html_file = "system_model_netwo
   # Save the visualization as an HTML file
   visSave(vis_network_model, file = html_file)
   
-  message("System model network visualization saved to: ", html_file)
+  
+  # Save the visualization as an HTML file
+  visSave(vis_network_model, file = file.path(output_dir, html_file))
+  
+  message("System model network visualization saved to: ", file.path(output_dir, html_file))
   
   return(vis_network_model)
   
