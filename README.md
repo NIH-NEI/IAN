@@ -1,4 +1,4 @@
-# IAN: An Intelligent System for Omics Data Analysis and Hypothesis Generation
+# IAN: An Intelligent System for Omics Data Analysis and Discovery
 - Authors: Vijay Nagarajan PhD
 - Affiliation: Laboratory of Immunology, NEI/NIH
 - Contact: nagarajanv@nih.gov
