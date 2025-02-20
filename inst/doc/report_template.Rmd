@@ -144,6 +144,9 @@ if (length(hub_gene_index) > 0) {
 ```{r similar_systems}, results='asis', message=FALSE, warning=FALSE}
 # Find the indices of "Similar Systems:" and "Hub Gene Identification:"
 
+parts <- unlist(strsplit(final_response, "\n"))
+print(parts)
+
 similar_systems_index <- grep("^Similar Systems:", parts)
 hub_gene_index <- grep("^Hub Gene Identification:", parts)
 
@@ -163,18 +166,38 @@ if (length(similar_systems_index) > 0 && length(hub_gene_index) > 0) {
 }
 ```
 
-### 1.6. Novelty Exploration
-```{r novelty}, results='asis', message=FALSE, warning=FALSE}
+
+```{r debug_novelty, eval=TRUE}
+print("--- Debugging Novelty Chunk ---")
+print(paste("Length of parts:", length(parts)))
+print("Parts vector:")
+print(parts)
+
 novelty_exploration_index <- grep("^Novelty Exploration:", parts)
-# Assuming the content will extract to the last bit
-# Extract the text from the last bit onwards
-extracted_parts <- parts[(novelty_exploration_index + 1):length(parts)]
+print(paste("Novelty Exploration Index:", novelty_exploration_index))
 
-# Combine the extracted parts into a single string
-novelty_exploration_text <- paste(extracted_parts, collapse = "**") # Rejoin with the delimiter
+step6_index <- grep("^Step 6:", parts)
+print(paste("Step 6 Index:", step6_index))
+```
 
-# Print the extracted text
-cat(novelty_exploration_text)
+
+### 1.6. Novelty Exploration
+```{r novelty, results='asis', message=FALSE, warning=FALSE}
+novelty_exploration_index <- grep("^Novelty Exploration:", parts)
+
+if (length(novelty_exploration_index) > 0) {
+  # Extract the text from the Novelty Exploration section to the end of Step 5
+  extracted_parts <- parts[(novelty_exploration_index[1] + 1):(grep("^Step 6:", parts)[1] - 1)]
+
+  # Combine the extracted parts into a single string
+  novelty_exploration_text <- paste(extracted_parts, collapse = "\n")
+
+  # Print the extracted text
+  cat(novelty_exploration_text)
+} else {
+  novelty_exploration_text <- ""
+  warning("Could not find the Novelty Exploration section.")
+}
 ```
 
 ### 1.7. Download Full Analysis Report
@@ -194,7 +217,7 @@ IAN takes the integrated full analysis report and the integrated system network 
 ### 2.1. System Model and Overview
 
 ```{r system_model, results='asis', message=FALSE, warning=FALSE}
-system_model_network
+#system_model_network
 
 # Extract the System Overview section content
 system_overview <- stringr::str_extract(
@@ -271,6 +294,8 @@ KEGG pathway enrichment analysis results, filtered
 ```{r kegg_filtered}, message=FALSE, warning=FALSE}
 # Load the final response from the file
 output_dir <- "enrichment_results"
+output_dir <- "IAN_results"
+
 kegg_filtered <- file.path(output_dir, "kegg_enrichment_filtered.txt")
 
 # Read the data
@@ -321,6 +346,7 @@ cat(download_link)
 ```{r kegg_agent, results='asis', fig.width=8, fig.height=6, message=FALSE, warning=FALSE}
 # Load the agent responses from the file
 output_dir <- "enrichment_results"
+output_dir <- "IAN_results"
 agent_response_file <- file.path(output_dir, "agent_responses.txt")
 
 # Read the agent responses from the file, line by line
@@ -355,6 +381,7 @@ WikiPathway enrichment analysis results, filtered
 ```{r wp_filtered}, message=FALSE, warning=FALSE}
 # Load the final response from the file
 output_dir <- "enrichment_results"
+output_dir <- "IAN_results"
 wp_filtered <- file.path(output_dir, "wp_enrichment_filtered.txt")
 
 # Read the data
@@ -404,6 +431,7 @@ cat(download_link)
 ```{r wp_agent, results='asis', fig.width=8, fig.height=6, message=FALSE, warning=FALSE}
 # Load the agent responses from the file
 output_dir <- "enrichment_results"
+output_dir <- "IAN_results"
 agent_response_file <- file.path(output_dir, "agent_responses.txt")
 
 # Read the agent responses from the file, line by line
@@ -437,6 +465,7 @@ Reactome Pathways enrichment analysis results, filtered
 ```{r reactome_filtered}, message=FALSE, warning=FALSE}
 # Load the final response from the file
 output_dir <- "enrichment_results"
+output_dir <- "IAN_results"
 reactome_filtered <- file.path(output_dir, "reactome_enrichment_filtered.txt")
 
 # Read the data
@@ -488,6 +517,7 @@ data %>%
 ```{r reactome_agent, results='asis', fig.width=8, fig.height=6, message=FALSE, warning=FALSE}
 # Load the agent responses from the file
 output_dir <- "enrichment_results"
+output_dir <- "IAN_results"
 agent_response_file <- file.path(output_dir, "agent_responses.txt")
 
 # Read the agent responses from the file, line by line
@@ -522,6 +552,7 @@ Gene Ontology enrichment analysis results, filtered
 ```{r go_filtered}, message=FALSE, warning=FALSE}
 # Load the final response from the file
 output_dir <- "enrichment_results"
+output_dir <- "IAN_results"
 go_filtered <- file.path(output_dir, "go_enrichment_filtered.txt")
 
 # Read the data
@@ -569,6 +600,7 @@ print(plot)
 ```{r go_agent, results='asis', fig.width=8, fig.height=6, message=FALSE, warning=FALSE}
 # Load the agent responses from the file
 output_dir <- "enrichment_results"
+output_dir <- "IAN_results"
 agent_response_file <- file.path(output_dir, "agent_responses.txt")
 
 # Read the agent responses from the file, line by line
@@ -602,6 +634,7 @@ Transcription Factor (ChEA) enrichment analysis results, filtered
 ```{r chea_filtered}, message=FALSE, warning=FALSE}
 # Load the final response from the file
 output_dir <- "enrichment_results"
+output_dir <- "IAN_results"
 chea_filtered <- file.path(output_dir, "chea_enrichment_filtered.txt")
 
 # Read the data
@@ -649,6 +682,7 @@ print(plot)
 ```{r chea_agent, results='asis', fig.width=8, fig.height=6, message=FALSE, warning=FALSE}
 # Load the agent responses from the file
 output_dir <- "enrichment_results"
+output_dir <- "IAN_results"
 agent_response_file <- file.path(output_dir, "agent_responses.txt")
 
 # Read the agent responses from the file, line by line
@@ -679,6 +713,7 @@ cat(agent_4_summary)
 ```{r string_filtered}, message=FALSE, warning=FALSE}
 # Load the final response from the file
 output_dir <- "enrichment_results"
+output_dir <- "IAN_results"
 string_filtered <- file.path(output_dir, "string_interactions_filtered.txt")
 
 # Read the data
@@ -776,6 +811,7 @@ print(plot)
 ```{r string_agent, results='asis', fig.width=8, fig.height=6, message=FALSE, warning=FALSE}
 # Load the agent responses from the file
 output_dir <- "enrichment_results"
+output_dir <- "IAN_results"
 agent_response_file <- file.path(output_dir, "agent_responses.txt")
 
 # Read the agent responses from the file, line by line
@@ -842,7 +878,7 @@ The system representation from each of the 6 agents enrichment analysis response
 
 ```{r integrated_network, results='asis', fig.width=8, fig.height=6, message=FALSE, warning=FALSE}
   # Call the visualization function, passing the response and the desired HTML file name
-  full_integrated_network = visualize_system_model(network_revision_response, html_file = "full_integrated_network.html", gene_symbols)
+  full_integrated_network = visualize_system_model(network_revision_response, html_file = "full_integrated_network.html", gene_symbols, output_dir)
   full_integrated_network
 
 ```

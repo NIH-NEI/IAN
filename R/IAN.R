@@ -349,3 +349,5 @@ IAN <- function(experimental_design = NULL, deseq_results = NULL, markeringroup 
     #rmarkdown::render(system.file("doc", "report_template.Rmd", package = "IAN"), output_dir = output_dir)
   }
 }
+
+
