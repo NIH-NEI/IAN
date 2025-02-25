@@ -345,8 +345,8 @@ IAN <- function(experimental_design = NULL, deseq_results = NULL, markeringroup 
     # Store the extracted title in a variable
     report_title <- title_extraction
     
-    rmarkdown::render("report_template.Rmd", output_dir = output_dir)
-    #rmarkdown::render(system.file("doc", "report_template.Rmd", package = "IAN"), output_dir = output_dir)
+    #rmarkdown::render("report_template.Rmd", output_dir = output_dir)
+    rmarkdown::render(system.file("rmd", "report_template.Rmd", package = "IAN"), output_dir = output_dir)
   }
 }
 
