@@ -26,6 +26,8 @@
 *   **Hypothesis Generation:** Facilitates the generation of novel hypotheses about the underlying biological mechanisms.
 *   **Systems-Level Understanding:** Provides a systems-level perspective on the data, allowing for a more comprehensive understanding.
 *   **Customizable and Extensible:** Designed to be customizable and extensible, allowing users to adapt the system to their specific needs.
+*   **Cost effective:** Uses pay-as-you-go low cost API call options to the LLMs.
+
 
 ### **Installation:**
 
