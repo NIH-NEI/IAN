@@ -53,19 +53,21 @@ https://ai.google.dev/gemini-api/docs/api-key
 
 ### **Example Usage:**
 
-**Download example data:** [NK, CD4+ and CD8+ T cells from LCMV infected Ifng - CTCF binding site mutant mice - GSM6625298_scRNA_LCMV_Day4_CD4_CD8_NK_WT_filtered_feature_bc_matrix.h5](https://www.ncbi.nlm.nih.gov/geo/download/?acc=GSM6625299&format=file&file=GSM6625299%5FscRNA%5FLCMV%5FDay4%5FCD4%5FCD8%5FNK%5FKO%5Ffiltered%5Ffeature%5Fbc%5Fmatrix%2Eh5)
+* **Download example data:** [List of 180 genes significantly differentially expressed in Uveitis](inst/docs/uveitis-PIIS0002939421000271-deg.txt)
+* **Original Publication:** [Rosenbaum et al., 2021](https://pmc.ncbi.nlm.nih.gov/articles/PMC8286715/)
+
 
 ```
 # Load the IAN package
 library(IAN)
 
-# Define the path to your API key file
-api_key_file <- "path/to/your/api_key.txt" # **REPLACE with the actual path to your API key file**
+# Define the path to your Google Gemini API key file
+api_key_file <- "path/to/your/api_key.txt"
 
-# Define the path to your DEG file
-deg_file_path <- "path/to/your/deg.txt" # Replace with your file path
+# Define the path to the DEG file, that you downloaded from the above example data link
+deg_file_path <- "path/to/your/uveitis-PIIS0002939421000271-deg.txt"
 
-# Call the function with the correct parameters
+# Call the function with basic parameters
 IAN(
   deg_file = deg_file_path,
   gene_type = "ENSEMBL",
@@ -74,6 +76,9 @@ IAN(
   output_dir = "IAN_results",
   api_key_file = api_key_file
 )
+
+# All the results files are stored in the "IAN_results" folder in your current working directory.
+# The example results are also shared in the below links, so you can compare your run with our run.
 ```
 
 ### **Tutorial Datasets:**
