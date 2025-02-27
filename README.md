@@ -1,5 +1,5 @@
 <img align="left" src="inst/docs/ian-logo-b.png"/>
-
+&nbsp;
 
 ------------
 - Authors: Vijay Nagarajan PhD
