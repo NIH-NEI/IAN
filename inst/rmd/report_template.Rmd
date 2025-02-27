@@ -217,7 +217,7 @@ if (length(novelty_index) > 0) {
 
 Download the Full Integrated IAN Analysis Report Here:
 
-```{r full_response_file, results='asis', message=FALSE, warning=FALSE}
+```{r final_response_file, results='asis', message=FALSE, warning=FALSE}
 download_link <- paste0("<a href='final_response.txt'>Open full final_response.txt text in new tab</a>")
 cat(download_link)
 ```

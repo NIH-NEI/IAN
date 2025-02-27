@@ -58,8 +58,9 @@ https://ai.google.dev/gemini-api/docs/api-key
 
 
 ```
-# Load the IAN package
+# Load the IAN package and enrichR library
 library(IAN)
+library(enrichR)
 
 # Define the path to your Google Gemini API key file
 api_key_file <- "path/to/your/api_key.txt"

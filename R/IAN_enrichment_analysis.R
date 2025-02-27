@@ -9,7 +9,7 @@
 #' @return None (side effect: saves a file).
 #' @importFrom utils write.table
 #'
-
+library(enrichR)
 save_results <- function(results, filename, type = "original") {
   if (is.null(results) || (is.list(results) && "error" %in% names(results))) {
     message(paste("Warning: No results to save for", filename, type, "results."))
@@ -604,8 +604,6 @@ perform_string_interactions <- function(gene_mapping, organism, score_threshold 
     
     # Save filtered results
     save_results(deg_interactions, file.path(output_dir, "string_interactions_filtered.txt"), type = "filtered")
-    
-    
     
     # Return both interaction and network data
     return(list(interactions = deg_interactions, network_properties = important_genes))

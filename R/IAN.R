@@ -287,6 +287,9 @@ IAN <- function(experimental_design = NULL, deseq_results = NULL, markeringroup 
       cat(final_response, "\n\n")
     }
     
+    # Read the agent responses from the file, line by line
+    agent_response_lines <- readLines(agent_response_file)
+    
     ### Save analysis parameters
     params_file <- file.path(output_dir_path, "analysis_parameters.txt")
     # Function to save parameters to a text file
