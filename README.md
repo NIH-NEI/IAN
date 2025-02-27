@@ -1,9 +1,6 @@
-
-
 <img align="left" src="inst/docs/ian_logo.jpg" width="200" />
-
-
-
+<br>
+<br>
 
 # IAN: An Intelligent System for Omics Data Analysis and Discovery
 
