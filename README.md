@@ -34,21 +34,21 @@
 ```R
 # Install the necessary packages
 install.packages(c("dplyr", "stringr", "readr", "R6", "future", "furrr", "progressr", "httr", "plyr", "rmarkdown", "visNetwork", "igraph", "devtools"))
-
-# Install packages from Bioconductor
-if (!requireNamespace("BiocManager", quietly = TRUE)) {
-    install.packages("BiocManager")
-}
 BiocManager::install(c("clusterProfiler", "ReactomePA", "org.Hs.eg.db", "org.Mm.eg.db"))
-
 install.packages("enrichR")
 
+# Install the devtools package if you don't have it
+install.packages("devtools")
+
 # Install IAN from GitHub
-devtools::install_github("your_github_username/IAN") # Replace with your GitHub username and repo name
+devtools::install_github("NIH-NEI/IAN")
+
 ```
 
 **LLM Server Setup:**
-* IAN uses Google Gemini as the LLM. IAN Remote Google Server Setup - obtain api-key following the instructions here:
+* IAN uses Google Gemini as the LLM.
+* IAN Remote Google Server Setup: <br>
+Obtain api-key following the instructions here:
 https://ai.google.dev/gemini-api/docs/api-key
 
 ### **Example Usage:**
