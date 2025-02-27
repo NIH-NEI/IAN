@@ -1,4 +1,4 @@
-<img src="inst/docs/ian_logo.jpg" awidth="300" />
+<img align="left" src="inst/docs/ian_logo.jpg" width="300" />
 
 # IAN: An Intelligent System for Omics Data Analysis and Discovery
 - Authors: Vijay Nagarajan PhD
