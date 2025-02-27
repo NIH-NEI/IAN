@@ -1,7 +1,13 @@
 <img align="left" src="inst/docs/ian_logo.jpg" width="200" />
 
+<div id="toc">
+  <ul style="list-style: none">
+    <summary>
+      <h1> IAN: An Intelligent System for Omics Data Analysis and Discovery </h1>
+    </summary>
+  </ul>
+</div>
 
-<h1> IAN: An Intelligent System for Omics Data Analysis and Discovery </h1>
 
 ### **Features:**
 
