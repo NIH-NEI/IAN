@@ -2,7 +2,16 @@
 
 <img align="left" src="inst/docs/ian_logo.jpg" width="200" />
 
-<span style="font-size: 3.5em; font-weight: bold;"># IAN: An Intelligent System for Omics Data Analysis and Discovery</span>
+<span style="font-size: 3.5rem; font-weight: bold;"> IAN: An Intelligent System for Omics Data Analysis and Discovery</span>
+
+<style>
+h1.custom_title {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+</style>
+
+<h1 class="custom_title">IAN: An Intelligent System for Omics Data Analysis and Discovery</h1>
 
 
 ### **Features:**
