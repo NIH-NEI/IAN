@@ -1,6 +1,8 @@
 <img align="left" src="inst/docs/ian_logo.jpg" width="200" />
 
 
+## IAN: An Intelligent System for Omics Data Analysis and Discovery
+
 ### **Features:**
 
 *   **Flexible Input:** Supports various input types, including differential expression results from DESeq2, FindMarkers output from Seurat, and custom DEG lists.
