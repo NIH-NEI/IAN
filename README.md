@@ -6,7 +6,7 @@
 - Affiliation: Laboratory of Immunology, NEI/NIH
 - Contact: nagarajanv@nih.gov
 ------------
-**IAN** is an R package designed to facilitate integrated analysis of omics data, leveraging the power of Large Language Models (LLMs) to generate novel biological insights and hypotheses. The package performs a comprehensive set of analysis, from gene ID mapping and enrichment analysis to hub gene identification and system model generation, using a multi-agent AI system .
+**IAN** is an R package designed to perform contextually integrated "omics" data analysis and reasoning, leveraging the power of Large Language Models (LLMs) to unravel complex biological systems. IAN uses popular pathway and regulatory datasets, along with the interaction information, to perform enrichment analysis and generate insightful summaries, using a multi-agent AI system.
 
 ### **Features:**
 
