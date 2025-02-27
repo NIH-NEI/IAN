@@ -218,9 +218,7 @@ if (length(novelty_index) > 0) {
 Download the Full Integrated IAN Analysis Report Here:
 
 ```{r full_response_file, results='asis', message=FALSE, warning=FALSE}
-file_path <- "enrichment_results/final_response.txt" # relative file path
-download_link <- paste0("<a href='", file_path, "'>Open full final_response.txt text in new tab</a>")
-
+download_link <- paste0("<a href='final_response.txt'>Open full final_response.txt text in new tab</a>")
 cat(download_link)
 ```
 
@@ -228,9 +226,10 @@ cat(download_link)
 IAN takes the integrated full analysis report and the integrated system network data from each of the agents response and puts forward a system model, which includes the system overview, mechanistic model and an hypothesis.
 
 ### 2.1. System Model and Overview
+The nodes in yellow are "Genes" found in our list of DEGs. The Nodes in blue are either "Term/Concept" nodes or "Genes" not in our list of DEGs (coming from ChEA instead).
 
 ```{r system_model, results='asis', message=FALSE, warning=FALSE}
-#system_model_network
+system_model_network
 
 # Extract the System Overview section content
 system_overview <- stringr::str_extract(
@@ -292,8 +291,7 @@ cat(hypothesis)
 Download the Full System Model Report Here:
 
 ```{r full_response_file, results='asis', message=FALSE, warning=FALSE}
-file_path <- "enrichment_results/system_model.txt" # relative file path
-download_link <- paste0("<a href='", file_path, "'>Open full system_model.txt text in new tab</a>")
+download_link <- paste0("<a href='system_model.txt'>Open full system_model.txt text in new tab</a>")
 
 cat(download_link)
 ```
@@ -306,13 +304,15 @@ KEGG pathway enrichment analysis results, filtered
 
 ```{r kegg_filtered}, message=FALSE, warning=FALSE}
 # Load the final response from the file
-output_dir <- "enrichment_results"
-output_dir <- "IAN_results"
+#output_dir <- "enrichment_results"
+#output_dir <- "IAN_results"
 
-kegg_filtered <- file.path(output_dir, "kegg_enrichment_filtered.txt")
+kegg_filtered <- kegg_results
+#kegg_filtered <- file.path(output_dir, "kegg_enrichment_filtered.txt")
 
 # Read the data
-data <- read_tsv(kegg_filtered)
+#data <- read_tsv(kegg_filtered)
+data <- kegg_filtered
 
 # Sort data by pvalue
 data <- data %>%
@@ -342,13 +342,13 @@ kegg_plot <- data %>%
 
 print(kegg_plot) # Explicitly print the plot
 
+
 # Save the plot to a file
-plot_filename <- "kegg_enrichment_plot.png"
+plot_filename <- file.path(output_dir_path, "kegg_enrichment_plot.png")
 ggsave(plot_filename, plot = kegg_plot, width = 8, height = 6, dpi = 300)
 
-
 # Create the download link
-download_link <- paste0("<a href='", plot_filename, "' download>Download Plot as PNG</a>")
+download_link <- paste0("<a href='kegg_enrichment_plot.png' download>Download Plot as PNG</a>")
 
 cat(download_link)
 
@@ -358,12 +358,12 @@ cat(download_link)
 
 ```{r kegg_agent, results='asis', fig.width=8, fig.height=6, message=FALSE, warning=FALSE}
 # Load the agent responses from the file
-output_dir <- "enrichment_results"
-output_dir <- "IAN_results"
-agent_response_file <- file.path(output_dir, "agent_responses.txt")
+#output_dir <- "enrichment_results"
+#output_dir <- "IAN_results"
+#agent_response_file <- file.path(output_dir, "agent_responses.txt")
 
 # Read the agent responses from the file, line by line
-agent_response_lines <- readLines(agent_response_file)
+#agent_response_lines <- readLines(agent_response_file)
 
 # Combine the lines into a single string
 agent_response <- paste(agent_response_lines, collapse = "\n")
@@ -393,13 +393,14 @@ WikiPathway enrichment analysis results, filtered
 
 ```{r wp_filtered}, message=FALSE, warning=FALSE}
 # Load the final response from the file
-output_dir <- "enrichment_results"
-output_dir <- "IAN_results"
-wp_filtered <- file.path(output_dir, "wp_enrichment_filtered.txt")
+#output_dir <- "enrichment_results"
+#output_dir <- "IAN_results"
+#wp_filtered <- file.path(output_dir, "wp_enrichment_filtered.txt")
 
 # Read the data
-data <- read_tsv(wp_filtered)
-
+#data <- read_tsv(wp_filtered)
+data <- wp_results
+  
 # Sort data by pvalue
 data <- data %>%
   arrange(pvalue)
@@ -429,26 +430,26 @@ wp_plot <- data %>%
 print(wp_plot) # Explicitly print the plot
 
 # Save the plot to a file
-plot_filename <- "wp_enrichment_plot.png"
+plot_filename <- file.path(output_dir_path, "wp_enrichment_plot.png")
 ggsave(plot_filename, plot = wp_plot, width = 8, height = 6, dpi = 300)
 
-
 # Create the download link
-download_link <- paste0("<a href='", plot_filename, "' download>Download Plot as PNG</a>")
+download_link <- paste0("<a href='wp_enrichment_plot.png' download>Download Plot as PNG</a>")
 
 cat(download_link)
+
 ```
 
 ### 4.3. WikiPathway LLM Agent Response
 
 ```{r wp_agent, results='asis', fig.width=8, fig.height=6, message=FALSE, warning=FALSE}
 # Load the agent responses from the file
-output_dir <- "enrichment_results"
-output_dir <- "IAN_results"
-agent_response_file <- file.path(output_dir, "agent_responses.txt")
+#output_dir <- "enrichment_results"
+#output_dir <- "IAN_results"
+#agent_response_file <- file.path(output_dir, "agent_responses.txt")
 
 # Read the agent responses from the file, line by line
-agent_response_lines <- readLines(agent_response_file)
+#agent_response_lines <- readLines(agent_response_file)
 
 # Combine the lines into a single string
 agent_response <- paste(agent_response_lines, collapse = "\n")
@@ -477,12 +478,13 @@ Reactome Pathways enrichment analysis results, filtered
 
 ```{r reactome_filtered}, message=FALSE, warning=FALSE}
 # Load the final response from the file
-output_dir <- "enrichment_results"
-output_dir <- "IAN_results"
-reactome_filtered <- file.path(output_dir, "reactome_enrichment_filtered.txt")
+#output_dir <- "enrichment_results"
+#output_dir <- "IAN_results"
+#reactome_filtered <- file.path(output_dir, "reactome_enrichment_filtered.txt")
 
 # Read the data
-data <- read_tsv(reactome_filtered)
+#data <- read_tsv(reactome_filtered)
+data <- reactome_results
 
 # Sort data by pvalue
 data <- data %>%
@@ -529,12 +531,12 @@ data %>%
 
 ```{r reactome_agent, results='asis', fig.width=8, fig.height=6, message=FALSE, warning=FALSE}
 # Load the agent responses from the file
-output_dir <- "enrichment_results"
-output_dir <- "IAN_results"
-agent_response_file <- file.path(output_dir, "agent_responses.txt")
+#output_dir <- "enrichment_results"
+#output_dir <- "IAN_results"
+#agent_response_file <- file.path(output_dir, "agent_responses.txt")
 
 # Read the agent responses from the file, line by line
-agent_response_lines <- readLines(agent_response_file)
+#agent_response_lines <- readLines(agent_response_file)
 
 # Combine the lines into a single string
 agent_response <- paste(agent_response_lines, collapse = "\n")
@@ -564,12 +566,13 @@ Gene Ontology enrichment analysis results, filtered
 
 ```{r go_filtered}, message=FALSE, warning=FALSE}
 # Load the final response from the file
-output_dir <- "enrichment_results"
-output_dir <- "IAN_results"
-go_filtered <- file.path(output_dir, "go_enrichment_filtered.txt")
+#output_dir <- "enrichment_results"
+#output_dir <- "IAN_results"
+#go_filtered <- file.path(output_dir, "go_enrichment_filtered.txt")
 
 # Read the data
-data <- read_tsv(go_filtered)
+#data <- read_tsv(go_filtered)
+data <- go_results
 
 # Sort data by pvalue
 data <- data %>%
@@ -612,12 +615,12 @@ print(plot)
 
 ```{r go_agent, results='asis', fig.width=8, fig.height=6, message=FALSE, warning=FALSE}
 # Load the agent responses from the file
-output_dir <- "enrichment_results"
-output_dir <- "IAN_results"
-agent_response_file <- file.path(output_dir, "agent_responses.txt")
+#output_dir <- "enrichment_results"
+#output_dir <- "IAN_results"
+#agent_response_file <- file.path(output_dir, "agent_responses.txt")
 
 # Read the agent responses from the file, line by line
-agent_response_lines <- readLines(agent_response_file)
+#agent_response_lines <- readLines(agent_response_file)
 
 # Combine the lines into a single string
 agent_response <- paste(agent_response_lines, collapse = "\n")
@@ -646,12 +649,13 @@ Transcription Factor (ChEA) enrichment analysis results, filtered
 
 ```{r chea_filtered}, message=FALSE, warning=FALSE}
 # Load the final response from the file
-output_dir <- "enrichment_results"
-output_dir <- "IAN_results"
-chea_filtered <- file.path(output_dir, "chea_enrichment_filtered.txt")
+#output_dir <- "enrichment_results"
+#output_dir <- "IAN_results"
+#chea_filtered <- file.path(output_dir, "chea_enrichment_filtered.txt")
 
 # Read the data
-data <- read_tsv(chea_filtered)
+#data <- read_tsv(chea_filtered)
+data <- chea_results
 
 # Sort data by pvalue
 data <- data %>%
@@ -694,12 +698,12 @@ print(plot)
 
 ```{r chea_agent, results='asis', fig.width=8, fig.height=6, message=FALSE, warning=FALSE}
 # Load the agent responses from the file
-output_dir <- "enrichment_results"
-output_dir <- "IAN_results"
-agent_response_file <- file.path(output_dir, "agent_responses.txt")
+#output_dir <- "enrichment_results"
+#output_dir <- "IAN_results"
+#agent_response_file <- file.path(output_dir, "agent_responses.txt")
 
 # Read the agent responses from the file, line by line
-agent_response_lines <- readLines(agent_response_file)
+#agent_response_lines <- readLines(agent_response_file)
 
 # Combine the lines into a single string
 agent_response <- paste(agent_response_lines, collapse = "\n")
@@ -725,12 +729,13 @@ cat(agent_4_summary)
 
 ```{r string_filtered}, message=FALSE, warning=FALSE}
 # Load the final response from the file
-output_dir <- "enrichment_results"
-output_dir <- "IAN_results"
-string_filtered <- file.path(output_dir, "string_interactions_filtered.txt")
+#output_dir <- "enrichment_results"
+#output_dir <- "IAN_results"
+#string_filtered <- file.path(output_dir, "string_interactions_filtered.txt")
 
 # Read the data
-data <- read_tsv(string_filtered)
+#data <- read_tsv(string_filtered)
+data <- string_results$interactions
 
 # Sort data by pvalue
 data <- data %>%
@@ -823,12 +828,12 @@ print(plot)
 
 ```{r string_agent, results='asis', fig.width=8, fig.height=6, message=FALSE, warning=FALSE}
 # Load the agent responses from the file
-output_dir <- "enrichment_results"
-output_dir <- "IAN_results"
-agent_response_file <- file.path(output_dir, "agent_responses.txt")
+#output_dir <- "enrichment_results"
+#output_dir <- "IAN_results"
+#agent_response_file <- file.path(output_dir, "agent_responses.txt")
 
 # Read the agent responses from the file, line by line
-agent_response_lines <- readLines(agent_response_file)
+#agent_response_lines <- readLines(agent_response_file)
 
 # Combine the lines into a single string
 agent_response <- paste(agent_response_lines, collapse = "\n")
@@ -889,9 +894,10 @@ if (agent_6_all != "") { # Only try to extract the cross-analysis if we have Age
 ## 9. Full Integrated Network
 The system representation from each of the 6 agents enrichment analysis responses are integrated to build the below network. This is the network that was used for deciphering the system model.
 
+The nodes in blue are "Genes" found in our list of DEGs. The Nodes in yellow are either "Term/Concept" nodes or "Genes" not in our list of DEGs (coming from ChEA instead).
+
 ```{r integrated_network, results='asis', fig.width=8, fig.height=6, message=FALSE, warning=FALSE}
-  # Call the visualization function, passing the response and the desired HTML file name
-  full_integrated_network = visualize_system_model(network_revision_response, html_file = "full_integrated_network.html", gene_symbols, output_dir)
+
   full_integrated_network
 
 ```
@@ -902,23 +908,23 @@ Here is the list of all original results, along with filtered results, computed 
 
 ```{r download_all}, results='asis', message=FALSE, warning=FALSE}
 
-download_link_model <- paste0("<a href='enrichment_results/system_model.txt'>Click to open system_model.txt in new tab</a>")
-download_link_final <- paste0("<a href='enrichment_results/final_response.txt'>Click to open final_response.txt in new tab</a>")
-download_link_agents <- paste0("<a href='enrichment_results/agent_responses.txt'>Click to open agent_responses.txt in new tab</a>")
-download_link_kegg_original <- paste0("<a href='enrichment_results/kegg_enrichment_original.txt'>Click to open kegg_enrichment_original.txt in new tab</a>")
-download_link_kegg_filtered <- paste0("<a href='enrichment_results/kegg_enrichment_filtered.txt'>Click to open kegg_enrichment_filtered.txt in new tab</a>")
-download_link_wp_original <- paste0("<a href='enrichment_results/wp_enrichment_original.txt'>Click to open wp_enrichment_original.txt in new tab</a>")
-download_link_wp_filtered <- paste0("<a href='enrichment_results/wp_enrichment_filtered.txt'>Click to open wp_enrichment_filtered.txt in new tab</a>")
-download_link_reactome_original <- paste0("<a href='enrichment_results/reactome_enrichment_original.txt'>Click to open reactome_enrichment_original.txt in new tab</a>")
-download_link_reactome_filtered <- paste0("<a href='enrichment_results/reactome_enrichment_filtered.txt'>Click to open reactome_enrichment_filtered.txt in new tab</a>")
-download_link_chea_original <- paste0("<a href='enrichment_results/chea_enrichment_original.txt'>Click to open chea_enrichment_original.txt in new tab</a>")
-download_link_chea_filtered <- paste0("<a href='enrichment_results/chea_enrichment_filtered.txt'>Click to open chea_enrichment_filtered.txt in new tab</a>")
-download_link_string_original <- paste0("<a href='enrichment_results/string_interactions_original.txt'>Click to open string_interactions_original.txt in new tab</a>")
-download_link_string_filtered <- paste0("<a href='enrichment_results/string_interactions_filtered.txt'>Click to open string_interactions_filtered.txt in new tab</a>")
-download_link_string_properties <- paste0("<a href='enrichment_results/string_network_properties.txt'>Click to open string_network_properties.txt in new tab</a>")
-download_link_pathway_comparison <- paste0("<a href='enrichment_results/pathway_comparison.txt'>Click to open pathway_comparison.txt in new tab</a>")
-download_link_integrated_network <- paste0("<a href='enrichment_results/integrated_network.txt'>Click to open integrated_network.txt in new tab</a>")
-download_link_deg <- paste0("<a href='enrichment_results/integrated_network.txt'>Click to open integrated_network.txt in new tab</a>")
+download_link_model <- paste0("<a href='system_model.txt'>Click to open system_model.txt in new tab</a>")
+download_link_final <- paste0("<a href='final_response.txt'>Click to open final_response.txt in new tab</a>")
+download_link_agents <- paste0("<a href='agent_responses.txt'>Click to open agent_responses.txt in new tab</a>")
+download_link_kegg_original <- paste0("<a href='kegg_enrichment_original.txt'>Click to open kegg_enrichment_original.txt in new tab</a>")
+download_link_kegg_filtered <- paste0("<a href='kegg_enrichment_filtered.txt'>Click to open kegg_enrichment_filtered.txt in new tab</a>")
+download_link_wp_original <- paste0("<a href='wp_enrichment_original.txt'>Click to open wp_enrichment_original.txt in new tab</a>")
+download_link_wp_filtered <- paste0("<a href='wp_enrichment_filtered.txt'>Click to open wp_enrichment_filtered.txt in new tab</a>")
+download_link_reactome_original <- paste0("<a href='reactome_enrichment_original.txt'>Click to open reactome_enrichment_original.txt in new tab</a>")
+download_link_reactome_filtered <- paste0("<a href='reactome_enrichment_filtered.txt'>Click to open reactome_enrichment_filtered.txt in new tab</a>")
+download_link_chea_original <- paste0("<a href='chea_enrichment_original.txt'>Click to open chea_enrichment_original.txt in new tab</a>")
+download_link_chea_filtered <- paste0("<a href='chea_enrichment_filtered.txt'>Click to open chea_enrichment_filtered.txt in new tab</a>")
+download_link_string_original <- paste0("<a href='string_interactions_original.txt'>Click to open string_interactions_original.txt in new tab</a>")
+download_link_string_filtered <- paste0("<a href='string_interactions_filtered.txt'>Click to open string_interactions_filtered.txt in new tab</a>")
+download_link_string_properties <- paste0("<a href='string_network_properties.txt'>Click to open string_network_properties.txt in new tab</a>")
+download_link_pathway_comparison <- paste0("<a href='pathway_comparison.txt'>Click to open pathway_comparison.txt in new tab</a>")
+download_link_integrated_network <- paste0("<a href='integrated_network.txt'>Click to open integrated_network.txt in new tab</a>")
+download_link_deg <- paste0("<a href='integrated_network.txt'>Click to open integrated_network.txt in new tab</a>")
 
 cat(download_link_model, "<br>")
 cat(download_link_final, "<br>")

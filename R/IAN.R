@@ -80,7 +80,6 @@ IAN <- function(experimental_design = NULL, deseq_results = NULL, markeringroup 
   #ont <- "BP" # or "MF" or "CC"
   #score_threshold <- 0
   #output_dir <- "enrichment_results" # Directory to save output files
-  params_file <- "analysis_parameters.txt" # File to save parameters
   
   # Read API Key and handle errors
   api_key <- tryCatch({
@@ -92,17 +91,6 @@ IAN <- function(experimental_design = NULL, deseq_results = NULL, markeringroup 
   
   if (is.null(api_key) || length(api_key) == 0) {
     stop("API key not found or invalid. Please provide a valid api_key_file.")
-  }
-  
-  # Function to save parameters to a text file
-  save_parameters <- function(params, filename) {
-    tryCatch({
-      param_lines <- paste(names(params), "=", sapply(params, function(x) paste(x, collapse = ",")), collapse = "\n")
-      writeLines(param_lines, filename)
-      message(paste("Parameters saved to:", filename))
-    }, error = function(e) {
-      message(paste("Error saving parameters:", e$message))
-    })
   }
   
   # Get the directory of the script
@@ -141,8 +129,7 @@ IAN <- function(experimental_design = NULL, deseq_results = NULL, markeringroup 
     output_dir = output_dir
   )
   
-  save_parameters(params, params_file)
-  
+
   # Perform gene ID mapping
   if (input_type == "deseq") {
     gene_mapping <- map_gene_ids(
@@ -300,6 +287,20 @@ IAN <- function(experimental_design = NULL, deseq_results = NULL, markeringroup 
       cat(final_response, "\n\n")
     }
     
+    ### Save analysis parameters
+    params_file <- file.path(output_dir_path, "analysis_parameters.txt")
+    # Function to save parameters to a text file
+    save_parameters <- function(params, filename) {
+      tryCatch({
+        param_lines <- paste(names(params), "=", sapply(params, function(x) paste(x, collapse = ",")), collapse = "\n")
+        writeLines(param_lines, filename)
+        message(paste("Parameters saved to:", filename))
+      }, error = function(e) {
+        message(paste("Error saving parameters:", e$message))
+      })
+    }
+    save_parameters(params, params_file)
+
     # Network Processing
     
     # 1. Generate initial network revision prompt
@@ -307,6 +308,9 @@ IAN <- function(experimental_design = NULL, deseq_results = NULL, markeringroup 
     
     # 2. Make initial request to LLM for network revision
     network_revision_response <- make_gemini_request(network_revision_prompt, temperature, max_output_tokens, api_key, model_query, delay_seconds)
+    
+    # Call the visualization function, passing the response and the desired HTML file name
+    full_integrated_network = visualize_system_model(network_revision_response, html_file = "full_integrated_network.html", gene_symbols, output_dir_path)
     
     # --- Save the character vector to a file in the output directory ---
     file_conn_vector <- base::file(file.path(output_dir, "integrated_network.txt"), "w")
@@ -325,7 +329,7 @@ IAN <- function(experimental_design = NULL, deseq_results = NULL, markeringroup 
     
     # Call the visualization function, passing the response and the desired HTML file name
     system_model_network = visualize_system_model(system_model_response, html_file = "system_model_network.html", gene_symbols, output_dir)
-    system_model_network
+    #system_model_network
     
     # Extract the title from Step 7
     title_extraction <- stringr::str_extract(
@@ -349,5 +353,4 @@ IAN <- function(experimental_design = NULL, deseq_results = NULL, markeringroup 
     rmarkdown::render(system.file("rmd", "report_template.Rmd", package = "IAN"), output_dir = output_dir)
   }
 }
-
 

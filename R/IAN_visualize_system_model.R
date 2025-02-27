@@ -64,7 +64,6 @@ visualize_system_model <- function(llm_response, html_file = "system_model_netwo
   colnames(system_network_df) <- c("source", "interaction", "target")
   message("TSV data successfully read into system_network_df.")
   
-  # 1. Create Nodes Data Frame
   # 1. Create Nodes Data Frame with labels and groups
   nodes <- data.frame(id = unique(c(system_network_df$source, system_network_df$target)),
                       stringsAsFactors = FALSE)
@@ -90,7 +89,7 @@ visualize_system_model <- function(llm_response, html_file = "system_model_netwo
   
   
   # Save the visualization as an HTML file
-  visSave(vis_network_model, file = html_file)
+  # visSave(vis_network_model, file = html_file)
   
   
   # Save the visualization as an HTML file
