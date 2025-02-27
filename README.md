@@ -1,12 +1,5 @@
 <img align="left" src="inst/docs/ian_logo.jpg" width="200" />
 
-## IAN: An Intelligent System for Omics Data Analysis and Discovery
-------------
-- Authors: Vijay Nagarajan PhD
-- Affiliation: Laboratory of Immunology, NEI/NIH
-- Contact: nagarajanv@nih.gov
-------------
-**IAN** is an R package designed to facilitate integrated analysis of omics data, leveraging the power of Large Language Models (LLMs) to generate novel biological insights and hypotheses. The package performs a comprehensive set of analysis, from gene ID mapping and enrichment analysis to hub gene identification and system model generation, using a multi-agent AI system .
 
 ### **Features:**
 
