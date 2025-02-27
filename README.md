@@ -1,12 +1,8 @@
 
-<div id="toc">
-  <ul style="list-style: none">
-    <summary>
-    <img align="left" src="inst/docs/ian_logo.jpg" width="200" />
-      <h1> IAN: An Intelligent System for Omics Data Analysis and Discovery </h1>
-    </summary>
-  </ul>
-</div>
+
+<img align="left" src="inst/docs/ian_logo.jpg" width="200" />
+
+<span style="font-size: 1.5em; font-weight: bold;">IAN: An Intelligent System for Omics Data Analysis and Discovery</span>
 
 
 ### **Features:**
