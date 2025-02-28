@@ -1,0 +1,63 @@
+```tsv
+Node1	Edge	Node2	Explanation
+FN1	associated with	Acute Inflammatory Response	Grounded in provided data (GO, STRING). FN1 is involved in cell adhesion and extracellular matrix remodeling, processes crucial in acute inflammation.
+FN1	associated with	Cell Junction Disassembly	Grounded in provided data (GO, STRING). FN1's role in cell adhesion suggests its involvement in cell junction disassembly during processes like cell migration and tissue remodeling.
+FN1	associated with	Cell Adhesion Molecules	Grounded in provided data (GO, STRING). FN1 is a key component of the extracellular matrix and directly interacts with cell adhesion molecules.
+FN1	associated with	Extracellular Matrix Remodeling	Grounded in provided data (GO, STRING). FN1 is a major component of the extracellular matrix and its expression levels directly influence matrix remodeling.
+FN1	associated with	Focal Adhesion	Grounded in provided data (GO, STRING). FN1 is a key component of focal adhesions, structures that mediate cell-matrix interactions.
+FN1	associated with	Immune Response	Grounded in provided data (GO, STRING). FN1's role in cell adhesion and matrix remodeling influences immune cell infiltration and activation.
+FN1	associated with	Collagen Biosynthesis and Modifying Enzymes	Grounded in provided data (GO, STRING). FN1 interacts with and influences the activity of enzymes involved in collagen biosynthesis and modification.
+CD274	associated with	T Cell Costimulation	Grounded in provided data (GO, STRING). CD274 (PD-L1) is a known ligand for PD-1, a key receptor in T cell costimulation and immune checkpoint regulation.
+CD274	associated with	Immune Response	Grounded in provided data (GO, STRING). CD274 plays a critical role in regulating T cell responses and overall immune homeostasis.
+C1QA	associated with	Complement Activation	Grounded in provided data (GO, STRING). C1QA is a component of the C1 complex, initiating the classical complement pathway.
+C1QA	associated with	Immune Response	Grounded in provided data (GO, STRING). C1QA is a key component of the innate immune system, involved in various immune responses.
+ANK2	associated with	Actin Filament-Based Movement	Grounded in provided data (GO, STRING). ANK2 is an ankyrin protein that interacts with and regulates the actin cytoskeleton, influencing cell movement.
+ANK2	associated with	Cell Movement and Contraction (actin-based)	Grounded in provided data (GO, STRING). ANK2's interaction with the actin cytoskeleton is crucial for cell movement and contraction.
+ATF3	associated with	Wnt Signaling	Grounded in provided data (WikiPathways, ChEA). ATF3 is a transcription factor that regulates the expression of genes involved in Wnt signaling.
+SERPING1	associated with	Complement Activation	Grounded in provided data (GO, STRING). SERPING1 (α1-antitrypsin) inhibits various serine proteases, including those involved in the complement cascade.
+FCGR1A	associated with	Immune Response	Grounded in provided data (GO, STRING). FCGR1A (CD64) is a high-affinity receptor for IgG, playing a crucial role in antibody-dependent cellular cytotoxicity and immune responses.
+FCGR1A	associated with	Interferon Gamma Signaling	Grounded in provided data (Reactome, GO, STRING). FCGR1A expression and function are modulated by interferon gamma, highlighting its role in interferon signaling.
+RELB	targets	GBP5	Grounded: RELB directly targets GBP5 (ChEA). RELB, a transcription factor, directly binds to the promoter region of GBP5, regulating its expression.
+RELB	targets	CD274	Grounded: RELB directly targets CD274 (ChEA); high combined network score (STRING). RELB directly regulates CD274 expression, supported by ChEA and STRING databases.
+SMAD4	associated with	Focal Adhesion	Grounded: SMAD4 targets FN1; present in this pathway (KEGG). SMAD4, a key component of TGF-β signaling, regulates genes involved in focal adhesion formation, including FN1.
+SMAD4	associated with	ECM-Receptor Interaction	Grounded: SMAD4 targets FN1; present in this pathway (KEGG). SMAD4 regulates genes involved in ECM-receptor interactions, including FN1.
+TFAP2C	associated with	Cell Adhesion Molecules	Grounded: TFAP2C targets NRCAM; present in this pathway (KEGG). TFAP2C, a transcription factor, regulates the expression of cell adhesion molecules.
+TFAP2C	associated with	NRCAM	Grounded: TFAP2C directly targets NRCAM (ChEA). TFAP2C directly regulates NRCAM expression, supported by ChEA database.
+ANKRD22	associated with	Myeloid Leukocyte Activation	Grounded: ANKRD22 is present in the Myeloid Leukocyte Activation GO term and has a high combined network score (STRING). ANKRD22 is enriched in myeloid leukocytes and its expression is associated with their activation.
+UTY	associated with	HDMs Demethylate Histones	Grounded: UTY is present in the HDMs Demethylate Histones Reactome pathway and has a high combined network score (STRING). UTY is involved in histone demethylation processes.
+C1QB	interacts with	C1QA	Grounded in provided data (STRING). C1QB and C1QA are both components of the C1 complex in the complement system, directly interacting with each other.
+SERPING1	interacts with	C1QB	Grounded in provided data (STRING). SERPING1 inhibits serine proteases, including those involved in the complement cascade, interacting with C1QB.
+SERPING1	interacts with	C1QA	Grounded in provided data (STRING). SERPING1 inhibits serine proteases, including those involved in the complement cascade, interacting with C1QA.
+ANK2	interacts with	NRCAM	Grounded in provided data (STRING). ANK2, through its role in cytoskeletal organization, may indirectly influence NRCAM localization and function.
+FCGR1A	interacts with	CD274	Grounded in provided data (STRING). FCGR1A and CD274 are both involved in immune responses, and their interaction may influence immune cell activation and regulation.
+C1QB	interacts with	FN1	Grounded in provided data (STRING). C1QB, a complement component, may indirectly interact with FN1 through its influence on immune cell activity and extracellular matrix remodeling.
+FN1	interacts with	CD274	Grounded in provided data (STRING). FN1's role in cell adhesion and extracellular matrix remodeling may influence CD274 expression and function.
+GBP5	interacts with	ANKRD22	Grounded in provided data (STRING). GBP5 and ANKRD22 are both involved in immune responses, and their interaction may influence immune cell activation and regulation.
+FCGR1A	interacts with	C1QA	Grounded in provided data (STRING). FCGR1A and C1QA are both involved in immune responses, and their interaction may influence immune cell activation and regulation.
+GBP5	interacts with	CD274	Grounded in provided data (STRING). GBP5 and CD274 are both involved in immune responses, and their interaction may influence immune cell activation and regulation.
+C1QB	interacts with	FCGR1A	Grounded in provided data (STRING). C1QB and FCGR1A are both involved in immune responses, and their interaction may influence immune cell activation and regulation.
+FN1	interacts with	FCGR1A	Grounded in provided data (STRING). FN1's role in cell adhesion and extracellular matrix remodeling may influence FCGR1A expression and function.
+FCGR1A	interacts with	GBP5	Grounded in provided data (STRING). FCGR1A and GBP5 are both involved in immune responses, and their interaction may influence immune cell activation and regulation.
+FN1	interacts with	ANK2	Grounded in provided data (STRING). FN1's role in cell adhesion and extracellular matrix remodeling may influence ANK2 function in cell movement.
+FCGR1A	interacts with	ANKRD22	Grounded in provided data (STRING). FCGR1A and ANKRD22 are both involved in immune responses, and their interaction may influence immune cell activation and regulation.
+FN1	interacts with	C1QA	Grounded in provided data (STRING). FN1's role in cell adhesion and extracellular matrix remodeling may influence C1QA function in complement activation.
+SERPING1	interacts with	GBP5	Grounded in provided data (STRING). SERPING1 and GBP5 are both involved in immune responses, and their interaction may influence immune cell activation and regulation.
+C1QB	interacts with	GBP5	Grounded in provided data (STRING). C1QB and GBP5 are both involved in immune responses, and their interaction may influence immune cell activation and regulation.
+ATF3	interacts with	FN1	Grounded in provided data (STRING). ATF3, a transcription factor, may regulate FN1 expression.
+ANKRD22	interacts with	C1QA	Grounded in provided data (STRING). ANKRD22 and C1QA are both involved in immune responses, and their interaction may influence immune cell activation and regulation.
+C1QB	interacts with	ANKRD22	Grounded in provided data (STRING). C1QB and ANKRD22 are both involved in immune responses, and their interaction may influence immune cell activation and regulation.
+ANKRD22	interacts with	CD274	Grounded in provided data (STRING). ANKRD22 and CD274 are both involved in immune responses, and their interaction may influence immune cell activation and regulation.
+ATF3	interacts with	CD274	Grounded in provided data (STRING). ATF3, a transcription factor, may regulate CD274 expression.
+C1QA	interacts with	CD274	Grounded in provided data (STRING). C1QA and CD274 are both involved in immune responses, and their interaction may influence immune cell activation and regulation.
+ATF3	interacts with	C1QA	Grounded in provided data (STRING). ATF3, a transcription factor, may regulate C1QA expression.
+SERPING1	interacts with	CD274	Grounded in provided data (STRING). SERPING1 and CD274 are both involved in immune responses, and their interaction may influence immune cell activation and regulation.
+ANKRD22	interacts with	UTY	Grounded in provided data (STRING). ANKRD22 and UTY are both involved in immune responses, and their interaction may influence immune cell activation and regulation.
+C1QB	interacts with	ATF3	Grounded in provided data (STRING). C1QB and ATF3 are both involved in immune responses, and their interaction may influence immune cell activation and regulation.
+C1QB	interacts with	CD274	Grounded in provided data (STRING). C1QB and CD274 are both involved in immune responses, and their interaction may influence immune cell activation and regulation.
+ANK2	interacts with	UTY	Grounded in provided data (STRING). ANK2 and UTY are both involved in immune responses, and their interaction may influence immune cell activation and regulation.
+SERPING1	interacts with	ATF3	Grounded in provided data (STRING). SERPING1 and ATF3 are both involved in immune responses, and their interaction may influence immune cell activation and regulation.
+ANK2	interacts with	CD274	Grounded in provided data (STRING). ANK2 and CD274 are both involved in immune responses, and their interaction may influence immune cell activation and regulation.
+ATF3	interacts with	GBP5	Grounded in provided data (STRING). ATF3, a transcription factor, may regulate GBP5 expression.
+
+```
+

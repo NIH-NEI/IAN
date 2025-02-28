@@ -1,0 +1,101 @@
+Description	pvalue	Gene
+B cell mediated immunity	1.25543008452751e-05	C4BPA, C1QC, SERPING1, FCGR1A, C1QB, C1QA, IGHV3-35, IGHG4
+T cell costimulation	0.0247814802394852	PDCD1LG2, CD274
+actin filament-based movement	0.00539409778203927	NOS1AP, FGF13, ANK2, PARVA
+actin-mediated cell contraction	0.00264357841581021	NOS1AP, FGF13, ANK2, PARVA
+action potential	0.00705098135569755	NOS1AP, FGF13, ANK2, NRCAM
+activated T cell proliferation	0.0238266122283727	PDCD1LG2, CD274
+acute inflammatory response	0.00231958911701008	FCGR1A, FN1, HP, FFAR3
+acute-phase response	0.0238266122283727	FN1, HP
+adaptive immune response based on somatic recombination of immune receptors built from immunoglobulin superfamily domains	4.09346762529227e-06	KDM5D, C4BPA, C1QC, SERPING1, FCGR1A, C1QB, C1QA, IL27, CD274, IGHV3-35, IGHG4
+astrocyte development	0.0210565158259494	C1QA, ROR1
+asymmetric cell division	0.00413216527004687	FGF13, SOX5
+biological process involved in interaction with symbiont	0.022802844490167	IFI27, FN1, HPN
+brain morphogenesis	0.0159581844714995	OTX1, GDF7
+cardiac muscle cell action potential	0.00900721061371474	NOS1AP, FGF13, ANK2
+cardiac muscle cell contraction	0.00871716714602699	NOS1AP, FGF13, ANK2
+cardiac muscle cell membrane repolarization	0.0175904214716286	NOS1AP, ANK2
+cell fate commitment	0.0160068126236562	FGF13, SLAMF8, WNT16, SOX5, GDF7
+cell junction disassembly	0.000340630519900937	C1QC, C1QB, C1QA
+cell recognition	0.00808241762066872	C4BPA, FCGR1A, FOLR3, NRCAM
+cellular response to type II interferon	0.0233033523779645	GBP6, GBP5, GBP1
+complement activation	1.14407232705077e-06	C4BPA, C1QC, SERPING1, C1QB, C1QA, IGHG4
+complement activation, classical pathway	6.66059668825868e-08	C4BPA, C1QC, SERPING1, C1QB, C1QA, IGHG4
+defense response to bacterium	6.90330037439705e-06	FCGR1A, GBP6, HP, GBP5, GBP1, ANXA3, SLAMF8, SIGLEC16, NAIP, IGHG4
+defense response to protozoan	0.000340630519900937	BATF2, GBP6, GBP1
+dicarboxylic acid transport	0.0140412572335182	SLC26A8, FOLR3, SLC1A3
+forebrain morphogenesis	0.00192261592336012	OTX1, GDF7
+glomerular basement membrane development	0.00136469984519888	COL4A3, COL4A4
+grooming behavior	0.00370943431637583	DDO, SLITRK5
+humoral immune response	0.00203792439457758	C4BPA, C1QC, SERPING1, C1QB, C1QA, IGHG4
+humoral immune response mediated by circulating immunoglobulin	3.89328244946191e-07	C4BPA, C1QC, SERPING1, C1QB, C1QA, IGHG4
+immunoglobulin mediated immune response	1.09315421512956e-05	C4BPA, C1QC, SERPING1, FCGR1A, C1QB, C1QA, IGHV3-35, IGHG4
+leukocyte mediated immunity	2.59638048825789e-05	KDM5D, C4BPA, C1QC, SERPING1, FCGR1A, CD177, C1QB, C1QA, ANXA3, IGHV3-35, IGHG4
+lymphocyte mediated immunity	0.00011616133990742	KDM5D, C4BPA, C1QC, SERPING1, FCGR1A, C1QB, C1QA, IGHV3-35, IGHG4
+midbrain development	0.0111956139007241	OTX1, CASP5, GDF7
+myeloid leukocyte activation	0.00774249285089736	BATF2, CD177, FN1, C1QA, ANXA3
+myeloid leukocyte mediated immunity	0.0194661681513018	FCGR1A, CD177, ANXA3
+negative regulation of activated T cell proliferation	0.00257106412406342	PDCD1LG2, CD274
+negative regulation of complement activation	0.00192261592336012	C4BPA, SERPING1
+negative regulation of humoral immune response	0.00330818963454757	C4BPA, SERPING1
+negative regulation of immune effector process	0.0238098212758697	C4BPA, SERPING1, SLAMF8
+negative regulation of interleukin-10 production	0.00656032784382493	PDCD1LG2, CD274
+negative regulation of myotube differentiation	0.00292865705792067	TMEM119, BHLHE41
+negative regulation of striated muscle cell differentiation	0.0192903688745467	TMEM119, BHLHE41
+negative regulation of type II interferon production	0.0210565158259494	PDCD1LG2, CD274
+neuroblast division	0.00257106412406342	FGF13, SOX5
+neutrophil activation	0.0192903688745467	CD177, ANXA3
+neutrophil activation involved in immune response	0.00413216527004687	CD177, ANXA3
+neutrophil degranulation	0.0016322243540093	CD177, ANXA3
+neutrophil mediated immunity	0.0136401486992465	CD177, ANXA3
+peptidyl-cysteine modification	0.0219639483199577	NOS1AP, ZDHHC11B
+phagocytosis, recognition	0.00949273280655612	C4BPA, FCGR1A
+positive regulation of acute inflammatory response	0.00886719292968831	FCGR1A, FFAR3
+positive regulation of cation channel activity	0.00197898885564534	NOS1AP, FGF13, ANK2
+positive regulation of inflammatory response	0.00772826373586464	FCGR1A, FFAR3, CASP5, NAIP
+positive regulation of ion transmembrane transporter activity	0.00871716714602699	NOS1AP, FGF13, ANK2
+positive regulation of myeloid leukocyte mediated immunity	0.00504119111369413	FCGR1A, CD177
+positive regulation of potassium ion transmembrane transport	0.015167935911691	NOS1AP, ANK2
+positive regulation of potassium ion transmembrane transporter activity	0.00504119111369413	NOS1AP, ANK2
+positive regulation of potassium ion transport	0.0210565158259494	NOS1AP, ANK2
+positive regulation of transporter activity	0.0115310624212169	NOS1AP, FGF13, ANK2
+potassium ion transmembrane transport	0.00501454607891842	NOS1AP, HPN, SLC1A3, ANK2, KCNK17
+potassium ion transport	0.00774249285089736	NOS1AP, HPN, SLC1A3, ANK2, KCNK17
+pyroptosis	3.63899319690906e-05	IFI27, GBP5, GBP1, NAIP
+regulation of actin filament-based movement	0.0175904214716286	FGF13, ANK2
+regulation of action potential	0.00336639225128159	NOS1AP, FGF13, ANK2
+regulation of activated T cell proliferation	0.0210565158259494	PDCD1LG2, CD274
+regulation of acute inflammatory response	0.0247814802394852	FCGR1A, FFAR3
+regulation of adaptive immune response	0.0212953276323249	C4BPA, FCGR1A, IL27, CD274
+regulation of adaptive immune response based on somatic recombination of immune receptors built from immunoglobulin superfamily domains	0.0166485084585252	C4BPA, FCGR1A, IL27, CD274
+regulation of cardiac conduction	0.00886719292968831	CORIN, ANK2
+regulation of cardiac muscle cell action potential	0.000422404591972879	NOS1AP, FGF13, ANK2
+regulation of cardiac muscle cell contraction	0.0129030025440103	FGF13, ANK2
+regulation of cardiac muscle cell membrane repolarization	0.00949273280655612	NOS1AP, ANK2
+regulation of cation channel activity	0.0213370885469618	NOS1AP, FGF13, ANK2
+regulation of cell morphogenesis	0.00841938185580149	FN1, HPN, COCH, GRIP1, PARVA
+regulation of cell shape	0.00567357452898997	FN1, HPN, COCH, PARVA
+regulation of cell size	0.015528257620518	FN1, FGF13, PRR16, NRCAM
+regulation of complement activation	0.00552704275798142	C4BPA, SERPING1
+regulation of extent of cell growth	0.0181254574021939	FN1, FGF13, NRCAM
+regulation of heart contraction	0.021630609520937	NOS1AP, CORIN, FGF13, ANK2
+regulation of hormone metabolic process	0.0167657438313606	HPN, FFAR3
+regulation of humoral immune response	0.022887374589126	C4BPA, SERPING1
+regulation of immune effector process	0.00348957345880948	C4BPA, SERPING1, FCGR1A, CD177, IL27, FFAR3, SLAMF8
+regulation of membrane potential	0.00767587119764734	NOS1AP, FGF13, INSYN2B, GRIN3A, ANK2, KCNK17, NRCAM
+regulation of membrane repolarization	0.0167657438313606	NOS1AP, ANK2
+regulation of myotube differentiation	0.0238266122283727	TMEM119, BHLHE41
+regulation of oxidoreductase activity	0.00588957094403392	NOS1AP, HP, SLAMF8
+regulation of type II interferon production	0.022802844490167	PDCD1LG2, IL27, CD274
+regulation of ventricular cardiac muscle cell membrane repolarization	0.00656032784382493	NOS1AP, ANK2
+response to protozoan	0.00046761435135412	BATF2, GBP6, GBP1
+sensory perception of mechanical stimulus	0.00254275258128487	HPN, SLC1A3, COL4A3, COCH, ROR1
+sensory perception of sound	0.00138481810378991	HPN, SLC1A3, COL4A3, COCH, ROR1
+sodium ion homeostasis	0.0238266122283727	CORIN, SLC1A3
+startle response	0.00886719292968831	GRIN3A, CSMD1
+substrate adhesion-dependent cell spreading	0.0148109523967462	FN1, GBP1, PARVA
+synapse organization	0.00362911042355285	C1QC, NOS1AP, C1QB, C1QA, FGF13, SYBU, SLITRK5, NRCAM
+synapse pruning	4.44709476856476e-05	C1QC, C1QB, C1QA
+type II interferon production	0.022802844490167	PDCD1LG2, IL27, CD274
+ventricular cardiac muscle cell action potential	0.0136401486992465	NOS1AP, ANK2
+ventricular cardiac muscle cell membrane repolarization	0.00949273280655612	NOS1AP, ANK2
