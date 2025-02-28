@@ -81,11 +81,12 @@ IAN(
 # The example results are also shared in the below links, so you can compare your run with our run.
 ```
 
-### **Tutorial Datasets:**
-* [PBMCs from Birdshot Uveitis Patient](https://github.com/PulakNath/bcr-uveitis/raw/refs/heads/main/Results/cellranger/NS7R65BBTS/cellranger_output/filtered_feature_bc_matrix.h5)
-* [PBMCs from Healthy Human Control](https://github.com/PulakNath/bcr-uveitis/raw/refs/heads/main/Results/cellranger/NS3R189BTS/cellranger_output/filtered_feature_bc_matrix.h5)
-* [NK, CD4+ and CD8+ T cells from LCMV infected WT mice](https://www.ncbi.nlm.nih.gov/geo/download/?acc=GSM6625298&format=file&file=GSM6625298%5FscRNA%5FLCMV%5FDay4%5FCD4%5FCD8%5FNK%5FWT%5Ffiltered%5Ffeature%5Fbc%5Fmatrix%2Eh5)
-* [NK, CD4+ and CD8+ T cells from LCMV infected Ifng - CTCF binding site mutant mice](https://www.ncbi.nlm.nih.gov/geo/download/?acc=GSM6625299&format=file&file=GSM6625299%5FscRNA%5FLCMV%5FDay4%5FCD4%5FCD8%5FNK%5FKO%5Ffiltered%5Ffeature%5Fbc%5Fmatrix%2Eh5)
+### **Download Evaluation Reports:**
+The evaluated reports are provided as compressed zip files containing all the individual results files as well as a comprehensive HTML file that collates the individual results files. Once you unzip the file, please open the main file - report_template.html in a browser. You can navigate other results files from this main file.
+* [FN1-centered immune dysregulation in uveitis pathogenesis](inst/docs/ian-uv.zip)
+  - Original Publication: [Rosenbaum et al., 2021](https://pmc.ncbi.nlm.nih.gov/articles/PMC8286715/)
+* [Behcet’s Disease: A Complex Interplay of Immune and Neuronal Pathways, CX3CR1 Involvement](inst/docs/ian-bd.zip)
+  - Original Publication: [Zheng et al., 2022](https://pmc.ncbi.nlm.nih.gov/articles/PMC9245671/)
 
 ### **Documentation:**
 
