@@ -93,8 +93,8 @@ The evaluated reports are provided as compressed zip files containing all the in
 Detailed documentation for each function, including parameters, usage, and expected outputs, is available through the ? help function in R. For example, run ?IAN to learn about all the included functions, run ?map_gene_ids to learn about the syntax, parameters, expected inputs, defaults and outputs about the function that maps gene identifiers.
 
 ### **Supporting Files/Scripts:**
-- [SCassist Template Prompts](https://nih-nei.github.io/SCassist/SCassist-prompts.md)
-- [SCassist Semantic Similarity Evaluation Script](https://nih-nei.github.io/SCassist/bert-similarity.md)
+- [IAN's Analysis Instructions](inst/docs/analysis_instructions.md)
+- [IAN's Analysis Instructions](inst/docs/analysis_parameters.md)
 
 ### **License:**
 
