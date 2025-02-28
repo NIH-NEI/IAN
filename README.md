@@ -1,7 +1,7 @@
 <img align="left" src="inst/docs/ian-logo-b.png"/>&nbsp;
 
 ------------
-- Authors: Vijay Nagarajan PhD
+- Authors: Vijay Nagarajan PhD, Guangpu Shi PhD
 - Affiliation: Laboratory of Immunology, NEI/NIH
 - Contact: nagarajanv@nih.gov
 ------------
