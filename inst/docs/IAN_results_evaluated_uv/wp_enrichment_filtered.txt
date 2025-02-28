@@ -1,0 +1,21 @@
+ID	Description	pvalue	Gene
+WP1433	Nucleotide binding oligomerization domain NOD pathway	0.0215290999458152	CASP5,NAIP
+WP2267	Synaptic vesicle pathway	0.0323251011643922	SYN2,SLC1A3
+WP2328	Allograft rejection	0.0134327260812252	C1QC,C1QB,C1QA
+WP2572	Primary focal segmental glomerulosclerosis FSGS 	0.00730960488545505	COL4A3,COL4A4,PARVA
+WP3896	Dengue 2 interactions with complement and coagulation cascades	0.000303631627629741	C1QC,SERPING1,C1QB,C1QA
+WP3937	Microglia pathogen phagocytosis pathway	6.58709171241022e-05	C1QC,FCGR1A,C1QB,C1QA
+WP3941	Oxidative damage response	0.00137083697944751	C1QC,C1QB,C1QA
+WP4239	Epithelial to mesenchymal transition in colorectal cancer	0.0121585650169095	FN1,COL4A3,WNT16,COL4A4
+WP4258	lncRNA in canonical Wnt signaling and colorectal cancer	0.000196252816549176	KREMEN1,ATF3,MIR34AHG,WNT16,ROR1
+WP428	Wnt signaling	0.0250734718331564	KREMEN1,WNT16,ROR1
+WP4336	ncRNAs in Wnt signaling in hepatocellular carcinoma	0.0130350702070271	KREMEN1,WNT16,ROR1
+WP4585	Cancer immunotherapy by PD 1 blockade	0.00707632202559086	PDCD1LG2,CD274
+WP4658	Small cell lung cancer	0.0159640838022859	FN1,COL4A3,COL4A4
+WP4758	Nephrotic syndrome	0.0256310992381511	COL4A3,COL4A4
+WP5053	Development of ureteric derived collecting system	0.028899299627503	ANOS1,GRIP1
+WP5078	T cell modulation in pancreatic cancer	0.0267026189785738	PDCD1LG2,CD274
+WP5087	Pleural mesothelioma	0.000591549417753413	FN1,CD274,KREMEN1,ATF3,FGF13,COL4A3,WNT16,ROR1,COL4A4
+WP5090	Complement system in neuronal development and plasticity	2.5097265110234e-05	C4BPA,C1QC,SERPING1,C1QB,C1QA,CSMD1
+WP545	Complement activation	0.000262541637731192	C1QC,C1QB,C1QA
+WP558	Complement and coagulation cascades	0.000284199723051163	C1QC,SERPING1,C1QB,C1QA
