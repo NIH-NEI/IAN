@@ -2,7 +2,7 @@
 % Please edit documentation in R/IAN.R
 \name{IAN}
 \alias{IAN}
-\title{Perform Integrated Network Analysis - orchestrator}
+\title{Perform Intelligent Omics Analysis and Discovery - orchestrator}
 \usage{
 IAN(
   experimental_design = NULL,
@@ -36,7 +36,7 @@ IAN(
 
 \item{input_type}{Character string specifying the input type. Must be one of "findmarker", "deseq", or "custom" (default is NULL).}
 
-\item{pvalue}{Numeric value specifying the p-value threshold for filtering results. Default is 0.05.}
+\item{pvalue}{Numeric value specifying the p-value threshold for filtering enrichment results. Default is 0.05.}
 
 \item{ont}{Character string specifying the GO ontology to use. Must be one of "BP" (biological process), "CC" (cellular component), or "MF" (molecular function). Default is "BP".}
 
@@ -51,9 +51,9 @@ IAN(
 \item{api_key_file}{Character string specifying the path to the file containing the Gemini API key (default is NULL).}
 }
 \value{
-None (side effects: performs integrated network analysis and generates reports and visualizations).
+None (side effects: performs intelligent omics analysis and generates reports and visualizations).
 }
 \description{
-This function performs an integrated network analysis, combining gene ID mapping, enrichment analysis,
-multi-agent system execution, pathway comparison, network revision, system model generation, and visualization.
+This function performs an intelligent omics analysis and discovery, combining gene ID mapping, enrichment analysis,
+multi-agent system execution, pathway comparison, network properties generation, network revision, system model generation, and visualization.
 }

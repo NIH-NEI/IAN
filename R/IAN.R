@@ -1,7 +1,7 @@
-#' Perform Integrated Network Analysis - orchestrator
+#' Perform Intelligent Omics Analysis and Discovery - orchestrator
 #'
-#' This function performs an integrated network analysis, combining gene ID mapping, enrichment analysis,
-#' multi-agent system execution, pathway comparison, network revision, system model generation, and visualization.
+#' This function performs an intelligent omics analysis and discovery, combining gene ID mapping, enrichment analysis,
+#' multi-agent system execution, pathway comparison, network properties generation, network revision, system model generation, and visualization.
 #'
 #' @param experimental_design A character string describing the experimental design (optional, default is NULL).
 #' @param deseq_results A data frame containing DESeq2 results (required if `input_type` is "deseq").
@@ -10,7 +10,7 @@
 #' @param gene_type Character string specifying the gene identifier type in the input data. Must be one of "ENSEMBL", "ENTREZID", or "SYMBOL" (required if `input_type` is "deseq", "findmarker", or "custom", default is NULL).
 #' @param organism Character string specifying the organism. Must be "human" or "mouse" (required if `input_type` is "deseq", "findmarker", or "custom", default is NULL).
 #' @param input_type Character string specifying the input type. Must be one of "findmarker", "deseq", or "custom" (default is NULL).
-#' @param pvalue Numeric value specifying the p-value threshold for filtering results. Default is 0.05.
+#' @param pvalue Numeric value specifying the p-value threshold for filtering enrichment results. Default is 0.05.
 #' @param ont Character string specifying the GO ontology to use. Must be one of "BP" (biological process), "CC" (cellular component), or "MF" (molecular function). Default is "BP".
 #' @param score_threshold Numeric value specifying the minimum combined score for STRING interactions. Default is 0.
 #' @param output_dir Character string specifying the directory to save the results to. Default is "enrichment_results".
@@ -18,7 +18,7 @@
 #' @param temperature Numeric value controlling the randomness of the LLM response. Default is 0.
 #' @param api_key_file Character string specifying the path to the file containing the Gemini API key (default is NULL).
 #'
-#' @return None (side effects: performs integrated network analysis and generates reports and visualizations).
+#' @return None (side effects: performs intelligent omics analysis and generates reports and visualizations).
 #'
 #' @importFrom dplyr %>%
 #' @importFrom clusterProfiler enrichGO
@@ -32,54 +32,15 @@
 #' @export
 IAN <- function(experimental_design = NULL, deseq_results = NULL, markeringroup = NULL, deg_file = NULL, gene_type = NULL, organism = NULL, input_type = NULL, pvalue = 0.05, ont = "BP", score_threshold = 0, output_dir = "enrichment_results", model = "gemini-1.5-flash-latest", temperature = 0, api_key_file = NULL) {
   
-  # Source the functions
-  #source("IAN/R/IAN_gene_id_mapper.R")
-  #source("IAN/R/IAN_enrichment_analysis.R")
-  #source("IAN/R/IAN_multi_agent_system.R")
-  #source("IAN/R/IAN_llm_prompts.R")
-  #source("IAN/R/IAN_create_combined_prompt.R") # Source the new file
-  #source("IAN/R/IAN_pathway_comparison.R") # Source the pathway comparison script
-  #source("IAN/R/IAN_network_prompt_generator.R") # Source the combined network prompt generator script
-  #source("IAN/R/IAN_system_model_prompt_generator.R") # Source the system model prompt generator script
-  #source("IAN/R/IAN_visualize_system_model.R") # To visualize system model
-  
   # --- Configuration ---
-  #num_workers <- parallel::availableCores() - 1
   num_workers <- parallel::detectCores() - 1
   #model <- "gemini-1.5-flash-latest"  # Optimized
-  #model <- "gemini-1.5-flash-8b"  # Or your preferred Gemini model
-  #model <- "gemini-2.0-flash-exp"  # Or your preferred Gemini model
   
   model_query <- paste0(model, ":generateContent")
   #temperature <- 0
   max_output_tokens <- 8192
   #api_key_file <- "/Users/nagarajanv/OneDrive - National Institutes of Health/Research/singlecellassistant/api_keys.txt"  # **REPLACE with the actual path to your API key file**
   delay_seconds <- 5
-  
-  # Deseq RNAseq
-  #experimental_design = "Peripheral blood samples were collected from 9 BD (Behcet’s disease) patients who fulfilled the 2013 International Criteria for BD and 10 HC (healthy controls). Total RNA was extracted from PBMCs and used for generating the RNA-Seq data. DESEq was used to identify differentially expressed genes between BD and HC samples"
-  
-  # Custom DEG
-  #experimental_design = "Ninety subjects with uveitis including axial spondyloarthritis (n = 17), sarcoidosis (n = 13), inflammatory bowel disease (n = 12), tubulointerstitial nephritis with uveitis (n = 10), or idiopathic uveitis (n = 38) as well as 18 healthy controls were enrolled, predominantly at Oregon Health & Science University. RNA-Seq data generated from peripheral, whole blood was used to indentify differentially expressed genes between Uveitis patients and healthy controls."
-  
-  #experimental_design = "Ninety subjects with uveitis including axial spondyloarthritis (n = 17), sarcoidosis (n = 13), inflammatory bowel disease (n = 12), tubulointerstitial nephritis with uveitis (n = 10), or idiopathic uveitis (n = 38) as well as 18 healthy controls were enrolled, predominantly at Oregon Health & Science University. RNA-Seq data generated from peripheral, whole blood was used to indentify differentially expressed genes between Uveitis patients and healthy controls."
-  
-  #gene_type = "ENSEMBL" # one of ENSEMBL, ENTREZID, SYMBOL
-  #deg_file <- "/Users/nagarajanv/OneDrive - National Institutes of Health/Research/smart-enrichment/Ian/Ianoriginal/data/uveitis-PIIS0002939421000271-deg.txt" # Replace with your file path
-  #markers <- markeringroup
-  #organism <- "human" # or 'mouse'
-  #input_type <- "custom" # one of findmarker, deseq, custom
-  
-  #example
-  #custom input_type = "custom", organism = "human", gene_type = "ENSEMBL"
-  #deseq input_type = "deseq", organism = "human", gene_type = "ENSEMBL",
-  #findmarker input_type = "findmarker", organism = "human", gene_type = "SYMBOL",
-  
-  # User-defined parameters for enrichment analysis
-  #pvalue <- 0.05
-  #ont <- "BP" # or "MF" or "CC"
-  #score_threshold <- 0
-  #output_dir <- "enrichment_results" # Directory to save output files
   
   # Read API Key and handle errors
   api_key <- tryCatch({
