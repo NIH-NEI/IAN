@@ -4,14 +4,14 @@ organism <- "human" # or 'mouse'
 input_type <- "custom" # one of findmarker, deseq, custom
 deseq_results <- resSigOrderedLFC_all
 markers <- markeringroup
-deg_file <- "/Users/nagarajanv/OneDrive - National Institutes of Health/Research/smart-enrichment/Ian/Ian/data/uveitis-PIIS0002939421000271-deg.txt" # Replace with your file path
+deg_file <- "/Ian/data/uveitis-PIIS0002939421000271-deg.txt" # Replace with your file path
 
 ########### cutom deg list
-deg_file <- "/Users/nagarajanv/OneDrive - National Institutes of Health/Research/smart-enrichment/Ian/Ian/data/uveitis-PIIS0002939421000271-deg.txt" # Replace with your file path
+deg_file <- "/Ian/data/uveitis-PIIS0002939421000271-deg.txt" # Replace with your file path
 head(read.table(deg_file))
 
 ########### seurat findmarkers
-load("/Users/nagarajanv/OneDrive - National Institutes of Health/Research/singlecellassistant/Archive/data/pbmc.RData")
+load("pbmc.RData")
 library(Seurat)
 pbmc <- NormalizeData(pbmc)
 pbmc <- FindVariableFeatures(pbmc)
@@ -24,23 +24,23 @@ markersall=FindAllMarkers(pbmc)
 markeringroup = FindMarkers(pbmc, ident.1 = "0", ident.2 = "4")
 head(pbmc)
 pbmc <- RunUMAP(pbmc, dims = 1:10)
-DimPlot(pbmc, reduction = "umap", label = T, repel = TRUE) 
+DimPlot(pbmc, reduction = "umap", label = T, repel = TRUE)
 
-########## deseq2 
+########## deseq2
 library(DESeq2)
 #library(tidyverse)
 #library(dplyr)
 # Download uveitis count matrix
 # https://ftp.ncbi.nlm.nih.gov/geo/series/GSE198nnn/GSE198533/suppl/GSE198533%5FRaw%5Fgene%5Fcounts%5Fmatrix.csv.gz
-countData <- read.csv("/Users/nagarajanv/OneDrive - National Institutes of Health/Research/smart-enrichment/Ian/Ian/data/GSE198533_Raw_gene_counts_matrix.csv", header = TRUE, sep = ",")
+countData <- read.csv("/Ian/data/GSE198533_Raw_gene_counts_matrix.csv", header = TRUE, sep = ",")
 head(countData)
 countData <- countData %>%
   dplyr::select(gene_id, ends_with("_count"))
 head(countData)
-metaData <- read.csv('/Users/nagarajanv/OneDrive - National Institutes of Health/Research/smart-enrichment/Ian/Ian/data/GSE198533_metadata.csv', header = TRUE, sep = ",")
+metaData <- read.csv('/Ian/data/GSE198533_metadata.csv', header = TRUE, sep = ",")
 metaData
-dds <- DESeqDataSetFromMatrix(countData=countData, 
-                              colData=metaData, 
+dds <- DESeqDataSetFromMatrix(countData=countData,
+                              colData=metaData,
                               design=~group, tidy = TRUE)
 dds
 dds <- DESeq(dds)

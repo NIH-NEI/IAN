@@ -5,7 +5,7 @@ library(dplyr)
 library(reshape2)
 
 # Read the data from a tab-delimited file
-data <- read.table("/Users/nagarajanv/OneDrive - National Institutes of Health/Research/smart-enrichment/Manuscript/evaluation/human-evaluation.txt", header = TRUE, sep = "\t")
+data <- read.table("/evaluation/human-evaluation.txt", header = TRUE, sep = "\t")
 
 ################# Box Whisker Plot Showing Distribution of Individual Metrics
 # Define the desired order of metrics
@@ -81,14 +81,14 @@ library(effsize)
 perform_wilcoxon_test <- function(metric) {
   # Filter data for the specified metric
   metric_data <- data[data$Metric == metric, ]
-  
+
   # Perform Wilcoxon test
   test_result <- wilcox.test(Score ~ Expert, data = metric_data)
-  
+
   # Calculate Cliff's Delta effect size
-  effect_size <- cliff.delta(metric_data$Score[metric_data$Expert == "Senior"], 
+  effect_size <- cliff.delta(metric_data$Score[metric_data$Expert == "Senior"],
                              metric_data$Score[metric_data$Expert == "Junior"])
-  
+
   # Return results as a list
   return(list(
     p_value = test_result$p.value,

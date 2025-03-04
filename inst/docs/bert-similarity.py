@@ -3,12 +3,12 @@
 # Author: Vijay Nagarajan PhD
 # Code assistant: Gemini
 
-#source /data/CaspiWGSData/b10riii/Tools/conda/etc/profile.d/conda.sh
+#source /data/conda.sh
 conda update -n base -c conda-forge conda
 conda create -n mybert python=3.9.15 transformers
 conda activate mybert
 
-#mkdir -pv /data/CaspiMicrobiomeData/Vijay/bert
+#mkdir -pv /data/bert
 
 from transformers import BertTokenizer, BertModel
 import torch
@@ -24,8 +24,8 @@ tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
 model = BertModel.from_pretrained('bert-base-uncased')
 
 # Example sentences
-# sentence1 = "I like coding in Python."
-# sentence2 = "Python is my favorite programming language."
+# sentence1 = "IAN in an intelligent system for omics discovery"
+# sentence2 = "SCassist in an intelligent assistant for single cell omics analysis "
 
 # Read content from text files
 with open("sentence1.txt", "r") as f:
@@ -77,4 +77,3 @@ print("Similarity Score:", similarity_score)
 
 # Reference:
 # https://www.geeksforgeeks.org/sentence-similarity-using-bert-transformer/
-
