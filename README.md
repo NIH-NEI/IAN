@@ -95,6 +95,9 @@ Detailed documentation for each function, including parameters, usage, and expec
 ### **Supporting Files/Scripts:**
 - [IAN's Analysis Instructions](inst/docs/analysis_instructions.md)
 - [IAN's Analysis Instructions](inst/docs/analysis_parameters.md)
+- [BERT's Similary Score](inst/docs/bert-similarity.py)
+- [Grounding Analysis Script](inst/docs/ground.R)
+- [Human Evaluation Script](inst/docs/human-evaluation-plots.R)
 
 ### **License:**
 
