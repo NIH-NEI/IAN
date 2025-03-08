@@ -330,6 +330,9 @@ KEGG pathway enrichment analysis results, filtered - plot
 
 ```{r kegg_filtered_plot, results='asis', fig.width=8, fig.height=6, message=FALSE, warning=FALSE}
 # Plot the data
+# Keep only top 20 rows
+data <- head(data, 20)
+
 kegg_plot <- data %>%
   ggplot(aes(x = neglog10p, y = fct_reorder(Description, neglog10p))) +
   geom_col(fill = "peachpuff") +
@@ -417,6 +420,9 @@ WikiPathway enrichment analysis results, filtered - plot
 
 ```{r wp_filtered_plot}, results='asis', fig.width=8, fig.height=6, message=FALSE, warning=FALSE}
 # Plot the data
+# Keep only top 20 rows
+data <- head(data, 20)
+
 wp_plot <- data %>%
   ggplot(aes(x = neglog10p, y = fct_reorder(Description, neglog10p))) +
   geom_col(fill = "mediumpurple3") +

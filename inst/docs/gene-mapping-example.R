@@ -32,7 +32,7 @@ library(DESeq2)
 #library(dplyr)
 # Download uveitis count matrix
 # https://ftp.ncbi.nlm.nih.gov/geo/series/GSE198nnn/GSE198533/suppl/GSE198533%5FRaw%5Fgene%5Fcounts%5Fmatrix.csv.gz
-countData <- read.csv("/Ian/data/GSE198533_Raw_gene_counts_matrix.csv", header = TRUE, sep = ",")
+countData <- read.csv("/Users/nagarajanv/OneDrive - National Institutes of Health/Research/smart-enrichment/Ian/Ianoriginal/data/GSE198533_Raw_gene_counts_matrix.csv", header = TRUE, sep = ",")
 head(countData)
 countData <- countData %>%
   dplyr::select(gene_id, ends_with("_count"))
