@@ -32,7 +32,7 @@
 
 ```R
 # Install the necessary packages
-install.packages(c("dplyr", "stringr", "readr", "R6", "future", "furrr", "progressr", "httr", "plyr", "rmarkdown", "visNetwork", "igraph", "devtools"))
+install.packages(c("dplyr", "stringr", "readr", "R6", "future", "furrr", "progressr", "httr", "plyr", "rmarkdown", "visNetwork", "igraph", "devtools", "ggh4x"))
 BiocManager::install(c("clusterProfiler", "ReactomePA", "org.Hs.eg.db", "org.Mm.eg.db", "STRINGdb"))
 install.packages("enrichR")
 
@@ -91,6 +91,16 @@ The evaluated reports are provided as compressed zip files containing all the in
 ### **Documentation:**
 
 Detailed documentation for each function, including parameters, usage, and expected outputs, is available through the ? help function in R. For example, run ?IAN to learn about all the included functions, run ?map_gene_ids to learn about the syntax, parameters, expected inputs, defaults and outputs about the function that maps gene identifiers.
+
+### **FAQs**
+1. ERROR: dependency ‘STRINGdb’ is not available for package ‘IAN’
+
+  Run ```BiocManager::install("STRINGdb")```
+
+2. Error in `library()`: ! there is no package called 'ggh4x'
+
+  Run ```install.packages("ggh4x")```
+
 
 ### **Supporting Files/Scripts:**
 - [IAN's Analysis Instructions](inst/docs/analysis_instructions.md)
