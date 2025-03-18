@@ -33,7 +33,7 @@
 ```R
 # Install the necessary packages
 install.packages(c("dplyr", "stringr", "readr", "R6", "future", "furrr", "progressr", "httr", "plyr", "rmarkdown", "visNetwork", "igraph", "devtools"))
-BiocManager::install(c("clusterProfiler", "ReactomePA", "org.Hs.eg.db", "org.Mm.eg.db"))
+BiocManager::install(c("clusterProfiler", "ReactomePA", "org.Hs.eg.db", "org.Mm.eg.db", "STRINGdb"))
 install.packages("enrichR")
 
 # Install the devtools package if you don't have it
