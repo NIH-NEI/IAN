@@ -100,6 +100,7 @@ Detailed documentation for each function, including parameters, usage, and expec
 2. ```Error in `library()`: ! there is no package called 'ggh4x'```
 
   Run ```install.packages("ggh4x")```
+  
 3. In Linux if you get error like this - ```Error: Cannot create 143 parallel PSOCK nodes. Each node needs one connection, but there are only 140 connections left out of the maximum 144 available on this R installation. To increase this limit in R (>= 4.4.0), use command-line option '--max-connections=N' when launching R.```
 
   Start R like this - ```R --max-connections=256```
