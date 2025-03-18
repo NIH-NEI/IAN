@@ -100,10 +100,17 @@ Detailed documentation for each function, including parameters, usage, and expec
 2. ```Error in `library()`: ! there is no package called 'ggh4x'```
 
   Run ```install.packages("ggh4x")```
-  
-3. In Linux if you get error like this - ```Error: Cannot create 143 parallel PSOCK nodes. Each node needs one connection, but there are only 140 connections left out of the maximum 144 available on this R installation. To increase this limit in R (>= 4.4.0), use command-line option '--max-connections=N' when launching R.```
+
+3. If you get error like this - ```Error: Cannot create 143 parallel PSOCK nodes. Each node needs one connection, but there are only 140 connections left out of the maximum 144 available on this R installation. To increase this limit in R (>= 4.4.0), use command-line option '--max-connections=N' when launching R.```
 
   Start R like this - ```R --max-connections=256```
+
+4. If you get error like this - ```Error: package or namespace load failed for 'AnnotationDbi' in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]):
+ there is no package called 'GenomeInfoDbData'
+Execution halted
+ERROR: lazy loading failed for package 'org.Mm.eg.db' removing 'C:/Program Files/R/R-4.4.3/library/org.Mm.eg.db'```
+
+  Run ```BiocManager::install(c("GenomeInfoDbData", "AnnotationDbi", "AnnotationHub"))``` and then try installing the "org.Hs.eg.db" and "org.Mm.eg.db" packages.
 
 ### **Supporting Files/Scripts:**
 - [IAN's Analysis Instructions](inst/docs/analysis_instructions.md)
