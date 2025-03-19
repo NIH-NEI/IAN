@@ -112,6 +112,11 @@ ERROR: lazy loading failed for package 'org.Mm.eg.db' removing 'C:/Program Files
 
   Run ```BiocManager::install(c("GenomeInfoDbData", "AnnotationDbi", "AnnotationHub"))``` and then try installing the "org.Hs.eg.db" and "org.Mm.eg.db" packages.
 
+5. If you get this error - ```Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : there is no package called 'GO.db' Calls: <Anonymous> ... loadNamespace -> withRestarts -> withOneRestart -> doWithOneRestart Execution halted ERROR: lazy loading failed for package 'IAN' removing 'C:/Program Files/R/R-4.4.3/library/IAN'```
+
+  Run ```BiocManager::install("GO.db")``` and then try to install IAN
+
+
 ### **Supporting Files/Scripts:**
 - [IAN's Analysis Instructions](inst/docs/analysis_instructions.md)
 - [IAN's Analysis Instructions](inst/docs/analysis_parameters.md)
