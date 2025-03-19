@@ -119,8 +119,9 @@ ERROR: lazy loading failed for package 'org.Mm.eg.db' removing 'C:/Program Files
 6. If you get the - ```Error: vector memory limit of 64.0 Gb reached, see mem.maxVSize()``` in Mac...
 
   Run IAN within an renv project folder. Example steps are below, where 'clusterProfiler_test' is our renv project folder and all installations, runs and results will be within this folder;
-  
-  ``` # mkdir clusterProfiler_test
+
+```
+  # mkdir clusterProfiler_test
       # cd clusterProfiler_test
       # Start R (from within this directory)
 
@@ -131,8 +132,7 @@ ERROR: lazy loading failed for package 'org.Mm.eg.db' removing 'C:/Program Files
 
       install.packages("BiocManager")
       # Follow the IAN installation instructions from here.
-    ```
-
+```
 
 ### **Supporting Files/Scripts:**
 - [IAN's Analysis Instructions](inst/docs/analysis_instructions.md)
