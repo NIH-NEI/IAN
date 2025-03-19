@@ -122,16 +122,16 @@ ERROR: lazy loading failed for package 'org.Mm.eg.db' removing 'C:/Program Files
 
 ```
   # mkdir clusterProfiler_test
-      # cd clusterProfiler_test
-      # Start R (from within this directory)
+  # cd clusterProfiler_test
+  # Start R (from within this directory)
 
-      install.packages("renv")
-      renv::init()
+  install.packages("renv")
+  renv::init()
 
-      # Restart R
+  # Restart R
 
-      install.packages("BiocManager")
-      # Follow the IAN installation instructions from here.
+  install.packages("BiocManager")
+  # Follow the IAN installation instructions from here.
 ```
 
 ### **Supporting Files/Scripts:**
