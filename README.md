@@ -32,7 +32,7 @@
 
 ```R
 # Install the necessary packages
-install.packages(c("dplyr", "stringr", "readr", "R6", "future", "furrr", "progressr", "httr", "plyr", "rmarkdown", "visNetwork", "igraph", "devtools", "ggh4x"))
+install.packages(c("dplyr", "stringr", "readr", "R6", "future", "furrr", "progressr", "httr", "plyr", "rmarkdown", "visNetwork", "igraph", "devtools", "ggh4x", "openxlsx", "tidyverse","kableExtra"))
 BiocManager::install(c("clusterProfiler", "ReactomePA", "org.Hs.eg.db", "org.Mm.eg.db", "STRINGdb"))
 install.packages("enrichR")
 
@@ -115,6 +115,23 @@ ERROR: lazy loading failed for package 'org.Mm.eg.db' removing 'C:/Program Files
 5. If you get this error - ```Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : there is no package called 'GO.db' Calls: <Anonymous> ... loadNamespace -> withRestarts -> withOneRestart -> doWithOneRestart Execution halted ERROR: lazy loading failed for package 'IAN' removing 'C:/Program Files/R/R-4.4.3/library/IAN'```
 
   Run ```BiocManager::install("GO.db")``` and then try to install IAN
+
+6. If you get the - ```Error: vector memory limit of 64.0 Gb reached, see mem.maxVSize()``` in Mac...
+
+  Run IAN within an renv project folder. Example steps are below, where 'clusterProfiler_test' is our renv project folder and all installations, runs and results will be within this folder;
+  
+  ``` # mkdir clusterProfiler_test
+      # cd clusterProfiler_test
+      # Start R (from within this directory)
+
+      install.packages("renv")
+      renv::init()
+
+      # Restart R
+
+      install.packages("BiocManager")
+      # Follow the IAN installation instructions from here.
+    ```
 
 
 ### **Supporting Files/Scripts:**
