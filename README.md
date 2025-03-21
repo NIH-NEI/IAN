@@ -134,6 +134,10 @@ ERROR: lazy loading failed for package 'org.Mm.eg.db' removing 'C:/Program Files
   # Follow the IAN installation instructions from here.
 ```
 
+7. If you get this error - ```Error in curl::curl_fetch_memory(url, handle = handle) : SSL peer certificate or SSH remote key was not OK [generativelanguage.googleapis.com]: SSL certificate problem: self-signed certificate in certificate chain```
+
+  Check your internet connection, turn off VPN, switch to a different internet connection.
+
 ### **Supporting Files/Scripts:**
 - [IAN's Analysis Instructions](inst/docs/analysis_instructions.md)
 - [IAN's Analysis Instructions](inst/docs/analysis_parameters.md)
