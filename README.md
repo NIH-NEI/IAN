@@ -6,7 +6,7 @@
 - Contact: nagarajanv@nih.gov
 ------------
 **IAN** is an R package designed to perform contextually integrated "omics" data analysis and reasoning, leveraging the power of Large Language Models (LLMs) to unravel complex biological systems. IAN uses popular pathway and regulatory datasets, along with the interaction information, to perform enrichment analysis and generate insightful summaries, using a multi-agent AI system. <br><br>
-Publication: biorxiv prepring PDF here: https://www.biorxiv.org/content/10.1101/2025.03.06.640921v1.full.pdf
+Publication: biorxiv preprint PDF here: https://www.biorxiv.org/content/10.1101/2025.03.06.640921v1.full.pdf
 
 
 ### **Features:**
