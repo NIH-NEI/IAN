@@ -140,6 +140,10 @@ ERROR: lazy loading failed for package 'org.Mm.eg.db' removing 'C:/Program Files
 
   Check your internet connection, turn off VPN, switch to a different internet connection.
 
+8. ```Error in ChEA enrichment: invalid 'pattern' argument```
+
+    Run ```library(enrichR)```
+
 ### **Supporting Files/Scripts:**
 - [IAN's Analysis Instructions](inst/docs/analysis_instructions.md)
 - [IAN's Analysis Instructions](inst/docs/analysis_parameters.md)
