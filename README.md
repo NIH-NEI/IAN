@@ -154,3 +154,14 @@ ERROR: lazy loading failed for package 'org.Mm.eg.db' removing 'C:/Program Files
 ### **License:**
 
 The license for this package can be found in the `LICENSE` file within the package directory.
+
+<p align="center">
+  <a href="#">  
+  <img width="200" src="https://clustrmaps.com/map_v2.png?d=zshmZsKOC82xguHl9SAwcJA6PChyyOPmoHwywPEAhL8&cl=ffffff"/>
+  </a>
+</p>
+<p align="center">
+  <a href="#">
+     <img src="https://api.visitorbadge.io/api/combined?path=https%3A%2F%2Fgithub.com%2FNIH-NEI%2FIAN&label=IAN&countColor=%23f47373" />
+   </a>
+</p>
