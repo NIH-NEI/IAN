@@ -19,6 +19,7 @@ Publication: biorxiv preprint PDF here: https://www.biorxiv.org/content/10.1101/
 *   **System Modeling:** Generates a system representation network based on each of the pathway analysis results, integrates them, revises the integrated network, creating a mechanistic model of the system.
 *   **Interactive Visualization:** Presents the system model network allowing for interactive exploration of the results.
 *   **Automated Report Generation:** Generates a comprehensive HTML report summarizing the analysis results and providing LLM-driven insights.
+*   **Docker Containerized:** A Docker containerized version of IAN is available at 
 
 ### **Benefits:**
 
@@ -150,6 +151,16 @@ ERROR: lazy loading failed for package 'org.Mm.eg.db' removing 'C:/Program Files
 - [BERT's Similary Score](inst/docs/bert-similarity.py)
 - [Grounding Analysis Script](inst/docs/ground.R)
 - [Human Evaluation Script](inst/docs/human-evaluation-plots.R)
+
+### **Benchmarking with the Omics Discovery Bench (ODB):**
+IAN's performance has been rigorously evaluated using the Omics Discovery Bench (ODB), a novel framework designed to test an AI's ability to perform higher-order scientific reasoning on complex biological data. In a comprehensive comparison against general-purpose LLMs (like GPT-4, Claude) and other bioinformatics tools, IAN ranked #1, demonstrating a superior capability for structured, data-driven biological interpretation over simple narrative generation. This benchmark validates IAN's specialized, multi-agent approach as a more scientifically rigorous tool for genuine omics discovery.
+
+For detailed methodology, full leaderboard, and ground truth datasets, please visit the [Omics Discovery Bench repository.](https://github.com/NIH-NEI/odb)
+
+### **Reproducible Analysis with Docker:**
+To simplify setup and ensure complete reproducibility, IAN is available as a pre-configured Docker container. This self-contained environment includes all necessary R packages, dependencies, and configurations, allowing you to run the entire IAN pipeline with just a few commands. By abstracting away complex installation steps, the container enables researchers to go from a list of differentially expressed genes to a full, insightful report quickly and efficiently.
+
+To get started, pull the image from Docker Hub and follow the quick start guide. Full instructions are [available in the container documentation](https://hub.docker.com/r/tebuffer/ian-container).
 
 ### **License:**
 
