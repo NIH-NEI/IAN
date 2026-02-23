@@ -1,0 +1,895 @@
+IAN PROMPT TEMPLATES
+
+==============================================================
+## WIKIPATHWAYS PROMPT TEMPLATE
+==============================================================
+
+I have performed a transcriptomics experiment comparing two conditions and identified a list of significantly differentially expressed genes (DEGs). Below is the data from my analysis:
+
+**List of Differentially Expressed Genes (DEGs):**
+This is a list of gene symbols that were found to be significantly differentially expressed in my experiment.
+[GENE_SYMBOLS]
+
+**Experimental Design:**
+The experimental design is as follows: [EXPERIMENTAL_DESIGN]
+
+**WikiPathways Pathway Enrichment Analysis Results:**
+This section contains the results of the WikiPathways pathway enrichment analysis performed on the DEGs. It includes the pathway ID, description, p-value, and the list of genes associated with each pathway.
+[WIKIPATHWAYS_RESULTS]
+
+**ChEA Transcription Factor Enrichment Results:**
+This section contains the results of the ChEA transcription factor enrichment analysis performed on the DEGs. It includes the transcription factor term, p-value, and the list of genes associated with each transcription factor.
+[CHEA_RESULTS]
+
+**STRING Protein-Protein Interaction Data:**
+This section contains the protein-protein interactions from the STRING database, based on the DEGs. It includes the interacting proteins and their combined scores.
+[STRING_INTERACTIONS]
+
+**STRING Network Properties Data:**
+This section contains the top 100 nodes from the STRING network, ranked by their combined network score. It includes the node and its combined network score.
+[STRING_NETWORK_PROPERTIES]
+
+**Gene Ontology (GO) Enrichment Results:**
+This section contains the results of the Gene Ontology (GO) enrichment analysis performed on the DEGs. It includes the GO term description, p-value, and the list of genes associated with each GO term.
+[GO_RESULTS]
+
+My goal is to analyze these enriched pathways and their respective genes, along with transcription factor enrichment and interaction data, to understand the underlying biological mechanisms of the system, identify critical genes and pathways, and explore potential regulatory elements. Perform all the analysis in the context of the experimental design, if given. 
+
+**Analysis Instructions:**
+
+1. **Summary and Categorization:**
+   - Provide a one-paragraph summary (about 4 lines) of the significantly enriched WikiPathways pathways. Consider the experimental design, if given. 
+   - Categorize the enriched pathways into broad functional groups and count the number of enriched concepts in each category. *Include only the top 4 categories*.
+
+2. **Known Roles and Upstream Regulators:**
+   - Provide a concise summary (about 4 lines) of the enriched pathways with their known roles in the context of our experiment, based on the current scientific literature.
+   - Based on the genes contributing to the enriched pathways, predict potential upstream regulators (transcription factors, kinases etc.,) that could be driving this phenotype. Provide a list of potential candidates with supporting reasoning.
+
+3. **Interaction Networks and Similar Systems:**
+   - Based on the genes involved in the enriched pathways and also found in the string data, suggest possible interactions or relationships between the enriched pathway genes. Mention any known protein-protein interactions, regulatory relationships or shared functional roles.
+   - Based on the enriched pathways and the genes involved, explore if there are other systems similar to our study, reported in the scientific literature, that might be of interest.
+
+4. **Hub Gene Identification:**
+   - Let's identify hub genes *think step-by-step*:
+     - First, identify genes that are enriched in *multiple* pathways.
+     - Second, identify genes that are enriched in GO analysis results (if GO analysis was performed), that are also enriched in our pathways.
+     - Third, identify genes represented in the enriched pathways that also have high combined network scores in the string network properties data.
+     - Fourth, identify genes represented in the enriched pathways that are also found in our ChEA enrichment results.
+     - Finally, integrate, compare, and analyze results from the first four steps to identify potential hub genes.
+   - List the potential hub genes and provide a single-line description of how you concluded them as a hub gene. *Explain your reasoning for each step*.
+   - *Review your hub genes list and ensure that each listed hub gene is indeed present in the corresponding provided data. If necessary, revise your answer*.
+
+5. **Drug Target/Marker/Kinase/Ligand Analysis:**
+   - For each hub gene, briefly note if it is a known potential drug target or marker, and if it is a kinase or a ligand, and if any of these kinases or ligands are potential drug targets.
+
+6. **Novelty Exploration:**
+   - Based on your analysis above, explore if there are any novel findings in our data. Are there any unexpected connections, pathways, or transcription factors that have not been previously reported in the literature? If so, please list them and provide a brief explanation of why they are novel.
+
+7. **Hypothesis Generation:**
+   - Integrate the findings from all the above to develop a coherent hypothesis about the molecular mechanisms contributing to this phenotype. Focus on the interconnections between the enriched concepts.
+
+8. **System Representation Network:**
+   - Based on the identified hub genes and their associated GO terms, pathways, chea terms, generate a system representation network in TSV (tab-separated values) format with four columns: 'Node1', 'Edge', 'Node2', and 'Explanation'.
+     - Node1 should be the hub gene, *formatted in uppercase*.
+     - Edge should be 'associated with'. 
+     - Node2 should be *a single GO term, formatted in 'Title Case'*, or a pathway name, *formatted in 'Title Case'*, or a transcription factor, *formatted in uppercase*.
+   - Check if the nodes identified above are grounded in the provided data. In the explanation column, include a note stating whether the network interaction in each row is grounded in the provided data.
+   - *Review the above network and ensure that every interaction included meets the grounding criteria and that each interaction includes only one hub gene and one GO term, pathway or transcription factor. If any interaction does not meet these criteria, remove it from the network and revise the explanation column accordingly*.
+   - Format the output within a ```tsv block, by adding ```tsv before the network content and ``` after the network content.
+
+**Example Output:**
+**1. Summary and Categorization:**
+The enriched WikiPathways primarily involve immune response and cell signaling pathways. These can be categorized into:
+- Immune Response Pathways: 4 enriched pathways
+- Cell Signaling Pathways: 2 enriched pathways
+
+**2. Known Roles and Upstream Regulators:**
+The enriched immune response pathways are known to be involved in inflammation and immune cell activation. Potential upstream regulators include transcription factors such as NFKB and STAT family members, which are known to regulate immune response genes.
+
+**3. Interaction Networks and Similar Systems:**
+Genes within the enriched pathways show interactions related to immune cell signaling and cytokine production. Similar systems reported in the literature include studies on autoimmune diseases and inflammatory conditions.
+
+**4. Hub Gene Identification:**
+**Step 1: Genes enriched in multiple pathways:**
+FN1 (Focal adhesion, ECM-receptor interaction, Cytoskeleton in muscle cells, AGE-RAGE signaling pathway in diabetic complications, Amoebiasis, Small cell lung cancer)
+C1QA (Efferocytosis, Complement and coagulation cascades, Alcoholic liver disease, Chagas disease, Staphylococcus aureus infection, Coronavirus disease - COVID-19, Systemic lupus erythematosus)
+C1QB (Efferocytosis, Complement and coagulation cascades, Alcoholic liver disease, Chagas disease, Staphylococcus aureus infection, Coronavirus disease - COVID-19, Systemic lupus erythematosus).
+
+**Step 2: Genes enriched in GO and pathways:**
+FN1 (multiple pathways, acute inflammatory response, acute-phase response, cell recognition, etc.)
+ANK2 (multiple GO terms related to actin and cardiac muscle, pathways)
+NOS1AP (multiple GO terms related to action potential and cardiac muscle, pathways).
+
+**Step 3: Genes with high STRING network scores:**
+FN1 (Combined Network Score: 2.734623)
+ANKRD22 (Combined Network Score: 2.422102)
+CD274 (Combined Network Score: 2.243023).
+
+**Step 4: Genes in ChEA enrichment results:**
+GBP5 (RELB, SMAD4, PCGF4)
+CD274 (RELB, IRF1, SMAD4)
+LRP1B (TFAP2C, PCGF4).
+
+**Integrated Analysis:**
+FN1, C1QA, C1QB, C1QC, ANK2, and CD274 emerge as potential hub genes based on their presence in multiple KEGG pathways, GO terms, and high STRING network scores.  Several genes are also present in ChEA results, further supporting their central role.
+
+**Potential Hub Genes:**
+- **FN1:**  Enriched in multiple pathways and GO terms related to ECM, cell adhesion, and inflammation.
+- **C1QA, C1QB, C1QC:**  Core components of the complement system, enriched in multiple pathways and GO terms related to immune response.
+- **ANK2:**  Involved in actin cytoskeleton dynamics and cardiac muscle function, enriched in multiple GO terms and pathways.
+- **CD274:**  A key immune checkpoint molecule, enriched in pathways and GO terms related to T cell co-stimulation and immune regulation.
+
+**5. Drug Target/Marker/Kinase/Ligand Analysis:**
+- **FN1 (Fibronectin):**  Not a direct drug target, but its role in cell adhesion makes it a potential indirect target for therapies modulating inflammation.
+- **C1QA, C1QB, C1QC (Complement components):**  Not typically direct drug targets, but their involvement in complement-mediated inflammation makes them potential biomarkers.
+- **ANK2 (Ankyrin-2):**  Not a known drug target.
+- **CD274 (PD-L1):**  A well-established drug target in cancer immunotherapy; antibodies blocking its interaction with PD-1 are used clinically.
+
+**6. Novelty Exploration:**
+The strong enrichment of pathways related to infectious diseases (Pertussis, Coronavirus, Staphylococcus aureus, Amoebiasis, Chagas disease) in the context of uveitis is potentially novel and warrants further investigation.  While infections can trigger uveitis, the specific pathways highlighted here may reveal novel mechanisms linking infection and uveitis pathogenesis.  The unexpected connections between complement activation and infectious disease pathways could be a novel finding.
+
+**7. Hypothesis Generation:**
+Uveitis pathogenesis involves a complex interplay between dysregulated immune responses, primarily driven by complement activation and T cell co-stimulation, and impaired ECM remodeling.  This leads to chronic inflammation and tissue damage.  The involvement of infectious disease pathways suggests that microbial triggers or dysbiosis may contribute to the initiation or exacerbation of uveitis.  Upstream regulators like NF-kb, IRFs, AP-1, and SMAD family members likely orchestrate these processes.
+
+**8. System Representation Network:**
+```tsv
+Node1	Edge	Node2	Explanation
+FN1	associated with	Cell Adhesion Molecules	Grounded in provided data (KEGG, GO, STRING)
+FN1	associated with	Acute Inflammatory Response	Grounded in provided data (KEGG, GO, STRING)
+C1QA	associated with	Complement Activation	Grounded in provided data (KEGG, GO, STRING)
+C1QA	associated with	Immune Response	Grounded in provided data (KEGG, GO, STRING)
+ANK2	associated with	Actin Filament-Based Movement	Grounded in provided data (KEGG, GO, STRING)
+CD274	associated with	T Cell Costimulation	Grounded in provided data (KEGG, GO, STRING)
+```
+
+**Note:** Please keep your response under 6100 words. Do not include anyother Note.
+
+==============================================================
+## KEGG PROMPT TEMPLATE
+==============================================================
+
+I have performed a transcriptomics experiment comparing two conditions and identified a list of significantly differentially expressed genes (DEGs). Below is the data from my analysis:
+
+**List of Differentially Expressed Genes (DEGs):**
+This is a list of gene symbols that were found to be significantly differentially expressed in my experiment.
+[GENE_SYMBOLS]
+
+**Experimental Design:**
+The experimental design is as follows: [EXPERIMENTAL_DESIGN]
+
+**KEGG Pathway Enrichment Analysis Results:**
+This section contains the results of the KEGG pathway enrichment analysis performed on the DEGs. It includes the pathway ID, description, p-value, and the list of genes associated with each pathway.
+[KEGG_RESULTS]
+
+**ChEA Transcription Factor Enrichment Results:**
+This section contains the results of the ChEA transcription factor enrichment analysis performed on the DEGs. It includes the transcription factor term, p-value, and the list of genes associated with each transcription factor.
+[CHEA_RESULTS]
+
+**STRING Protein-Protein Interaction Data:**
+This section contains the protein-protein interactions from the STRING database, based on the DEGs. It includes the interacting proteins and their combined scores.
+[STRING_INTERACTIONS]
+
+**STRING Network Properties Data:**
+This section contains the top 100 nodes from the STRING network, ranked by their combined network score. It includes the node and its combined network score.
+[STRING_NETWORK_PROPERTIES]
+
+**Gene Ontology (GO) Enrichment Results:**
+This section contains the results of the Gene Ontology (GO) enrichment analysis performed on the DEGs. It includes the GO term description, p-value, and the list of genes associated with each GO term.
+[GO_RESULTS]
+
+My goal is to analyze these enriched pathways and their respective genes, along with transcription factor enrichment and interaction data, to understand the underlying biological mechanisms of the system, identify critical genes and pathways, and explore potential regulatory elements. Perform all the analysis in the context of the experimental design, if given. 
+
+**Analysis Instructions:**
+
+1. **Summary and Categorization:**
+   - Provide a one-paragraph summary (about 4 lines) of the significantly enriched KEGG pathways. Consider the experimental design, if given. 
+   - Categorize the enriched pathways into broad functional groups and count the number of enriched concepts in each category. *Include only the top 4 categories*.
+
+2. **Known Roles and Upstream Regulators:**
+   - Provide a concise summary (about 4 lines) of the enriched pathways with their known roles in the context of our experiment, based on the current scientific literature.
+   - Based on the genes contributing to the enriched pathways, predict potential upstream regulators (transcription factors, kinases etc.,) that could be driving this phenotype. Provide a list of potential candidates with supporting reasoning.
+
+3. **Interaction Networks and Similar Systems:**
+   - Based on the genes involved in the enriched pathways and also found in the string data, suggest possible interactions or relationships between the enriched pathway genes. Mention any known protein-protein interactions, regulatory relationships or shared functional roles.
+   - Based on the enriched pathways and the genes involved, explore if there are other systems similar to our study, reported in the scientific literature, that might be of interest.
+
+4. **Hub Gene Identification:**
+   - Let's identify hub genes *think step-by-step*:
+     - First, identify genes that are enriched in *multiple* pathways.
+     - Second, identify genes that are enriched in GO analysis results (if GO analysis was performed), that are also enriched in our pathways.
+     - Third, identify genes represented in the enriched pathways that also have high combined network scores in the string network properties data.
+     - Fourth, identify genes represented in the enriched pathways that are also found in our ChEA enrichment results.
+     - Finally, integrate, compare, and analyze results from the first four steps to identify potential hub genes.
+   - List the potential hub genes and provide a single-line description of how you concluded them as a hub gene. *Explain your reasoning for each step*.
+   - *Review your hub genes list and ensure that each listed hub gene is indeed present in the corresponding provided data. If necessary, revise your answer*.
+
+5. **Drug Target/Marker/Kinase/Ligand Analysis:**
+   - For each hub gene, briefly note if it is a known potential drug target or marker, and if it is a kinase or a ligand, and if any of these kinases or ligands are potential drug targets.
+
+6. **Novelty Exploration:**
+   - Based on your analysis above, explore if there are any novel findings in our data. Are there any unexpected connections, pathways, or transcription factors that have not been previously reported in the literature? If so, please list them and provide a brief explanation of why they are novel.
+
+7. **Hypothesis Generation:**
+   - Integrate the findings from all the above to develop a coherent hypothesis about the molecular mechanisms contributing to this phenotype. Focus on the interconnections between the enriched concepts.
+
+8. **System Representation Network:**
+   - Based on the identified hub genes and their associated GO terms, pathways, chea terms, generate a system representation network in TSV (tab-separated values) format with four columns: 'Node1', 'Edge', 'Node2', and 'Explanation'.
+     - Node1 should be the hub gene, *formatted in uppercase*.
+     - Edge should be 'associated with'. 
+     - Node2 should be *a single GO term, formatted in 'Title Case'*, or a pathway name, *formatted in 'Title Case'*, or a transcription factor, *formatted in uppercase*.
+   - Check if the nodes identified above are grounded in the provided data. In the explanation column, include a note stating whether the network interaction in each row is grounded in the provided data.
+   - *Review the above network and ensure that every interaction included meets the grounding criteria and that each interaction includes only one hub gene and one GO term, pathway or transcription factor. If any interaction does not meet these criteria, remove it from the network and revise the explanation column accordingly*.
+   - Format the output within a ```tsv block, by adding ```tsv before the network content and ``` after the network content.
+
+**Example Output:**
+**1. Summary and Categorization:**
+The enriched KEGG pathways primarily involve immune response and cell signaling pathways. These can be categorized into:
+- Immune Response Pathways: 4 enriched pathways
+- Cell Signaling Pathways: 2 enriched pathways
+
+**2. Known Roles and Upstream Regulators:**
+The enriched immune response pathways are known to be involved in inflammation and immune cell activation. Potential upstream regulators include transcription factors such as NFKB and STAT family members, which are known to regulate immune response genes.
+
+**3. Interaction Networks and Similar Systems:**
+Genes within the enriched pathways show interactions related to immune cell signaling and cytokine production. Similar systems reported in the literature include studies on autoimmune diseases and inflammatory conditions.
+
+**4. Hub Gene Identification:**
+**Step 1: Genes enriched in multiple pathways:**
+FN1 (Focal adhesion, ECM-receptor interaction, Cytoskeleton in muscle cells, AGE-RAGE signaling pathway in diabetic complications, Amoebiasis, Small cell lung cancer)
+C1QA (Efferocytosis, Complement and coagulation cascades, Alcoholic liver disease, Chagas disease, Staphylococcus aureus infection, Coronavirus disease - COVID-19, Systemic lupus erythematosus)
+C1QB (Efferocytosis, Complement and coagulation cascades, Alcoholic liver disease, Chagas disease, Staphylococcus aureus infection, Coronavirus disease - COVID-19, Systemic lupus erythematosus).
+
+**Step 2: Genes enriched in GO and pathways:**
+FN1 (multiple pathways, acute inflammatory response, acute-phase response, cell recognition, etc.)
+ANK2 (multiple GO terms related to actin and cardiac muscle, pathways)
+NOS1AP (multiple GO terms related to action potential and cardiac muscle, pathways).
+
+**Step 3: Genes with high STRING network scores:**
+FN1 (Combined Network Score: 2.734623)
+ANKRD22 (Combined Network Score: 2.422102)
+CD274 (Combined Network Score: 2.243023).
+
+**Step 4: Genes in ChEA enrichment results:**
+GBP5 (RELB, SMAD4, PCGF4)
+CD274 (RELB, IRF1, SMAD4)
+LRP1B (TFAP2C, PCGF4).
+
+**Integrated Analysis:**
+FN1, C1QA, C1QB, C1QC, ANK2, and CD274 emerge as potential hub genes based on their presence in multiple KEGG pathways, GO terms, and high STRING network scores.  Several genes are also present in ChEA results, further supporting their central role.
+
+**Potential Hub Genes:**
+- **FN1:**  Enriched in multiple pathways and GO terms related to ECM, cell adhesion, and inflammation.
+- **C1QA, C1QB, C1QC:**  Core components of the complement system, enriched in multiple pathways and GO terms related to immune response.
+- **ANK2:**  Involved in actin cytoskeleton dynamics and cardiac muscle function, enriched in multiple GO terms and pathways.
+- **CD274:**  A key immune checkpoint molecule, enriched in pathways and GO terms related to T cell co-stimulation and immune regulation.
+
+**5. Drug Target/Marker/Kinase/Ligand Analysis:**
+- **FN1 (Fibronectin):**  Not a direct drug target, but its role in cell adhesion makes it a potential indirect target for therapies modulating inflammation.
+- **C1QA, C1QB, C1QC (Complement components):**  Not typically direct drug targets, but their involvement in complement-mediated inflammation makes them potential biomarkers.
+- **ANK2 (Ankyrin-2):**  Not a known drug target.
+- **CD274 (PD-L1):**  A well-established drug target in cancer immunotherapy; antibodies blocking its interaction with PD-1 are used clinically.
+
+**6. Novelty Exploration:**
+The strong enrichment of pathways related to infectious diseases (Pertussis, Coronavirus, Staphylococcus aureus, Amoebiasis, Chagas disease) in the context of uveitis is potentially novel and warrants further investigation.  While infections can trigger uveitis, the specific pathways highlighted here may reveal novel mechanisms linking infection and uveitis pathogenesis.  The unexpected connections between complement activation and infectious disease pathways could be a novel finding.
+
+**7. Hypothesis Generation:**
+Uveitis pathogenesis involves a complex interplay between dysregulated immune responses, primarily driven by complement activation and T cell co-stimulation, and impaired ECM remodeling.  This leads to chronic inflammation and tissue damage.  The involvement of infectious disease pathways suggests that microbial triggers or dysbiosis may contribute to the initiation or exacerbation of uveitis.  Upstream regulators like NF-kB, IRFs, AP-1, and SMAD family members likely orchestrate these processes.
+
+**8. System Representation Network:**
+```tsv
+Node1	Edge	Node2	Explanation
+FN1	associated with	Cell Adhesion Molecules	Grounded in provided data (KEGG, GO, STRING)
+FN1	associated with	Acute Inflammatory Response	Grounded in provided data (KEGG, GO, STRING)
+C1QA	associated with	Complement Activation	Grounded in provided data (KEGG, GO, STRING)
+C1QA	associated with	Immune Response	Grounded in provided data (KEGG, GO, STRING)
+ANK2	associated with	Actin Filament-Based Movement	Grounded in provided data (KEGG, GO, STRING)
+CD274	associated with	T Cell Costimulation	Grounded in provided data (KEGG, GO, STRING)
+```
+
+**Note:** Please keep your response under 6100 words. Do not include anyother Note.
+
+==============================================================
+## REACTOME PROMPT TEMPLATE
+==============================================================
+
+I have performed a transcriptomics experiment comparing two conditions and identified a list of significantly differentially expressed genes (DEGs). Below is the data from my analysis:
+
+**List of Differentially Expressed Genes (DEGs):**
+This is a list of gene symbols that were found to be significantly differentially expressed in my experiment.
+[GENE_SYMBOLS]
+
+**Experimental Design:**
+The experimental design is as follows: [EXPERIMENTAL_DESIGN]
+
+**Reactome Pathway Enrichment Analysis Results:**
+This section contains the results of the Reactome pathway enrichment analysis performed on the DEGs. It includes the pathway ID, description, p-value, and the list of genes associated with each pathway.
+[REACTOME_RESULTS]
+
+**ChEA Transcription Factor Enrichment Results:**
+This section contains the results of the ChEA transcription factor enrichment analysis performed on the DEGs. It includes the transcription factor term, p-value, and the list of genes associated with each transcription factor.
+[CHEA_RESULTS]
+
+**STRING Protein-Protein Interaction Data:**
+This section contains the protein-protein interactions from the STRING database, based on the DEGs. It includes the interacting proteins and their combined scores.
+[STRING_INTERACTIONS]
+
+**STRING Network Properties Data:**
+This section contains the top 100 nodes from the STRING network, ranked by their combined network score. It includes the node and its combined network score.
+[STRING_NETWORK_PROPERTIES]
+
+**Gene Ontology (GO) Enrichment Results:**
+This section contains the results of the Gene Ontology (GO) enrichment analysis performed on the DEGs. It includes the GO term description, p-value, and the list of genes associated with each GO term.
+[GO_RESULTS]
+
+My goal is to analyze these enriched pathways and their respective genes, along with transcription factor enrichment and interaction data, to understand the underlying biological mechanisms of the system, identify critical genes and pathways, and explore potential regulatory elements. Perform all the analysis in the context of the experimental design, if given. 
+
+**Analysis Instructions:**
+
+1. **Summary and Categorization:**
+   - Provide a one-paragraph summary (about 4 lines) of the significantly enriched Reactome pathways. Consider the experimental design, if given. 
+   - Categorize the enriched pathways into broad functional groups and count the number of enriched concepts in each category. *Include only the top 4 categories*.
+
+2. **Known Roles and Upstream Regulators:**
+   - Provide a concise summary (about 4 lines) of the enriched pathways with their known roles in the context of our experiment, based on the current scientific literature.
+   - Based on the genes contributing to the enriched pathways, predict potential upstream regulators (transcription factors, kinases etc.,) that could be driving this phenotype. Provide a list of potential candidates with supporting reasoning.
+
+3. **Interaction Networks and Similar Systems:**
+   - Based on the genes involved in the enriched pathways and also found in the string data, suggest possible interactions or relationships between the enriched pathway genes. Mention any known protein-protein interactions, regulatory relationships or shared functional roles.
+   - Based on the enriched pathways and the genes involved, explore if there are other systems similar to our study, reported in the scientific literature, that might be of interest.
+
+4. **Hub Gene Identification:**
+   - Let's identify hub genes *think step-by-step*:
+     - First, identify genes that are enriched in *multiple* pathways.
+     - Second, identify genes that are enriched in GO analysis results (if GO analysis was performed), that are also enriched in our pathways.
+     - Third, identify genes represented in the enriched pathways that also have high combined network scores in the string network properties data.
+     - Fourth, identify genes represented in the enriched pathways that are also found in our ChEA enrichment results.
+     - Finally, integrate, compare, and analyze results from the first four steps to identify potential hub genes.
+   - List the potential hub genes and provide a single-line description of how you concluded them as a hub gene. *Explain your reasoning for each step*.
+   - *Review your hub genes list and ensure that each listed hub gene is indeed present in the corresponding provided data. If necessary, revise your answer*.
+
+5. **Drug Target/Marker/Kinase/Ligand Analysis:**
+   - For each hub gene, briefly note if it is a known potential drug target or marker, and if it is a kinase or a ligand, and if any of these kinases or ligands are potential drug targets.
+
+6. **Novelty Exploration:**
+   - Based on your analysis above, explore if there are any novel findings in our data. Are there any unexpected connections, pathways, or transcription factors that have not been previously reported in the literature? If so, please list them and provide a brief explanation of why they are novel.
+
+7. **Hypothesis Generation:**
+   - Integrate the findings from all the above to develop a coherent hypothesis about the molecular mechanisms contributing to this phenotype. Focus on the interconnections between the enriched concepts.
+
+8. **System Representation Network:**
+   - Based on the identified hub genes and their associated GO terms, pathways, chea terms, generate a system representation network in TSV (tab-separated values) format with four columns: 'Node1', 'Edge', 'Node2', and 'Explanation'.
+     - Node1 should be the hub gene, *formatted in uppercase*.
+     - Edge should be 'associated with'. 
+     - Node2 should be *a single GO term, formatted in 'Title Case'*, or a pathway name, *formatted in 'Title Case'*, or a transcription factor, *formatted in uppercase*.
+   - Check if the nodes identified above are grounded in the provided data. In the explanation column, include a note stating whether the network interaction in each row is grounded in the provided data.
+   - *Review the above network and ensure that every interaction included meets the grounding criteria and that each interaction includes only one hub gene and one GO term, pathway or transcription factor. If any interaction does not meet these criteria, remove it from the network and revise the explanation column accordingly*.
+   - Format the output within a ```tsv block, by adding ```tsv before the network content and ``` after the network content.
+
+**Example Output:**
+**1. Summary and Categorization:**
+The enriched Reactome pathways primarily involve immune response and cell signaling pathways. These can be categorized into:
+- Immune Response Pathways: 4 enriched pathways
+- Cell Signaling Pathways: 2 enriched pathways
+
+**2. Known Roles and Upstream Regulators:**
+The enriched immune response pathways are known to be involved in inflammation and immune cell activation. Potential upstream regulators include transcription factors such as NFKB and STAT family members, which are known to regulate immune response genes.
+
+**3. Interaction Networks and Similar Systems:**
+Genes within the enriched pathways show interactions related to immune cell signaling and cytokine production. Similar systems reported in the literature include studies on autoimmune diseases and inflammatory conditions.
+
+**4. Hub Gene Identification:**
+**Step 1: Genes enriched in multiple pathways:**
+FN1 (Focal adhesion, ECM-receptor interaction, Cytoskeleton in muscle cells, AGE-RAGE signaling pathway in diabetic complications, Amoebiasis, Small cell lung cancer)
+C1QA (Efferocytosis, Complement and coagulation cascades, Alcoholic liver disease, Chagas disease, Staphylococcus aureus infection, Coronavirus disease - COVID-19, Systemic lupus erythematosus)
+C1QB (Efferocytosis, Complement and coagulation cascades, Alcoholic liver disease, Chagas disease, Staphylococcus aureus infection, Coronavirus disease - COVID-19, Systemic lupus erythematosus).
+
+**Step 2: Genes enriched in GO and pathways:**
+FN1 (multiple pathways, acute inflammatory response, acute-phase response, cell recognition, etc.)
+ANK2 (multiple GO terms related to actin and cardiac muscle, pathways)
+NOS1AP (multiple GO terms related to action potential and cardiac muscle, pathways).
+
+**Step 3: Genes with high STRING network scores:**
+FN1 (Combined Network Score: 2.734623)
+ANKRD22 (Combined Network Score: 2.422102)
+CD274 (Combined Network Score: 2.243023).
+
+**Step 4: Genes in ChEA enrichment results:**
+GBP5 (RELB, SMAD4, PCGF4)
+CD274 (RELB, IRF1, SMAD4)
+LRP1B (TFAP2C, PCGF4).
+
+**Integrated Analysis:**
+FN1, C1QA, C1QB, C1QC, ANK2, and CD274 emerge as potential hub genes based on their presence in multiple Reactome pathways, GO terms, and high STRING network scores.  Several genes are also present in ChEA results, further supporting their central role.
+
+**Potential Hub Genes:**
+- **FN1:**  Enriched in multiple pathways and GO terms related to ECM, cell adhesion, and inflammation.
+- **C1QA, C1QB, C1QC:**  Core components of the complement system, enriched in multiple pathways and GO terms related to immune response.
+- **ANK2:**  Involved in actin cytoskeleton dynamics and cardiac muscle function, enriched in multiple GO terms and pathways.
+- **CD274:**  A key immune checkpoint molecule, enriched in pathways and GO terms related to T cell co-stimulation and immune regulation.
+
+**5. Drug Target/Marker/Kinase/Ligand Analysis:**
+- **FN1 (Fibronectin):**  Not a direct drug target, but its role in cell adhesion makes it a potential indirect target for therapies modulating inflammation.
+- **C1QA, C1QB, C1QC (Complement components):**  Not typically direct drug targets, but their involvement in complement-mediated inflammation makes them potential biomarkers.
+- **ANK2 (Ankyrin-2):**  Not a known drug target.
+- **CD274 (PD-L1):**  A well-established drug target in cancer immunotherapy; antibodies blocking its interaction with PD-1 are used clinically.
+
+**6. Novelty Exploration:**
+The strong enrichment of pathways related to infectious diseases (Pertussis, Coronavirus, Staphylococcus aureus, Amoebiasis, Chagas disease) in the context of uveitis is potentially novel and warrants further investigation.  While infections can trigger uveitis, the specific pathways highlighted here may reveal novel mechanisms linking infection and uveitis pathogenesis.  The unexpected connections between complement activation and infectious disease pathways could be a novel finding.
+
+**7. Hypothesis Generation:**
+Uveitis pathogenesis involves a complex interplay between dysregulated immune responses, primarily driven by complement activation and T cell co-stimulation, and impaired ECM remodeling.  This leads to chronic inflammation and tissue damage.  The involvement of infectious disease pathways suggests that microbial triggers or dysbiosis may contribute to the initiation or exacerbation of uveitis.  Upstream regulators like NF-kB, IRFs, AP-1, and SMAD family members likely orchestrate these processes.
+
+**8. System Representation Network:**
+```tsv
+Node1	Edge	Node2	Explanation
+FN1	associated with	Cell Adhesion Molecules	Grounded in provided data (Reactome, GO, STRING)
+FN1	associated with	Acute Inflammatory Response	Grounded in provided data (Reactome, GO, STRING)
+C1QA	associated with	Complement Activation	Grounded in provided data (Reactome, GO, STRING)
+C1QA	associated with	Immune Response	Grounded in provided data (Reactome, GO, STRING)
+ANK2	associated with	Actin Filament-Based Movement	Grounded in provided data (Reactome, GO, STRING)
+CD274	associated with	T Cell Costimulation	Grounded in provided data (Reactome, GO, STRING)
+```
+
+**Note:** Please keep your response under 6100 words. Do not include anyother Note.
+
+==============================================================
+## CHEA PROMPT TEMPLATE
+==============================================================
+
+I have performed a transcriptomics experiment comparing two conditions and identified a list of significantly differentially expressed genes (DEGs). Below is the data from my analysis:
+
+**List of Differentially Expressed Genes (DEGs):**
+This is a list of gene symbols that were found to be significantly differentially expressed in my experiment.
+[GENE_SYMBOLS]
+
+**Experimental Design:**
+The experimental design is as follows: [EXPERIMENTAL_DESIGN]
+
+**ChEA Enrichment Analysis Results:**
+This section contains the results of the ChEA enrichment analysis performed on the DEGs. It includes the transcription factor term, p-value, and the list of genes associated with each transcription factor.
+[CHEA_RESULTS]
+
+**Pathway Results:**
+This section contains the results of the pathway enrichment analyses performed on the DEGs. It includes the pathway ID, description, p-value, and the list of genes associated with each pathway. If a pathway is not present, the section will mention 'No pathway results available'.
+[PATHWAY_RESULTS]
+
+**STRING Protein-Protein Interaction Data:**
+This section contains the protein-protein interactions from the STRING database, based on the DEGs. It includes the interacting proteins and their combined scores.
+[STRING_INTERACTIONS]
+
+**STRING Network Properties Data:**
+This section contains the top 100 nodes from the STRING network, ranked by their combined network score. It includes the node and its combined network score.
+[STRING_NETWORK_PROPERTIES]
+
+My goal is to analyze the enriched transcription factors and their target genes, along with pathway enrichment and interaction data, to understand the underlying biological mechanisms of the system, identify critical genes and pathways, and explore potential regulatory elements. Perform all the analysis in the context of the experimental design, if given.
+
+**Analysis Instructions:**
+
+1. **Summary of Enriched Transcription Factors:**
+   - Provide a summary (about 4 lines) of the significantly enriched transcription factors. Consider the experimental design, if given.
+
+2. **Regulatory Network Analysis:**
+   - Based on the enriched transcription factors and the target genes, identify any known upstream regulators (like transcription factors, signaling pathways etc.,) that might modulate the system, as a master regulator. Please also note the target genes of these transcription factors, and the pathways these target genes are enriched in.
+
+3. **Novel Interactions:**
+   - Based on the enriched transcription factors and their target genes, identify any unexpected or novel transcription factor-gene interactions that has not been previously reported in the literature. Also, explore where such novel interactions are reported as known in the scientific literature.
+
+4. **Cross-Analysis:**
+   - Based on the target genes of these transcription factors, are there any potential connections or overlaps with pathways identified by KEGG, WikiPathways, Reactome, or GO? If so, please list the pathways and the genes they share with the target genes of these transcription factors.
+   - Are there any protein-protein interactions from STRING that support the findings of these transcription factors, based on their target genes? If so, please list the interacting proteins and their combined scores.
+   - Also, are there any important genes based on the STRING network properties that are also target genes of these transcription factors? If so, please list the genes and their combined network scores.
+
+5. **Hypothesis Generation:**
+   - Based on the above analysis, formulate a hypothesis regarding the roles of the enriched transcription factors and their target genes from our DEG, in driving the gene expression changes observed in our experiment. Consider potential mechanistic links between the transcription factors, their target genes, and our phenotype, in the context of all the data provided here.
+
+6. **System Representation Network:**
+   - Based on the enriched transcription factors and their target genes that are associated with pathways in our enriched pathway data, generate a system representation network in TSV (tab-separated values) format with four columns: 'Node1', 'Edge', 'Node2', and 'Explanation'.
+     - Node1 should be *a transcription factor, formatted in uppercase*.
+     - Edge should be 'associated with'. 
+     - Node2 should be *a single pathway name, formatted in 'Title Case'*, or *a target gene, formatted in uppercase*. The target gene should be in the Chea enrichment data as well as in at least one of our other datasets (pathways or string).
+   - Check if the nodes identified above are grounded in the provided Chea, pathways, or string data. In the explanation column, include a note stating whether and how the 'Node1' gene is also found in the provided pathway data and/or is a Chea-enriched factor's target, and is a gene with a high combined_score_prop as seen in the network properties data.
+   - *Review the above network and ensure that every interaction included meets the grounding criteria, that each interaction includes only one transcription factor and one pathway or target gene. If any interaction does not meet these criteria, remove it from the network and revise the explanation column accordingly*.
+   - Format the output within a ```tsv block, by adding ```tsv before the network content and ``` after the network content.
+
+**Example Output:**
+**1. Summary of Enriched Transcription Factors:**
+The ChEA analysis revealed several significantly enriched transcription factors (TFs) in the differentially expressed genes (DEGs) from the uveitis versus healthy control comparison.  RELB, TFAP2C, POU5F1, and SMAD4 showed the most significant enrichment (p-values < 0.04). These TFs are known to be involved in immune responses, cell differentiation, and development, aligning with the inflammatory nature of uveitis and the use of whole blood RNA-Seq.  The enrichment of these TFs suggests a complex interplay of regulatory mechanisms underlying the observed gene expression changes in uveitis.
+
+**2. Regulatory Network Analysis:**
+Based on the provided data, several TFs emerge as potential upstream regulators.  RELB, a member of the NF-kB family, is strongly implicated, given its association with genes like *GBP5* and *CD274*, both involved in immune responses.  These genes are also enriched in pathways related to interferon signaling (Reactome, GO), complement activation (Reactome, WikiPathways, GO), and cell adhesion molecules (KEGG).  SMAD4, a key component of the TGF-b signaling pathway, also shows significant enrichment and regulates genes involved in focal adhesion, ECM-receptor interaction, and cytoskeleton organization (KEGG, WikiPathways, Reactome).  The overlap of RELB and SMAD4 target genes in pathways like ECM-receptor interaction and cell adhesion molecules suggests a potential coordinated regulatory mechanism.  TFAP2C, involved in cell differentiation and development, and POU5F1, a pluripotency factor, may play more subtle roles, potentially influencing the overall cellular context of the immune response.
+
+**3. Novel Interactions:**
+Identifying truly *novel* interactions requires extensive literature review beyond the scope of this analysis.  However, some interactions warrant further investigation. For example, the association of TFAP2C with genes like *KCNK17* (potassium channel) and *NOS1AP* (nitric oxide synthase adaptor protein) in the context of uveitis requires further exploration.  Similarly, the involvement of POU5F1, typically associated with pluripotency, in regulating genes like *ROR1* (receptor tyrosine kinase) in this inflammatory context is intriguing and needs further investigation to determine if this is a novel finding or a previously underappreciated role of POU5F1 in immune-related processes.  The literature should be consulted to determine if these interactions have been previously reported in the context of uveitis or similar inflammatory conditions.
+
+**4. Cross-Analysis:**
+Several cross-analyses reveal strong connections between the TF target genes and the enriched pathways:
+* **Complement System:** RELB, TFAP2C, and PCGF4 target genes (*C1QA, C1QB, C1QC, C4BPA*) are heavily enriched in KEGG, WikiPathways, and Reactome pathways related to complement activation and coagulation cascades.  This is strongly supported by STRING interactions showing high combined scores between these complement components.
+* **Cell Adhesion and ECM:** SMAD4 and TFAP2C target genes (*FN1, COL4A3, COL4A4, PARVA*) are significantly enriched in KEGG and Reactome pathways related to focal adhesion, ECM-receptor interaction, and collagen biosynthesis.  STRING interactions confirm strong associations between *COL4A3* and *COL4A4*, and between *FN1* and several other genes in this group.  *FN1* also has a high combined network score in the STRING network properties data.
+* **Immune Response:** RELB and IRF1 target genes (*GBP1, GBP5, GBP6, CD274, PDCD1LG2*) are enriched in Reactome and GO pathways related to interferon signaling and T cell costimulation.  STRING interactions show strong associations between *CD274* and *PDCD1LG2*, and between various *GBP* genes.  *CD274* also has a high combined network score in the STRING network properties data.
+* **STRING Network Properties:**  Several genes with high combined network scores in the STRING network properties data are also target genes of the enriched TFs.  These include *FN1*, *ANKRD22*, *CD274*, and *C1QC*, all of which are involved in the pathways mentioned above.
+
+**5. Hypothesis Generation:**
+Based on the integrated analysis, we hypothesize that the observed gene expression changes in uveitis patients compared to healthy controls are driven by a complex interplay of enriched transcription factors, primarily RELB and SMAD4.  RELB, through its regulation of genes involved in the complement system and interferon signaling, contributes to the inflammatory response characteristic of uveitis.  SMAD4, by regulating genes involved in cell adhesion and ECM remodeling, may influence the tissue architecture and immune cell infiltration in the affected tissues.  The involvement of TFAP2C and POU5F1 suggests a broader impact on cell differentiation and the overall cellular context of the immune response.  The strong enrichment of pathways related to complement activation, cell adhesion, and immune responses further supports this hypothesis.  The observed interactions between these TFs and their target genes, supported by STRING data, suggest a coordinated regulatory network contributing to the pathogenesis of uveitis.
+
+**6. System Representation Network:**
+```tsv
+Node1	Edge	Node2	Explanation
+RELB	associated with	Complement And Coagulation Cascades	Grounded: RELB targets GBP5 and CD274, both present in this pathway.
+RELB	associated with	Interferon Signaling	Grounded: RELB targets GBP5 and CD274, both present in this pathway.
+RELB	associated with	GBP5	Grounded: RELB directly targets GBP5.
+RELB	associated with	CD274	Grounded: RELB directly targets CD274.
+SMAD4	associated with	Focal Adhesion	Grounded: SMAD4 targets FN1, present in this pathway.
+SMAD4	associated with	ECM-Receptor Interaction	Grounded: SMAD4 targets FN1, present in this pathway.
+SMAD4	associated with	FN1	Grounded: SMAD4 directly targets FN1.
+TFAP2C	associated with	Cell Adhesion Molecules	Grounded: TFAP2C targets NRCAM, present in this pathway.
+TFAP2C	associated with	NRCAM	Grounded: TFAP2C directly targets NRCAM.
+```
+
+**Note:** Please keep your response under 6100 words. Do not include any other Note.
+
+
+==============================================================
+## GO PROMPT TEMPLATE
+==============================================================
+
+I have performed a transcriptomics experiment comparing two conditions and identified a list of significantly differentially expressed genes (DEGs). Below is the data from my analysis:
+
+**List of Differentially Expressed Genes (DEGs):**
+This is a list of gene symbols that were found to be significantly differentially expressed in my experiment.
+[GENE_SYMBOLS]
+
+**Experimental Design:**
+The experimental design is as follows: [EXPERIMENTAL_DESIGN]
+
+**GO Enrichment Analysis Results:**
+This section contains the results of the GO enrichment analysis performed on the DEGs. It includes the GO term description, p-value, and the list of genes associated with each GO term.
+[GO_RESULTS]
+
+**ChEA Transcription Factor Enrichment Results:**
+This section contains the results of the ChEA transcription factor enrichment analysis performed on the DEGs. It includes the transcription factor term, p-value, and the list of genes associated with each transcription factor.
+[CHEA_RESULTS]
+
+**STRING Protein-Protein Interaction Data:**
+This section contains the protein-protein interactions from the STRING database, based on the DEGs. It includes the interacting proteins and their combined scores.
+[STRING_INTERACTIONS]
+
+**STRING Network Properties Data:**
+This section contains the top 100 nodes from the STRING network, ranked by their combined network score. It includes the node and its combined network score.
+[STRING_NETWORK_PROPERTIES]
+
+My goal is to analyze these enriched GO terms and their respective genes, along with transcription factor enrichment and interaction data, to understand the underlying biological mechanisms of the system, identify critical genes and pathways, and explore potential regulatory elements. Perform all the analysis in the context of the experimental design, if given.
+
+**Analysis Instructions:**
+
+1. **Summary and Categorization:**
+   - Provide a one-paragraph summary (about 4 lines) of the significantly enriched GO terms. Consider the experimental design, if given.
+   - Categorize the enriched GO terms into broad functional groups and count the number of enriched concepts in each category. *Include only the top 4 categories*.
+
+2. **Known Roles and Upstream Regulators:**
+   - Provide a concise summary (about 4 lines) of the enriched GO terms with their known roles in the context of our experiment, based on the current scientific literature.
+   - Based on the genes contributing to the enriched GO terms, predict potential upstream regulators (transcription factors, kinases etc.,) that could be driving this phenotype. Provide a list of potential candidates with supporting reasoning.
+
+3. **Interaction Networks and Similar Systems:**
+   - Based on the genes involved in the enriched GO terms and also found in the string data, suggest possible interactions or relationships between the enriched GO term genes. Mention any known protein-protein interactions, regulatory relationships or shared functional roles.
+   - Based on the enriched GO terms and the genes involved, explore if there are other systems similar to our study, reported in the scientific literature, that might be of interest.
+
+4. **Cross-Analysis:**
+   - Based on the genes involved in these GO terms, are there any potential connections or overlaps with transcription factors that might regulate these genes, as identified by ChEA analysis? If so, please list the transcription factors and the genes they regulate that are also in these GO terms.
+   - Are there any protein-protein interactions from STRING that support the findings of these GO terms, based on the genes involved? If so, please list the interacting proteins and their combined scores.
+   - Also, are there any important genes based on the STRING network properties that are also in these GO terms? If so, please list the genes and their combined network scores.
+
+5.  **Hypothesis Generation:**
+   - Integrate the findings from all the above to develop a coherent hypothesis about the molecular mechanisms contributing to this phenotype. Focus on the interconnections between the enriched concepts.
+
+6. **System Representation Network:**
+   - Based on the enriched GO terms, their associated genes, and the provided ChEA and STRING data, generate a system representation network in TSV (tab-separated values) format with four columns: 'Node1', 'Edge', 'Node2', and 'Explanation'.
+     - Node1 should be *a gene enriched in a GO term, formatted in uppercase*.
+     - Edge should be 'associated with'. 
+     - Node2 should be *a single GO term, formatted in 'Title Case'*.
+   - Check if the nodes identified above are grounded in the provided data. In the 'Explanation' column, include a note stating whether and how the 'Node1' gene is also found in the provided ChEA and/or STRING data (mention if it's a target of a TF from ChEA or if it has STRING interactions or a high network score). *If the gene is not present in ChEA or STRING data, the row should be removed from the network.*
+   - *Review the above network and ensure that every interaction included meets the grounding criteria, that each interaction includes only one gene and one GO term, and that any gene included in the network is also present in the provided Chea or string data. If any interaction does not meet these criteria, remove it from the network and revise the explanation column accordingly*.
+   - Format the output within a ```tsv block, by adding ```tsv before the network content and ``` after the network content.
+
+**Example Output:**
+**1. Summary and Categorization:**
+The significantly enriched GO terms reveal a strong dysregulation of the immune system in uveitis patients compared to healthy controls.  Specifically, numerous GO terms related to B cell and T cell mediated immunity, complement activation, and acute inflammatory responses are highly enriched.  This suggests a complex interplay of humoral and cellular immune responses contributing to the pathogenesis of uveitis.
+
+**Categorization of Enriched GO Terms:**
+- **Immune Response:**  20 terms
+- **Cell Movement and Contraction (actin-based):** 7 terms
+
+**2. Known Roles and Upstream Regulators:**
+The enriched GO terms strongly implicate immune dysregulation in uveitis.  B cell and T cell mediated immunity, complement activation, and acute inflammatory responses are all hallmarks of inflammatory diseases.  The involvement of the complement system suggests a potential role for innate immunity in the disease process.  The enrichment of terms related to cell movement and contraction hints at potential involvement of immune cell migration and tissue remodeling.
+
+**Potential Upstream Regulators:**
+Based on the genes involved in the enriched GO terms, several transcription factors and other potential upstream regulators emerge as candidates:
+* **RELB:**  This transcription factor is implicated in inflammation and is enriched in the ChEA analysis, regulating *GBP5*, *CD274*, *MMP19*, and *GPR84*, all of which are involved in immune responses.
+* **SMAD4:** This transcription factor, involved in TGF-b signaling, is also enriched in the ChEA analysis and regulates several genes involved in immune response, cell morphogenesis, and cell contraction.
+
+**3. Interaction Networks and Similar Systems:**
+The STRING data reveals numerous interactions between the genes involved in the enriched GO terms.  For example, the complement components (C1QA, C1QB, C1QC) show strong interactions, as expected.  Several interactions are observed between genes involved in immune response (e.g., *FCGR1A*, *CD274*, *PDCD1LG2*, *GBP1*, *GBP5*, *GBP6*), indicating a coordinated response.  Interactions are also observed between genes involved in cell movement and contraction (*ANK2*, *NOS1AP*, *FGF13*, *PARVA*), suggesting a functional relationship.  The high scores for interactions between Y-chromosome genes (e.g., *UTY*, *KDM5D*, *USP9Y*, *DDX3Y*) suggest a potential sex-specific component to the disease.
+
+Similar systems reported in the literature include other inflammatory eye diseases, such as age-related macular degeneration and multiple sclerosis, which also show dysregulation of immune responses and complement activation.  Studies on these diseases could provide valuable insights into the mechanisms underlying uveitis.
+
+**4. Cross-Analysis:**
+**ChEA and GO Term Overlap:**
+* **RELB:** Regulates *GBP5*, *CD274*, *MMP19*, and *GPR84*, all involved in multiple immune response GO terms.
+* **PCGF4:** Regulates *GBP6*, *C1QB*, *GBP5*, *C1QA*, *C4BPA*, *CACNA1E*, *LRP1B*, *GDF7*, *FHAD1*, *COL4A4*, *LYPD6B*, *ROR1*, *OTX1*, *FCGR1A*, *GBP1*, *ATF3*, and *C1QC*, involved in immune response, cell morphogenesis, and cell contraction GO terms.
+
+**STRING and GO Term Overlap:**
+Numerous STRING interactions support the GO term enrichments.  High-scoring interactions are observed between complement components (C1QA, C1QB, C1QC), genes involved in immune response (*FCGR1A*, *CD274*, *PDCD1LG2*, *GBP1*, *GBP5*, *GBP6*), and genes involved in cell movement and contraction (*ANK2*, *NOS1AP*, *FGF13*, *PARVA*).  See the STRING data for specific interactions and scores.
+
+**STRING Network Properties and GO Term Overlap:**
+* **FN1:** Combined Network Score: 2.734623 (involved in multiple GO terms related to immune response, cell morphogenesis, and cell adhesion).
+* **ANKRD22:** Combined Network Score: 2.422102 (involved in immune response and cell morphology GO terms).
+* **CD274:** Combined Network Score: 2.243023 (involved in T cell costimulation and multiple immune response GO terms).
+* **SERPING1:** Combined Network Score: 1.537007 (involved in complement activation and multiple immune response GO terms).
+
+**5. Hypothesis Generation:**
+Uveitis in this cohort is characterized by a complex interplay of dysregulated immune responses.  The significant enrichment of GO terms related to B cell and T cell mediated immunity, complement activation, and acute inflammatory responses suggests a multi-faceted inflammatory process.  Upstream regulators such as RELB, SMAD4, TFAP2C, POU5F1, IRF1, and PCGF4, identified through ChEA analysis, likely play crucial roles in orchestrating this response.  The STRING data reveals extensive interactions between the genes involved in these pathways, highlighting the coordinated nature of the immune dysregulation.  The high network scores for genes like *FN1*, *ANKRD22*, *CD274*, and *FCGR1A* further emphasize their importance in the disease process.  The presence of Y-chromosome genes suggests a potential sex-specific component.  Further investigation into these interactions and regulatory elements is warranted to fully elucidate the molecular mechanisms underlying uveitis pathogenesis.
+
+**6. System Representation Network:**
+```tsv
+Node1	Edge	Node2	Explanation
+C1QA	associated with	Complement Activation	Present in ChEA (PCGF4 target) and STRING (high network score)
+C1QB	associated with	Complement Activation	Present in ChEA (PCGF4 target) and STRING (high network score)
+FCGR1A	associated with	Immune Response	Present in ChEA (PCGF4 target) and STRING (high network score)
+```
+
+**Note:** Please keep your response under 6100 words. Do not include any other Note.
+
+==============================================================
+## STRING PROMPT TEMPLATE
+==============================================================
+
+I have performed a transcriptomics experiment comparing two conditions and identified a list of significantly differentially expressed genes (DEGs). Below is the data from my analysis:
+
+**List of Differentially Expressed Genes (DEGs):**
+This is a list of gene symbols that were found to be significantly differentially expressed in my experiment.
+[GENE_SYMBOLS]
+
+**Experimental Design:**
+The experimental design is as follows: [EXPERIMENTAL_DESIGN]
+
+**STRING Analysis Results:**
+This section contains the protein-protein interaction data from the STRING database, based on the DEGs. It includes the interacting proteins and their combined scores.
+[STRING_INTERACTIONS]
+
+**Network Properties:**
+This section contains the network properties data from the STRING database, based on the DEGs. It includes the nodes and their combined network scores.
+[STRING_NETWORK_PROPERTIES]
+
+**Pathway Results:**
+This section contains the results of the pathway enrichment analyses performed on the DEGs. It includes the pathway ID, description, p-value, and the list of genes associated with each pathway. If a pathway is not present, the section will mention 'No pathway results available'.
+[PATHWAY_RESULTS]
+
+**ChEA Transcription Factor Enrichment Results:**
+This section contains the results of the ChEA transcription factor enrichment analysis performed on the DEGs. It includes the transcription factor term, p-value, and the list of genes associated with each transcription factor.
+[CHEA_RESULTS]
+
+My goal is to analyze these protein-protein interactions and their network properties, along with pathway enrichment and transcription factor enrichment data, to understand the underlying biological mechanisms of the system, identify critical genes and pathways, and explore potential regulatory elements. Perform all the analysis in the context of the experimental design, if given.
+
+**Analysis Instructions:**
+
+1.  **Summary of Interactions:**
+   - Provide a one-paragraph summary (about 4 lines) of the genes with the high network properties based combined_score_prop, in the context of their other interacting partners. Consider the experimental design, if given. 
+
+2. **Key Interactions and Network Topology:**
+   - Identify the most significant genes, and their interacting partners, using the network properties based combined_score_prop, and the provided interactions data. Explain the biological relevance of these interactions in the context of our experiment and the properties based combined_score_prop.
+   - Describe the overall structure of the interaction network, in the context of the properties based combined_score_prop and the provided interactions data. Are there any hub proteins or clusters of highly interconnected proteins, with large combined_score_prop based on their network properties? What does this suggest about the system's organization?
+
+3. **Functional Implications and Upstream Regulators:**
+   - Based on the known functions of the genes with high network properties based combined_score_prop, and their interacting partners, what are the potential functional implications of these interactions? How might these interactions contribute to the observed phenotype?
+   - Based on the interaction network, in the context of the network properties based combined_score_prop, predict potential upstream regulators (transcription factors, kinases etc.,) that could be driving this phenotype. Provide a list of potential candidates with supporting reasoning.
+
+4. **Cross-Analysis:**
+   - Based on the proteins with large combined_score_prop, and their interacting partners, are there any potential connections or overlaps with pathways identified by KEGG, WikiPathways, Reactome or GO? If so, please list the pathways and the genes they share with the interacting proteins.
+   - Are there any transcription factors from ChEA that might regulate these proteins with large combined_score_prop and their interacting partners? If so, please list the transcription factors and the genes they regulate that are also in these interacting proteins.
+
+5.  **Hypothesis Generation:**
+   - Integrate the findings from all the above to develop a coherent hypothesis about the molecular mechanisms contributing to this phenotype. Focus on the interconnections between the interacting proteins, in the context of the network properties based combined_score_prop, their regulatory elements and their enriched pathways.
+
+6. **System Representation Network:**
+   - Based on the identified genes with high combined_score_prop, and the interacting proteins, and their associated pathways or associated chea factors, generate a system representation network in TSV (tab-separated values) format with four columns: 'Node1', 'Edge', 'Node2', and 'Explanation'.
+     - Node1 should be *a gene with high combined network score, based on the network properties data, formatted in uppercase*.
+     - Edge should be 'associated with'. 
+     - Node2 should be *a single pathway name or ontology term, formatted in 'Title Case'*, or a transcription factor, *formatted in uppercase*.
+   - Check if the nodes identified above are grounded in the provided data. In the 'Explanation' column, include a note stating whether and how the 'Node1' gene is also present in the provided pathway data and/or is a Chea-enriched factor's target, and is a gene with a high combined_score_prop as seen in the network properties data.
+   - *Review the above network and ensure that every interaction included meets the grounding criteria, that each interaction includes only one gene and one pathway, GO term, or transcription factor. If any interaction does not meet these criteria, remove it from the network and revise the explanation column accordingly*.
+   - Format the output within a ```tsv block, by adding ```tsv before the network content and ``` after the network content.
+
+**Example Output:**
+**1. Summary of Interactions:**
+The STRING analysis reveals a highly interconnected network of proteins, predominantly centered around the complement system (C1QA, C1QB, C1QC) and immune response genes (CD274, PDCD1LG2, FCGR1A).  These interactions, particularly the high scores, suggest a complex interplay between immune response, complement activation, and extracellular matrix dynamics in uveitis.
+
+**2. Key Interactions and Network Topology:**
+Based on the combined network scores from STRING, FN1, ANKRD22, CD274, and FCGR1A stand out as key proteins.  FN1 interacts with numerous proteins, including MYOM2, indicating involvement in cytoskeletal remodeling. ANKRD22 interacts with several immune-related proteins (e.g., CD274, GBP5, IFI27, APOL4), suggesting a role in immune regulation. The network exhibits a scale-free topology, with a few hub proteins (FN1, ANKRD22, CD274, FCGR1A) connected to many other proteins, and many proteins with fewer connections. This suggests a modular organization, where distinct functional modules interact to contribute to the overall phenotype.
+
+**3. Functional Implications and Upstream Regulators:**
+The high network scores and interactions suggest several functional implications. FN1's involvement in extracellular matrix (ECM) remodeling points to alterations in tissue structure and inflammation. ANKRD22's interactions with immune-related proteins suggest a role in modulating immune responses. CD274 and PDCD1LG2's interaction highlights the importance of immune checkpoint regulation in uveitis. FCGR1A's interactions with complement components and other immune genes suggest a role in immune cell activation and inflammation.
+
+Potential upstream regulators could include transcription factors involved in immune response (e.g., RELB, IRF1, SMAD4, TFAP2C) and those involved in development and cell differentiation (e.g., POU5F1). RELB's association with several immune-related genes (GBP5, CD274, MMP19, GPR84) suggests a role in inflammatory responses.  SMAD4's involvement in multiple pathways (ECM, immune response) suggests a broader regulatory role. TFAP2C's association with genes involved in immune regulation and cell signaling suggests a role in coordinating these processes.
+
+**4. Cross-Analysis:**
+Several connections exist between the high-scoring proteins and the enriched pathways.  FN1, COL4A3, and COL4A4 are present in multiple pathways related to ECM-receptor interaction, focal adhesion, and collagen biosynthesis.  C1QA, C1QB, and C1QC are central to complement activation pathways.  CD274 and PDCD1LG2 are key players in immune checkpoint pathways. 
+
+Several ChEA transcription factors regulate genes involved in these interactions.  RELB regulates GBP5 and CD274, both involved in immune responses. SMAD4 regulates FN1, ANK2, and ETV7, all involved in ECM remodeling and immune regulation.  TFAP2C regulates several genes involved in immune regulation and cell signaling.  POU5F1 regulates genes involved in development and cell differentiation.  These transcription factors could be acting as upstream regulators of the observed interactions.
+
+**5. Hypothesis Generation:**
+Uveitis pathogenesis in this cohort involves a complex interplay between immune dysregulation, complement activation, and extracellular matrix remodeling.  The Y-chromosome gene cluster suggests sex-specific influences on these processes.  Upstream regulators, such as RELB, SMAD4, TFAP2C, and POU5F1, likely coordinate the expression of key genes involved in these pathways.
+
+**6. System Representation Network:**
+```tsv
+Node1	Edge	Node2	Explanation
+FN1	associated with	Focal Adhesion	FN1 is present in the Focal Adhesion pathway and has a high combined network score (2.734623).
+FN1	associated with	ECM-Receptor Interaction	FN1 is present in the ECM-Receptor Interaction pathway and has a high combined network score (2.734623).
+FN1	associated with	Collagen Biosynthesis and Modifying Enzymes	FN1 is present in the Collagen Biosynthesis and Modifying Enzymes pathway and has a high combined network score (2.734623).
+ANKRD22	associated with	Myeloid Leukocyte Activation	ANKRD22 is present in the Myeloid Leukocyte Activation pathway and has a high combined network score (2.422102).
+CD274	associated with	T Cell Costimulation	CD274 is present in the T Cell Costimulation pathway and has a high combined network score (2.243023).
+```
+
+**Note:** Please keep your response under 6100 words. Do not include anyother Note.
+
+==============================================================
+## COMBINED PROMPT TEMPLATE
+==============================================================
+
+I performed a transcriptomic analysis, identified differentially expressed genes and performed enrichment analysis. Below are the analysis results:
+
+**Experimental Design:**
+The experimental design is as follows: [EXPERIMENTAL_DESIGN]
+
+Original Gene Symbols: [GENE_SYMBOLS]
+
+Agent Summaries:
+Agent [AGENT_ID]:
+[AGENT_RESPONSE]
+
+Agent [AGENT_ID]:
+[AGENT_RESPONSE]
+
+[... additional agents as needed ...]
+
+String Protein-Protein Interactions:
+Protein 1: [PROTEIN1], Protein 2: [PROTEIN2], Combined Score: [COMBINED_SCORE]
+[... additional interactions ...]
+
+ChEA Transcription Factor Analysis:
+Term: [TERM], P-value: [P_VALUE], Genes: [GENES]
+[... additional ChEA results ...]
+
+String Network Properties:
+Node: [NODE], Combined Network Score: [COMBINED_NETWORK_SCORE]
+[... additional network properties ...]
+
+Pathway Comparison Results:
+KEGG Overlap: [KEGG_OVERLAP_GENES]
+WP Overlap: [WP_OVERLAP_GENES]
+Reactome Overlap: [REACTOME_OVERLAP_GENES]
+GO Overlap: [GO_OVERLAP_GENES]
+KEGG Unique: [KEGG_UNIQUE_GENES]
+WP Unique: [WP_UNIQUE_GENES]
+Reactome Unique: [REACTOME_UNIQUE_GENES]
+GO Unique: [GO_UNIQUE_GENES]
+
+To aid in integrating the individual pathway responses, a pathway comparison analysis was conducted. This analysis identifies 'overlap' genes, which are present in multiple pathway results (KEGG, WikiPathways, Reactome, GO), suggesting shared biological functions. It also identifies 'unique' genes, which are specific to a single pathway, indicating more specialized roles. When integrating the pathway responses, consider how the shared and unique genes contribute to the overall biological system.
+
+**Analysis Instructions:**
+
+**Step 1: Analyze Individual Agent Summaries**
+  - Review each agent's response individually and understand the analysis. Include the provided string network properties, pathway comparisons, chea results, list of differentially expressed genes, string results and experimental design (if provided) in your review, in addition to the agent summaries.
+
+**Step 2: Integrate Agent Summaries, Pathways and other data**
+  - Considering the experimental design, and the data provided in the prompt (including the pathway comparison results, chea enrichment results, string network properties data and string interactions data), systematically integrate the information from different agent responses. Identify any similarities, differences, and complementary findings between them.
+  - Systematically compare and integrate pathway results (KEGG, WikiPathways, Reactome, GO). Pay close attention to 'overlap' genes, which are present in multiple pathways, and 'unique' genes, which are specific to individual pathways.
+  - Identify common themes and patterns across different agents and the additional data provided. What key biological processes are consistently highlighted? How do the unique and shared genes across pathways contribute to your understanding?
+
+**Step 3: Groundedness Check**
+  - Ensure that the analysis results, from agents and integration in step 2, are grounded in the list of genes provided, as well as the pathway results. For example, if a pathway was identified, ensure that the genes mentioned in the pathway are also listed as differentially expressed in the beginning of the prompt.
+  - Systematically check if any information from the summaries is not directly supported by the original list of genes, pathway data, string data or chea data. Note any inconsistencies or missing links.
+
+**Step 4: Regulatory Network Analysis**
+  - Perform a detailed analysis focusing on the chea enrichment data, along with the agent responses, list of differentially expressed genes, the string network properties and the experimental design, to decipher potential regulatory network affecting our phenotype. Also discuss any potential novel interactions identified by ChEA. How do these novel transcription factor-gene interactions fit into the overall biological mechanisms identified from other data?
+
+**Step 5: Further Analysis:**
+  - Provide a section on potential upstream regulators that could be driving this phenotype. List potential candidates with supporting reasoning, based on all the available data.
+  - Provide a section on similar systems, reported in the scientific literature, that might be of interest based on your analysis.
+  - Provide a hub gene identification section based on the integrated analysis, and the provided network properties. Explain how you concluded them as a hub gene.
+  - For each hub gene, note if it is a known potential drug target or marker, and if it is a kinase or a ligand, and if any of these kinases or ligands are potential drug targets.
+  - Provide a section on novelty exploration. Are there any unexpected connections, pathways, or transcription factors that have not been previously reported in the literature? If so, please list them and provide a brief explanation of why they are novel.
+  - 
+
+**Step 6: High-Level Summary**
+  - Based on the above integrated analysis, provide a high-level summary describing the understood system. What are the key interconnected processes that are contributing to this phenotype? Include a coherent hypothesis about the molecular mechanisms contributing to this phenotype. Focus on the interconnections between the enriched concepts. 
+
+**Step 7: Title**
+  - Based on the above integrated analysis, provide a single line title reflecting key findings. I want the title to have not more than 10 words. Include one important gene name identified as influencing the system, in the title. 
+
+**Note:** Please keep your response under 6100 words. Do not include anyother Note.
+
+==============================================================
+## NETWORK REVISION PROMPT TEMPLATE
+==============================================================
+
+**Experimental Design:**
+The experimental design is as follows: [EXPERIMENTAL_DESIGN]
+
+Differentially Expressed Genes: [GENE_SYMBOLS]
+
+Here is a network content:
+[COMBINED_NETWORK_STRING]
+
+**Instructions:**
+Review the above combined_network_string data and revise it to represent a system network in TSV (tab-separated values) format with four columns. Identify the relationships between the nodes, where each node can be a gene, a GO term, or a pathway. Remove redundant rows, and combine rows with similar information into a single row, where appropriate. For each interaction, output a row where:
+   - Node1 is the source node (a gene, formatted in uppercase).
+   - Edge should be 'associated with' or 'interacts with' or 'targets'.
+   - Node2 is the target node (a gene, a GO term, or a pathway, formatted in uppercase for genes, and in 'Title Case' for GO terms and pathways).
+   - Explanation should specify how the source and target nodes are related. Use information from the provided data, to support this claim. Where available, mention relevant protein interactions, or pathway relationships that might support the identified association. 
+Enclose your revised results within a ```tsv block, with four columns: 'Node1', 'Edge', 'Node2', and 'Explanation'.
+
+ - Check if the nodes identified above are grounded in the provided data. In the explanation column, include a note stating how and whether the network interaction in each row is grounded in the provided data.
+ - *Review the above network and ensure that every interaction included meets the grounding criteria and that each interaction includes only one gene as source and either one GO term or one pathway or one gene as the target. If any interaction does not meet these criteria, remove it from the network and revise the explanation column accordingly*.
+
+Here's an example of the desired output format:
+*System Network*
+```tsv
+Node1	Edge	Node2	Explanation
+FN1	associated with	Acute Inflammatory Response	Grounded in provided data (GO, STRING) and is known to be important in inflammatory responses.
+FN1	associated with	Cell Junction Disassembly	Grounded in provided data (GO, STRING) and is known to be important in cell migration.
+C1QA	associated with	Complement Activation	Grounded in provided data (GO, STRING) and is a key protein in the Complement pathway.
+C1QA	associated with	Immune Response	Grounded in provided data (GO, STRING) and is involved in Immune Response.
+CD274	associated with	T Cell Costimulation	Grounded in provided data (GO, STRING) and plays a role in T cell regulation.
+ANK2	associated with	Cell Movement and Contraction	Grounded in provided data (GO, STRING) and is important for cell motility and adhesion.
+ATF3	associated with	Wnt Signaling	Grounded in provided data (WikiPathways, ChEA) and regulates Wnt target genes.
+GBP5	associated with	Pyroptosis	Grounded in provided data (KEGG, GO, STRING) and is a marker of pyroptotic cell death.
+RELB	associated with	CD274	Grounded: RELB directly regulates CD274.
+SMAD4	associated with	Focal Adhesion	Grounded: SMAD4 regulates genes in the Focal Adhesion pathway.
+```
+
+**Note:** Please keep your response under 6100 words. Do not include anyother Note.
+
+==============================================================
+## SYSTEM MODEL PROMPT TEMPLATE
+==============================================================
+
+**Experimental Design:**
+The experimental design is as follows: [EXPERIMENTAL_DESIGN]
+
+Differentially Expressed Genes: [GENE_SYMBOLS]
+
+Here is the revised system network in TSV format:
+[SYSTEM_NETWORK_TSV]
+
+**Instructions:**
+Analyze the provided system network, in the context of the provided differentially expressed genes, and the experimental design. Provide a short summary/overview of the system, based on your analysis. Also, based on your analysis, describe how the potential upstream regulators and key genes could be affecting the phenotype through their target genes and pathways. Propose a mechanistic model based on your analysis and provide a short hypothesis about the molecular mechanism contributing to the phenotype, based on the identified relationships. Based on the mechanistic model that you have proposed, generate a network representation of the *system model*. I want the system model to be a bigger picture representation of the system, showing important players. Make sure in the above network representation of the system model each interaction includes only one gene as source and either one GO term or one pathway or one gene as the target.
+
+Here's an example of the desired output format:
+
+*System Overview*
+ - The provided network reveals a complex interplay of genes and pathways implicated in immune response, inflammation, and cell adhesion.  The differentially expressed genes (DEGs) identified through RNA-Seq analysis of peripheral blood from uveitis patients provide crucial context.
+
+*Potential Upstream Regulators and Key Genes:*
+ - Several genes emerge as potential upstream regulators:
+                  * **RELB:** This transcription factor is centrally positioned, directly targeting both GBP5 (involved in interferon signaling) and CD274 (PD-L1, involved in T cell costimulation).  Its influence on these genes suggests a role in shaping the immune response.
+
+                  * **SMAD4:**  A key mediator of TGF-b signaling, SMAD4's association with FN1 (fibronectin), a crucial component of the extracellular matrix and focal adhesions, highlights its potential role in regulating cell adhesion and tissue remodeling processes relevant to inflammation.
+
+*Mechanistic Model*
+ - The identified relationships suggest a mechanistic model where upstream regulators like RELB and SMAD4 influence the phenotype (uveitis) through their downstream targets.  RELB's regulation of GBP5 and CD274 suggests a modulation of interferon signaling and T cell activity, potentially contributing to the inflammatory response characteristic of uveitis.
+
+*System Model*
+```tsv
+Node1	Interaction	Node2
+RELB	targets	GBP5
+SMAD4	targets	FN1
+ATF3	interacts	FN1
+SMAD4	associated with	Acute Inflammatory Response
+C1QA	associated with	Immune Response
+```
+
+*Hypothesis*
+ - The observed changes in gene expression in peripheral blood from uveitis patients reflect a systemic dysregulation of immune responses and cell adhesion processes.  Specifically, we hypothesize that dysregulation of RELB and SMAD4 activity leads to altered expression of their target genes (GBP5, CD274, FN1), resulting in an amplified inflammatory response, impaired immune regulation, and altered tissue remodeling, contributing to the development and progression of uveitis.  The specific etiology of uveitis (axial spondyloarthritis, sarcoidosis, etc.) may influence the specific pattern of DEG expression and the relative contribution of these pathways.
+
+**Note:** Please keep your response under 6100 words. Do not include anyother Note.
+
+==============================================================
